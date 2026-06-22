@@ -1,0 +1,174 @@
+{
+  "name": "AI_3x_JIRA_Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nI am QA Buddy ",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -816,
+        -80
+      ],
+      "id": "6c603d51-8270-4033-8213-7a0bbdd57888",
+      "name": "When chat message received",
+      "webhookId": "d4b8013e-7e9d-43e2-a2eb-9f913633928b",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a QA automation engineer with 15 years of experience. \nYou will get the details of the Jira ticket through the chat. \nYour task is to create a Jira ticket with proper steps to reproduce \nand proper instructions like Jira. Use the Jira tool attached.\n",
+          "autoSaveHighlightedData": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -128,
+        -96
+      ],
+      "id": "93594dc8-bb08-4be0-be98-2c38a3e9b6f3",
+      "name": "AI Agent",
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "model": "qwen/qwen3-32b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        160
+      ],
+      "id": "f6fa5c3c-e774-4c0f-8c65-41c82b0ed6da",
+      "name": "QWEN Brain",
+      "credentials": {
+        "groqApi": {
+          "id": "gfvb93D68YW7YfzG",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "project": {
+          "__rl": true,
+          "value": "10000",
+          "mode": "list",
+          "cachedResultName": "TestStrategy01"
+        },
+        "issueType": {
+          "__rl": true,
+          "value": "10007",
+          "mode": "list",
+          "cachedResultName": "Bug"
+        },
+        "summary": "={{ $fromAI('Summary', ``, 'string') }}",
+        "additionalFields": {
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.jiraTool",
+      "typeVersion": 1,
+      "position": [
+        208,
+        128
+      ],
+      "id": "444055db-aafa-463a-ab74-d6ed760ee587",
+      "name": "Create a bug in test strategy 01 project",
+      "credentials": {
+        "jiraSoftwareCloudApi": {
+          "id": "lpb1ue1KsMhPlqIx",
+          "name": "Jira SW Cloud account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        -32,
+        160
+      ],
+      "id": "9e2ac163-0e27-4d77-a73e-ce25a31bb427",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QWEN Brain": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a bug in test strategy 01 project": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "edbdfc00-6fe5-48e4-9d4f-5591971a2fc9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5f46ab61580820fce830a69dc36f3562474826cebfa4afe32162a34d17f47179"
+  },
+  "nodeGroups": [],
+  "id": "X8FhKeVhCZEJtwK8",
+  "tags": [
+    {
+      "updatedAt": "2026-06-09T03:01:12.543Z",
+      "createdAt": "2026-06-09T03:01:12.543Z",
+      "id": "UoiN2ogcqVDNVI7l",
+      "name": "AI3X"
+    }
+  ]
+}

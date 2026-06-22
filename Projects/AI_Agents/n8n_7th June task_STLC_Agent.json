@@ -1,0 +1,415 @@
+{
+  "name": "STLC_Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "STLC Agent",
+        "formDescription": "Upload your PRD PDF to generate test plan, test cases, and Playwright scripts",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Upload PRD PDF",
+              "fieldType": "file",
+              "fieldName": "prd_pdf",
+              "multipleFiles": false,
+              "acceptFileTypes": "application/pdf",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "respondWithOptions": {
+            "values": {
+              "formSubmittedText": "Processing your PRD. Files will be generated shortly."
+            }
+          }
+        }
+      },
+      "id": "cf46cc4b-2f73-43ef-9652-959281d0fffb",
+      "name": "STLC Agent Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        240,
+        400
+      ],
+      "webhookId": "84b9756b-3a89-46a4-acdf-32532a6323ad"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "prd_pdf",
+        "options": {
+          "joinPages": true
+        }
+      },
+      "id": "320de791-fae6-42ab-8875-cf8a3ba9d407",
+      "name": "Extract PRD Content",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        464,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a Senior QA Architect.\n\nAnalyze the following PRD and generate a detailed enterprise-grade Test Plan.\n\nPRD Content:\n{{ $json.text }}\n\nRequirements:\n* Preserve explicit requirements\n* Preserve workflows\n* Preserve business rules\n* Include functional testing\n* Include non-functional testing\n* Include accessibility testing\n* Include security testing\n* Include performance testing\n* Include scalability testing\n* Include integration testing\n* Include entry criteria\n* Include exit criteria\n* Include risks\n* Include assumptions\n* Include traceability\n\nOutput only valid markdown.\n\nBegin with:\n\n# Test Plan",
+        "options": {
+          "systemMessage": "You are a Senior QA Architect specializing in creating comprehensive test plans.",
+          "maxIterations": 10
+        }
+      },
+      "id": "dab85e25-d01d-4ddf-9aeb-bce4b4e82972",
+      "name": "Generate Test Plan",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        688,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {
+          "maxTokensToSample": 4096,
+          "temperature": 0.7
+        }
+      },
+      "id": "ce472ae2-06b4-48c2-9bea-48ac2794ee11",
+      "name": "Groq Model - Test Plan",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        768,
+        624
+      ],
+      "credentials": {
+        "groqApi": {
+          "id": "gfvb93D68YW7YfzG",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "binaryPropertyName": "testPlanFile",
+        "options": {
+          "fileName": "test_plan.md"
+        }
+      },
+      "id": "e80f71c4-7843-4991-a710-a0536701dd7f",
+      "name": "Save Test Plan",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "id": "3001c36a-586d-4958-8299-68b02a1a1f11",
+      "name": "Wait 2 sec",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        496
+      ],
+      "webhookId": "0e553ca6-ce0e-442f-abe6-8bd9cb418112"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a Senior QA Engineer.\n\nGenerate exhaustive test cases from the provided Test Plan.\n\nTest Plan:\n{{ $json.output }}\n\nRequirements:\n* Positive scenarios\n* Negative scenarios\n* Boundary scenarios\n* Validation scenarios\n* Accessibility scenarios\n* Security scenarios\n* Integration scenarios\n\nOutput ONLY CSV format.\n\nColumns:\nTestCaseID,Module,Feature,Scenario,PreCondition,TestSteps,ExpectedResult,Priority,AutomationCandidate\n\nMaximum: 100 test cases",
+        "options": {
+          "systemMessage": "You are a Senior QA Engineer specializing in creating comprehensive test cases. Output only CSV format.",
+          "maxIterations": 10
+        }
+      },
+      "id": "e655b8c0-70b2-470a-a7c2-eea344f29a17",
+      "name": "Generate Test Cases",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1264,
+        496
+      ]
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {
+          "maxTokensToSample": 4096,
+          "temperature": 0.7
+        }
+      },
+      "id": "bb811545-ad43-4146-8ced-4272faed82c2",
+      "name": "Groq Model - Test Cases",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        720
+      ],
+      "credentials": {
+        "groqApi": {
+          "id": "gfvb93D68YW7YfzG",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "binaryPropertyName": "testCasesFile",
+        "options": {
+          "fileName": "test_cases.csv"
+        }
+      },
+      "id": "7107ebaf-15f6-4771-9162-2459e2c1a65f",
+      "name": "Save Test Cases",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1616,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "id": "b0db061c-d64f-423d-a418-3ab28ffca90e",
+      "name": "Wait 2 sec (2)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1616,
+        592
+      ],
+      "webhookId": "5b292d27-6180-4e84-b488-653a076ec618"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a Senior SDET.\n\nGenerate Playwright TypeScript scripts based on the test cases.\n\nTest Cases:\n{{ $json.output.substring(0, 8000) }}\n\nRequirements:\n* Playwright Test Framework\n* TypeScript\n* page.locator()\n* expect assertions\n* One section per test case\n* Use stable selectors\n* Follow Page Object Model concepts\n\nOutput ONLY markdown format.\n\nFocus on the first 30 automation candidate test cases from the CSV.",
+        "options": {
+          "systemMessage": "You are a Senior SDET specializing in Playwright automation. Output only markdown format with TypeScript code blocks.",
+          "maxIterations": 10
+        }
+      },
+      "id": "f1a0bb87-2960-4c42-911d-02032b94871e",
+      "name": "Generate Playwright Tests",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1840,
+        592
+      ]
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-120b",
+        "options": {
+          "maxTokensToSample": 4096,
+          "temperature": 0.7
+        }
+      },
+      "id": "b26fe37a-90d0-4600-a6c7-6dd4adfa2d1b",
+      "name": "Groq Model - Playwright",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        816
+      ],
+      "credentials": {
+        "groqApi": {
+          "id": "gfvb93D68YW7YfzG",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "output",
+        "binaryPropertyName": "playwrightFile",
+        "options": {
+          "fileName": "playwright_test_cases.md"
+        }
+      },
+      "id": "58c76c96-5431-4da4-827d-6125941d5e25",
+      "name": "Save Playwright Tests",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        2192,
+        592
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2128,
+        816
+      ],
+      "id": "469c3de9-5965-4301-948a-e5de452d8a59",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "STLC Agent Form": {
+      "main": [
+        [
+          {
+            "node": "Extract PRD Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract PRD Content": {
+      "main": [
+        [
+          {
+            "node": "Generate Test Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Test Plan": {
+      "main": [
+        [
+          {
+            "node": "Save Test Plan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Wait 2 sec",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Model - Test Plan": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Test Plan",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2 sec": {
+      "main": [
+        [
+          {
+            "node": "Generate Test Cases",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Test Cases": {
+      "main": [
+        [
+          {
+            "node": "Save Test Cases",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Wait 2 sec (2)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Model - Test Cases": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Test Cases",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2 sec (2)": {
+      "main": [
+        [
+          {
+            "node": "Generate Playwright Tests",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Playwright Tests": {
+      "main": [
+        [
+          {
+            "node": "Save Playwright Tests",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Model - Playwright": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Generate Playwright Tests",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6b69cc01-3ab6-42d2-b8f3-4b50a6ce0f10",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5f46ab61580820fce830a69dc36f3562474826cebfa4afe32162a34d17f47179"
+  },
+  "nodeGroups": [],
+  "id": "txsT8toi4bHNtv8G",
+  "tags": [
+    {
+      "updatedAt": "2026-06-09T03:01:12.543Z",
+      "createdAt": "2026-06-09T03:01:12.543Z",
+      "id": "UoiN2ogcqVDNVI7l",
+      "name": "AI3X"
+    }
+  ]
+}

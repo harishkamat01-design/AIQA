@@ -1,0 +1,7 @@
+AI/AITesterBlueprint3x/
+
+AI_Projects/chapter_03_BLAST_FW/
+
+AIQA - nothing
+
+npx plugins add vercel/vercel-plugin 

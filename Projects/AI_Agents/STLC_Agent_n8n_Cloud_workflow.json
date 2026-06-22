@@ -1,0 +1,222 @@
+{
+  "name": "STLC_Agent",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "formName": "STLC Agent",
+        "fields": [
+          {
+            "name": "prd_pdf",
+            "label": "Upload PRD PDF",
+            "type": "file",
+            "required": true,
+            "mimeTypes": [
+              "application/pdf"
+            ]
+          }
+        ]
+      },
+      "name": "STLC Agent",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 1,
+      "position": [250, 200]
+    },
+    {
+      "parameters": {
+        "operation": "extractFromPdf",
+        "inputBinaryField": "prd_pdf"
+      },
+      "name": "Extract PRD Content",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [450, 200]
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "prompt": "You are a Senior QA Architect.\n\nAnalyze the PRD.\n\nGenerate a detailed enterprise-grade Test Plan.\n\nRequirements:\n* Preserve explicit requirements.\n* Preserve workflows.\n* Preserve business rules.\n* Include functional testing.\n* Include non-functional testing.\n* Include accessibility testing.\n* Include security testing.\n* Include performance testing.\n* Include scalability testing.\n* Include integration testing.\n* Include entry criteria.\n* Include exit criteria.\n* Include risks.\n* Include assumptions.\n* Include traceability.\n\nOutput only valid markdown.\n\nBegin with:\n\n# Test Plan\n",
+        "input": "={{$node[\"Extract PRD Content\"].json[\"text\"]}}",
+        "provider": "groq",
+        "returnType": "text"
+      },
+      "name": "Generate Test Plan",
+      "type": "n8n-nodes-base.ai",
+      "typeVersion": 1,
+      "position": [650, 200]
+    },
+    {
+      "parameters": {
+        "text": "={{$node[\"Generate Test Plan\"].json[\"text\"]}}",
+        "fileName": "test_plan.md",
+        "binaryPropertyName": "testPlanFile"
+      },
+      "name": "Save Test Plan",
+      "type": "n8n-nodes-base.convertTextToFile",
+      "typeVersion": 1,
+      "position": [850, 120]
+    },
+    {
+      "parameters": {
+        "waitTime": 2,
+        "unit": "seconds"
+      },
+      "name": "Wait 2 sec after Plan",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [850, 280]
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "prompt": "You are a Senior QA Engineer.\n\nGenerate exhaustive test cases from the provided Test Plan.\n\nRequirements:\n* Positive scenarios\n* Negative scenarios\n* Boundary scenarios\n* Validation scenarios\n* Accessibility scenarios\n* Security scenarios\n* Integration scenarios\n\nOutput ONLY CSV.\n\nColumns:\nTestCaseID,\nModule,\nFeature,\nScenario,\nPreCondition,\nTestSteps,\nExpectedResult,\nPriority,\nAutomationCandidate\n\nMaximum:\n100 test cases\n",
+        "input": "={{$node[\"Generate Test Plan\"].json[\"text\"]}}",
+        "provider": "groq",
+        "returnType": "text"
+      },
+      "name": "Generate Test Cases",
+      "type": "n8n-nodes-base.ai",
+      "typeVersion": 1,
+      "position": [1050, 200]
+    },
+    {
+      "parameters": {
+        "text": "={{$node[\"Generate Test Cases\"].json[\"text\"]}}",
+        "fileName": "test_cases.csv",
+        "binaryPropertyName": "testCasesFile"
+      },
+      "name": "Save Test Cases",
+      "type": "n8n-nodes-base.convertTextToFile",
+      "typeVersion": 1,
+      "position": [1250, 120]
+    },
+    {
+      "parameters": {
+        "waitTime": 2,
+        "unit": "seconds"
+      },
+      "name": "Wait 2 sec after Cases",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1250, 280]
+    },
+    {
+      "parameters": {
+        "model": "llama-3.1-8b-instant",
+        "prompt": "You are a Senior SDET.\n\nGenerate Playwright TypeScript scripts.\n\nRequirements:\n* Playwright Test Framework\n* TypeScript\n* page.locator()\n* expect assertions\n* One section per test case\n* Use stable selectors\n* Follow Page Object Model concepts\n\nOutput ONLY markdown.\n\nMaximum:\n50 automation candidate test cases\n",
+        "input": "={{$node[\"Generate Test Cases\"].json[\"text\"]}}",
+        "provider": "groq",
+        "returnType": "text"
+      },
+      "name": "Generate Playwright Tests",
+      "type": "n8n-nodes-base.ai",
+      "typeVersion": 1,
+      "position": [1450, 200]
+    },
+    {
+      "parameters": {
+        "text": "={{$node[\"Generate Playwright Tests\"].json[\"text\"]}}",
+        "fileName": "playwright_test_cases.md",
+        "binaryPropertyName": "playwrightFile"
+      },
+      "name": "Save Playwright Tests",
+      "type": "n8n-nodes-base.convertTextToFile",
+      "typeVersion": 1,
+      "position": [1650, 200]
+    }
+  ],
+  "connections": {
+    "STLC Agent": {
+      "main": [
+        [
+          {
+            "node": "Extract PRD Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract PRD Content": {
+      "main": [
+        [
+          {
+            "node": "Generate Test Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Test Plan": {
+      "main": [
+        [
+          {
+            "node": "Save Test Plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait 2 sec after Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2 sec after Plan": {
+      "main": [
+        [
+          {
+            "node": "Generate Test Cases",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Test Cases": {
+      "main": [
+        [
+          {
+            "node": "Save Test Cases",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait 2 sec after Cases",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2 sec after Cases": {
+      "main": [
+        [
+          {
+            "node": "Generate Playwright Tests",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Playwright Tests": {
+      "main": [
+        [
+          {
+            "node": "Save Playwright Tests",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

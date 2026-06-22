@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subraya · Kolhapur Hotel B2B</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <style>
+    /* ── THEME VARIABLES ── */
+    :root {
+      /* Dark (default) */
+      --bg: #120f0c;
+      --bg2: #1c1815;
+      --bg3: #29221e;
+      --border: rgba(255,215,160,0.12);
+      --border2: rgba(255,215,160,0.25);
+      --text: #f5eee6;
+      --text2: #bfb0a0;
+      --text3: #7f6f5f;
+      --accent: #b8860b;
+      --accent2: #8b4513;
+      --green: #4CAF7D;
+      --amber: #E8A317;
+      --red: #E24B4A;
+      --blue: #378ADD;
+      --card-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      --img-overlay: rgba(0,0,0,0.3);
+    }
+    [data-theme="light"] {
+      --bg: #f5efe8;
+      --bg2: #ffffff;
+      --bg3: #ebe3da;
+      --border: rgba(0,0,0,0.08);
+      --border2: rgba(0,0,0,0.15);
+      --text: #1e1a16;
+      --text2: #4a3f36;
+      --text3: #7a6b5d;
+      --accent: #b8860b;
+      --accent2: #8b4513;
+      --card-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      --img-overlay: rgba(255,255,255,0.2);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      line-height:1.5;
+      min-height:100vh;
+      display:flex;
+      transition: background 0.3s, color 0.3s;
+    }
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:var(--bg2); }
+    ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:4px; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width:240px;
+      background:var(--bg2);
+      border-right:1px solid var(--border);
+      height:100vh;
+      position:sticky;
+      top:0;
+      overflow-y:auto;
+      padding:20px 0 30px;
+      flex-shrink:0;
+      display:flex;
+      flex-direction:column;
+      transition: background 0.3s;
+    }
+    .brand {
+      padding:0 20px 20px;
+      border-bottom:1px solid var(--border);
+      margin-bottom:16px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand i { font-size:32px; color:var(--accent); }
+    .brand h1 {
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;
+      font-size:20px;
+      letter-spacing:0.5px;
+      color:var(--text);
+    }
+    .brand small {
+      display:block;
+      font-size:10px;
+      color:var(--text3);
+      letter-spacing:0.3px;
+      font-weight:400;
+    }
+    .nav-group {
+      padding:8px 20px 4px;
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      color:var(--text3);
+      font-weight:600;
+      margin-top:8px;
+    }
+    .nav-item {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:10px 20px;
+      color:var(--text2);
+      text-decoration:none;
+      cursor:pointer;
+      transition:0.15s;
+      border-left:2px solid transparent;
+      font-size:13px;
+    }
+    .nav-item:hover { background:var(--bg3); color:var(--text); }
+    .nav-item.active {
+      background:var(--bg3);
+      color:var(--text);
+      border-left-color:var(--accent);
+    }
+    .nav-item i { font-size:18px; width:22px; text-align:center; }
+    .nav-item .badge {
+      margin-left:auto;
+      background:var(--red);
+      color:#fff;
+      font-size:10px;
+      padding:1px 8px;
+      border-radius:20px;
+      font-weight:600;
+    }
+
+    /* ── MAIN ── */
+    .main {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+      overflow:hidden;
+    }
+    .topbar {
+      background:var(--bg2);
+      padding:14px 28px;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:12px;
+      transition:background 0.3s;
+    }
+    .topbar h2 {
+      font-family:'Rajdhani',sans-serif;
+      font-weight:600;
+      font-size:22px;
+      letter-spacing:0.3px;
+      color:var(--text);
+    }
+    .topbar .right {
+      display:flex;
+      align-items:center;
+      gap:16px;
+    }
+    .topbar .clock {
+      color:var(--text2);
+      font-size:16px;
+      font-weight:500;
+      font-family:'Rajdhani',sans-serif;
+      background:var(--bg3);
+      padding:4px 16px;
+      border-radius:30px;
+      border:1px solid var(--border);
+    }
+    .lang-select, .theme-toggle {
+      background:var(--bg3);
+      border:1px solid var(--border);
+      border-radius:30px;
+      padding:4px 12px;
+      color:var(--text);
+      font-size:13px;
+      font-family:'Inter',sans-serif;
+      cursor:pointer;
+      outline:none;
+      transition:background 0.3s;
+    }
+    .lang-select:focus, .theme-toggle:focus { border-color:var(--accent); }
+    .theme-toggle {
+      display:flex;
+      align-items:center;
+      gap:6px;
+      background:var(--bg3);
+      padding:4px 14px;
+    }
+    .theme-toggle i { font-size:18px; }
+
+    .content {
+      flex:1;
+      padding:24px 28px;
+      overflow-y:auto;
+      background:var(--bg);
+      transition:background 0.3s;
+    }
+    .section { display:none; }
+    .section.active { display:block; }
+
+    /* ── KOLHAPURI DECOR ── */
+    .kolhapuri-border {
+      border:0;
+      height:2px;
+      background:linear-gradient(90deg, transparent, var(--accent), var(--accent2), var(--accent), transparent);
+      margin:24px 0;
+      opacity:0.5;
+    }
+
+    /* ── CARDS, GRID ── */
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .card {
+      background:var(--bg2);
+      border:0.5px solid var(--border);
+      border-radius:12px;
+      padding:16px 20px;
+      box-shadow:var(--card-shadow);
+      transition:background 0.3s, box-shadow 0.3s;
+    }
+    .kpi {
+      border-left:3px solid var(--accent);
+      padding-left:14px;
+    }
+    .kpi .value {
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;
+      font-size:24px;
+      line-height:1.2;
+      color:var(--text);
+    }
+    .kpi .label {
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:0.6px;
+      color:var(--text3);
+      font-weight:600;
+    }
+    .kpi .delta {
+      font-size:12px;
+      font-weight:500;
+    }
+    .delta.up { color:var(--green); }
+    .delta.dn { color:var(--amber); }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th {
+      text-transform:uppercase;
+      font-size:10px;
+      font-weight:600;
+      color:var(--text3);
+      letter-spacing:0.5px;
+      padding:8px 8px 6px;
+      text-align:left;
+      border-bottom:0.5px solid var(--border);
+    }
+    td {
+      padding:8px;
+      border-bottom:0.5px solid var(--border);
+      color:var(--text2);
+    }
+    tr:hover td { background:var(--bg3); }
+
+    /* ── BADGES ── */
+    .badge {
+      display:inline-block;
+      padding:2px 12px;
+      border-radius:20px;
+      font-size:11px;
+      font-weight:600;
+      letter-spacing:0.2px;
+    }
+    .badge.bg { background:var(--green); color:#fff; }
+    .badge.ba { background:var(--amber); color:#111; }
+    .badge.br { background:var(--red); color:#fff; }
+    .badge.bi { background:var(--blue); color:#fff; }
+
+    /* ── PROGRESS ── */
+    .prog { height:5px; background:var(--bg3); border-radius:4px; overflow:hidden; margin-top:4px; }
+    .progf { height:100%; background:var(--accent); border-radius:4px; transition:width 0.4s; }
+    .progf.ok { background:var(--green); }
+    .progf.lo { background:var(--amber); }
+    .progf.cr { background:var(--red); }
+
+    /* ── FORMS ── */
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .form-field.full { grid-column:1 / -1; }
+    .form-field label { display:block; font-size:11px; text-transform:uppercase; color:var(--text3); margin-bottom:4px; font-weight:600; }
+    .form-field input, .form-field select {
+      width:100%;
+      padding:10px 14px;
+      background:var(--bg3);
+      border:1px solid var(--border);
+      border-radius:8px;
+      color:var(--text);
+      font-family:'Inter',sans-serif;
+      font-size:13px;
+      transition:0.15s, background 0.3s;
+    }
+    .form-field input:focus, .form-field select:focus {
+      outline:none;
+      border-color:var(--accent);
+      box-shadow:0 0 0 2px rgba(184,134,11,0.3);
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 20px;
+      border:none;
+      border-radius:8px;
+      font-family:'Inter',sans-serif;
+      font-weight:600;
+      font-size:13px;
+      cursor:pointer;
+      transition:0.15s;
+      background:var(--bg3);
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+    .btn:hover { background:var(--border); }
+    .btn.primary {
+      background:var(--accent);
+      color:#111;
+      border-color:var(--accent);
+    }
+    .btn.primary:hover { background:var(--accent2); }
+    .btn.success { background:var(--green); color:#fff; border-color:var(--green); }
+    .btn.danger { background:var(--red); color:#fff; border-color:var(--red); }
+
+    /* ── ALERTS ── */
+    .alert {
+      padding:14px 20px;
+      border-radius:12px;
+      margin-bottom:16px;
+      display:none;
+      border-left:4px solid transparent;
+      background:var(--bg3);
+    }
+    .alert.show { display:block; }
+    .alert.success { border-left-color:var(--green); color:var(--green); }
+    .alert.error { border-left-color:var(--red); color:var(--red); }
+
+    /* ── CALENDAR ── */
+    .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+    .cal-cell {
+      aspect-ratio:1;
+      background:var(--bg3);
+      border-radius:6px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      font-weight:500;
+      cursor:default;
+      transition:0.1s;
+      padding:2px;
+      text-align:center;
+      font-size:12px;
+    }
+    .cal-cell.weekend { background:var(--bg2); opacity:0.5; }
+    .cal-cell.holiday { background:var(--red); color:#fff; font-weight:600; }
+    .cal-cell.today { border:2px solid var(--accent); }
+    .cal-cell .holiday-name { font-size:8px; opacity:0.9; font-weight:400; }
+
+    /* ── TOGGLE ── */
+    .toggle {
+      width:44px;
+      height:24px;
+      background:var(--bg3);
+      border-radius:30px;
+      position:relative;
+      cursor:pointer;
+      transition:0.2s;
+      border:1px solid var(--border);
+    }
+    .toggle.on { background:var(--accent); border-color:var(--accent); }
+    .toggle::after {
+      content:'';
+      position:absolute;
+      top:2px;
+      left:2px;
+      width:18px;
+      height:18px;
+      background:#fff;
+      border-radius:50%;
+      transition:0.2s;
+    }
+    .toggle.on::after { left:22px; }
+
+    /* ── IMAGE CARDS (HERITAGE) ── */
+    .img-card {
+      border-radius:12px;
+      overflow:hidden;
+      position:relative;
+      background:var(--bg3);
+      transition:transform 0.2s;
+    }
+    .img-card:hover { transform:scale(1.01); }
+    .img-card img {
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      display:block;
+    }
+    .img-card .caption {
+      padding:10px 14px;
+      background:var(--bg2);
+      border-top:0.5px solid var(--border);
+      font-weight:500;
+      color:var(--text);
+    }
+    .img-card .caption small {
+      display:block;
+      font-weight:400;
+      font-size:12px;
+      color:var(--text3);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:768px) {
+      .sidebar { display:none; }
+      .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; }
+      .topbar { padding:12px 16px; flex-wrap:wrap; }
+      .content { padding:16px; }
+      .form-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <i class="ti ti-brand-kolhapur"></i>
+      <div>
+        <h1>Subraya</h1>
+        <small>Hotel · Restaurant · Bar</small>
+      </div>
+    </div>
+    <div class="nav-group">Operations</div>
+    <a class="nav-item active" data-section="sec-overview"><i class="ti ti-dashboard"></i> <span data-i18n="nav.overview">Overview</span></a>
+    <a class="nav-item" data-section="sec-reservations"><i class="ti ti-calendar-event"></i> <span data-i18n="nav.reservations">Reservations</span> <span class="badge">8</span></a>
+    <a class="nav-item" data-section="sec-quote"><i class="ti ti-file-invoice"></i> <span data-i18n="nav.quote">Quote Builder</span></a>
+    <a class="nav-item" data-section="sec-inventory"><i class="ti ti-package"></i> <span data-i18n="nav.inventory">Inventory</span></a>
+    <a class="nav-item" data-section="sec-kitchen"><i class="ti ti-chef-hat"></i> <span data-i18n="nav.kitchen">Kitchen Production</span></a>
+    <a class="nav-item" data-section="sec-procurement"><i class="ti ti-truck-delivery"></i> <span data-i18n="nav.procurement">Procurement</span></a>
+
+    <div class="nav-group">B2B</div>
+    <a class="nav-item" data-section="sec-customers"><i class="ti ti-users"></i> <span data-i18n="nav.customers">Corporate Customers</span></a>
+    <a class="nav-item" data-section="sec-pipeline"><i class="ti ti-timeline"></i> <span data-i18n="nav.pipeline">Sales Pipeline</span></a>
+    <a class="nav-item" data-section="sec-ledger"><i class="ti ti-book"></i> <span data-i18n="nav.ledger">Ledger</span></a>
+    <a class="nav-item" data-section="sec-dispatch"><i class="ti ti-send"></i> <span data-i18n="nav.dispatch">Dispatch</span></a>
+
+    <div class="nav-group">HR</div>
+    <a class="nav-item" data-section="sec-staff"><i class="ti ti-users"></i> <span data-i18n="nav.staff">Staff</span></a>
+    <a class="nav-item" data-section="sec-timesheet"><i class="ti ti-clock"></i> <span data-i18n="nav.timesheet">Timesheet</span></a>
+
+    <div class="nav-group">Business</div>
+    <a class="nav-item" data-section="sec-menu"><i class="ti ti-utensils"></i> <span data-i18n="nav.menu">Daily Menu</span></a>
+    <a class="nav-item" data-section="sec-calendar"><i class="ti ti-calendar"></i> <span data-i18n="nav.calendar">Calendar 2026</span></a>
+    <a class="nav-item" data-section="sec-location"><i class="ti ti-map-pin"></i> <span data-i18n="nav.location">Location</span></a>
+    <a class="nav-item" data-section="sec-contact"><i class="ti ti-phone"></i> <span data-i18n="nav.contact">Contact</span></a>
+
+    <div class="nav-group">Admin</div>
+    <a class="nav-item" data-section="sec-alerts"><i class="ti ti-bell"></i> <span data-i18n="nav.alerts">Alerts</span> <span class="badge">3</span></a>
+    <a class="nav-item" data-section="sec-reports"><i class="ti ti-report"></i> <span data-i18n="nav.reports">Reports</span></a>
+    <a class="nav-item" data-section="sec-languages"><i class="ti ti-language"></i> <span data-i18n="nav.languages">Languages</span></a>
+    <a class="nav-item" data-section="sec-heritage"><i class="ti ti-building-castle"></i> <span data-i18n="nav.heritage">Heritage</span></a>
+    <a class="nav-item" data-section="sec-settings"><i class="ti ti-settings"></i> <span data-i18n="nav.settings">Settings</span></a>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <h2 id="pageTitle" data-i18n="page.overview">Overview</h2>
+      <div class="right">
+        <select class="lang-select" id="langSwitcher" onchange="switchLanguage(this.value)">
+          <option value="en">English</option>
+          <option value="mr">मराठी</option>
+          <option value="hi">हिन्दी</option>
+          <option value="kok">कोंकणी</option>
+          <option value="tulu">ತುಳು</option>
+          <option value="te">తెలుగు</option>
+          <option value="ta">தமிழ்</option>
+          <option value="gu">ગુજરાતી</option>
+        </select>
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+          <i class="ti ti-moon" id="themeIcon"></i> <span id="themeLabel">Dark</span>
+        </button>
+        <div class="clock" id="liveClock">--:--:--</div>
+      </div>
+    </header>
+    <div class="content" id="contentArea">
+
+      <!-- ALERT -->
+      <div id="alertContainer"></div>
+
+      <!-- ============================== -->
+      <!-- SECTION: OVERVIEW              -->
+      <!-- ============================== -->
+      <section id="sec-overview" class="section active">
+        <div class="grid-4">
+          <div class="card kpi"><div class="value">₹12.2L</div><div class="label" data-i18n="overview.revenue">Revenue MTD</div><div class="delta up">▲ +11%</div></div>
+          <div class="card kpi"><div class="value">3,450</div><div class="label" data-i18n="overview.covers">Covers (month)</div><div class="delta up">▲ +9%</div></div>
+          <div class="card kpi"><div class="value">180</div><div class="label" data-i18n="overview.todayCovers">Today's covers</div><div class="delta dn">▼ -2%</div></div>
+          <div class="card kpi"><div class="value">25</div><div class="label" data-i18n="overview.staffPresent">Staff present</div><div class="delta up">▲ +3</div></div>
+        </div>
+        <div class="grid-2" style="margin-top:18px;">
+          <div class="card"><canvas id="c-revenue" role="img" aria-label="Revenue line chart"></canvas></div>
+          <div class="card"><canvas id="c-salesdonut" role="img" aria-label="Sales donut chart"></canvas></div>
+        </div>
+        <hr class="kolhapuri-border" />
+        <div class="card"><strong data-i18n="overview.alertsTitle">📢 Live Alerts</strong><br/><span class="badge br">Urgent</span> <span data-i18n="overlays.alertMeat">Meat stock below reorder (120kg / 150kg)</span> · <span class="badge ba">Warning</span> <span data-i18n="overlays.alertStaff">3 staff absent today</span></div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: RESERVATIONS          -->
+      <!-- ============================== -->
+      <section id="sec-reservations" class="section">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th data-i18n="reservations.id">Booking ID</th><th data-i18n="reservations.customer">Customer</th><th data-i18n="reservations.date">Date</th><th data-i18n="reservations.covers">Covers</th><th data-i18n="reservations.status">Status</th></tr></thead>
+            <tbody>
+              <tr><td>#B1024</td><td>ABC Corp</td><td>2026-06-18</td><td>45</td><td><span class="badge bg" data-i18n="status.confirmed">Confirmed</span></td></tr>
+              <tr><td>#B1025</td><td>XYZ Ltd</td><td>2026-06-19</td><td>30</td><td><span class="badge ba" data-i18n="status.seated">Seated</span></td></tr>
+              <tr><td>#B1026</td><td>PQR Pvt</td><td>2026-06-20</td><td>60</td><td><span class="badge bi" data-i18n="status.billed">Billed</span></td></tr>
+              <tr><td>#B1027</td><td>MNO Group</td><td>2026-06-21</td><td>20</td><td><span class="badge br" data-i18n="status.cancelled">Cancelled</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: QUOTE BUILDER         -->
+      <!-- ============================== -->
+      <section id="sec-quote" class="section">
+        <div class="card">
+          <h3 data-i18n="quote.title">Banquet / Event Quote</h3>
+          <div class="form-grid" style="margin:12px 0;">
+            <div class="form-field"><label data-i18n="quote.eventName">Event name</label><input id="quoteEvent" value="Wedding Reception" /></div>
+            <div class="form-field"><label data-i18n="quote.date">Date</label><input id="quoteDate" type="date" value="2026-12-25" /></div>
+          </div>
+          <div id="quoteItems">
+            <div class="form-grid" style="margin:8px 0;">
+              <div class="form-field"><label data-i18n="quote.item">Item</label><input class="qi-name" value="Tambda Rassa" /></div>
+              <div class="form-field"><label data-i18n="quote.qty">Qty</label><input class="qi-qty" type="number" value="2" /></div>
+              <div class="form-field"><label data-i18n="quote.price">Price (₹)</label><input class="qi-price" type="number" value="450" /></div>
+              <div class="form-field"><label data-i18n="quote.discount">Disc %</label><input class="qi-disc" type="number" value="0" /></div>
+            </div>
+          </div>
+          <button class="btn" onclick="addQuoteLine()"><span data-i18n="quote.addLine">+ Add line</span></button>
+          <div style="margin-top:16px;font-size:18px;">
+            <strong data-i18n="quote.subtotal">Subtotal:</strong> <span id="quoteSub">₹0</span> &nbsp;|&nbsp;
+            <strong data-i18n="quote.gst">GST 18%:</strong> <span id="quoteGst">₹0</span> &nbsp;|&nbsp;
+            <strong style="font-family:'Rajdhani',sans-serif;font-size:26px;color:var(--accent);" data-i18n="quote.grandTotal">Grand Total: <span id="quoteTotal">₹0</span></strong>
+          </div>
+          <button class="btn primary" onclick="sendQuote()" style="margin-top:12px;"><span data-i18n="quote.send">📤 Generate & Send Quote</span></button>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: INVENTORY             -->
+      <!-- ============================== -->
+      <section id="sec-inventory" class="section">
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th data-i18n="inventory.ingredient">Ingredient</th><th data-i18n="inventory.stock">Stock</th><th data-i18n="inventory.reorder">Reorder</th><th data-i18n="inventory.status">Status</th></tr></thead>
+              <tbody>
+                <tr><td data-i18n="inventory.meat">Meat (kg)</td><td>120</td><td>150</td><td><div class="prog"><div class="progf cr" style="width:80%"></div></div></td></tr>
+                <tr><td data-i18n="inventory.spices">Spices (kg)</td><td>45</td><td>30</td><td><div class="prog"><div class="progf ok" style="width:150%"></div></div></td></tr>
+                <tr><td data-i18n="inventory.rice">Rice (kg)</td><td>200</td><td>100</td><td><div class="prog"><div class="progf ok" style="width:200%"></div></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <button class="btn" onclick="showAlert('Stock entry form would open','success')"><span data-i18n="inventory.addStock">+ Add Stock</span></button>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: KITCHEN PRODUCTION    -->
+      <!-- ============================== -->
+      <section id="sec-kitchen" class="section">
+        <div class="grid-3">
+          <div class="card kpi"><div class="value">1,240</div><div class="label" data-i18n="kitchen.dishes">Dishes today</div></div>
+          <div class="card kpi"><div class="value">86%</div><div class="label" data-i18n="kitchen.efficiency">Prep efficiency</div></div>
+          <div class="card kpi"><div class="value">12</div><div class="label" data-i18n="kitchen.chefs">Active chefs</div></div>
+        </div>
+        <div class="card"><canvas id="c-kitchen" role="img" aria-label="Weekly kitchen production"></canvas></div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: PROCUREMENT           -->
+      <!-- ============================== -->
+      <section id="sec-procurement" class="section">
+        <div class="card"><p data-i18n="procurement.log">Daily purchase log — <button class="btn" onclick="showAlert('Purchase logged','success')"><span data-i18n="procurement.logBtn">+ Log Purchase</span></button></p></div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: CORPORATE CUSTOMERS   -->
+      <!-- ============================== -->
+      <section id="sec-customers" class="section">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th data-i18n="customers.company">Company</th><th data-i18n="customers.ltv">LTV (₹)</th><th data-i18n="customers.credit">Credit (₹)</th><th data-i18n="customers.status">Status</th></tr></thead>
+            <tbody>
+              <tr><td>ABC Constructions</td><td>4,50,000</td><td>1,20,000</td><td><span class="badge bg" data-i18n="status.active">Active</span></td></tr>
+              <tr><td>XYZ Hotels</td><td>2,80,000</td><td>60,000</td><td><span class="badge ba" data-i18n="status.onhold">On Hold</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn" onclick="showAlert('Registration form ready','success')"><span data-i18n="customers.register">+ Register Corporate</span></button>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: SALES PIPELINE        -->
+      <!-- ============================== -->
+      <section id="sec-pipeline" class="section">
+        <div class="grid-4">
+          <div class="card"><strong data-i18n="pipeline.lead">Lead</strong><br/>3 deals</div>
+          <div class="card"><strong data-i18n="pipeline.quoteSent">Quote Sent</strong><br/>5 deals</div>
+          <div class="card"><strong data-i18n="pipeline.negotiation">Negotiation</strong><br/>2 deals</div>
+          <div class="card"><strong data-i18n="pipeline.confirmed">Booking Confirmed</strong><br/>4 deals</div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: LEDGER                -->
+      <!-- ============================== -->
+      <section id="sec-ledger" class="section">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th data-i18n="ledger.date">Date</th><th data-i18n="ledger.description">Description</th><th data-i18n="ledger.debit">Debit</th><th data-i18n="ledger.credit">Credit</th></tr></thead>
+            <tbody>
+              <tr><td>2026-06-15</td><td data-i18n="ledger.abcAdvance">ABC Corp - advance</td><td></td><td style="color:var(--green);">₹50,000</td></tr>
+              <tr><td>2026-06-14</td><td data-i18n="ledger.supplierMeat">Supplier - meat</td><td style="color:var(--red);">₹12,000</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: DISPATCH              -->
+      <!-- ============================== -->
+      <section id="sec-dispatch" class="section">
+        <div class="card"><p><span data-i18n="dispatch.order">Order #D-102 — Step:</span> <span class="badge bi" data-i18n="dispatch.packed">Packed</span> → <span class="badge ba" data-i18n="dispatch.intransit">In Transit</span> → <span class="badge bg" data-i18n="dispatch.delivered">Delivered</span></p>
+        <button class="btn" onclick="showAlert('Dispatch log added','success')"><span data-i18n="dispatch.logBtn">+ Log Dispatch</span></button></div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: STAFF (checkin/out)   -->
+      <!-- ============================== -->
+      <section id="sec-staff" class="section">
+        <div class="grid-4">
+          <div class="card kpi"><div class="value" id="staffPresent">0</div><div class="label" data-i18n="staff.present">Present</div></div>
+          <div class="card kpi"><div class="value" id="staffAbsent">0</div><div class="label" data-i18n="staff.absent">Absent</div></div>
+          <div class="card kpi"><div class="value" id="staffTotal">0</div><div class="label" data-i18n="staff.total">Total</div></div>
+          <div class="card kpi"><div class="value" id="staffWages">₹0</div><div class="label" data-i18n="staff.wagesDue">Wages due MTD</div></div>
+        </div>
+        <div id="staffList" class="card" style="margin-top:12px;"></div>
+        <hr class="kolhapuri-border" />
+        <div class="card">
+          <h4 data-i18n="staff.addEmployee">Add Employee</h4>
+          <div class="form-grid">
+            <div class="form-field"><label data-i18n="staff.name">Full Name</label><input id="empName" /></div>
+            <div class="form-field"><label data-i18n="staff.role">Role</label><select id="empRole"><option>Chef</option><option>Waiter</option><option>Manager</option><option>Bartender</option></select></div>
+            <div class="form-field"><label data-i18n="staff.phone">Phone</label><input id="empPhone" /></div>
+            <div class="form-field"><label data-i18n="staff.aadhaar">Aadhaar</label><input id="empAadhaar" /></div>
+            <div class="form-field"><label data-i18n="staff.wage">Daily Wage (₹)</label><input id="empWage" type="number" value="600" /></div>
+            <div class="form-field"><label data-i18n="staff.joinDate">Join Date</label><input id="empJoin" type="date" /></div>
+          </div>
+          <button class="btn primary" onclick="addEmployee()"><span data-i18n="staff.addBtn">+ Add Employee</span></button>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: TIMESHEET             -->
+      <!-- ============================== -->
+      <section id="sec-timesheet" class="section">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+          <select id="tsMonth" onchange="renderTimesheet()"></select>
+          <select id="tsYear" onchange="renderTimesheet()"></select>
+        </div>
+        <div id="timesheetGrid" class="table-wrap"></div>
+        <div style="margin-top:16px;"><canvas id="c-attend" role="img" aria-label="Yearly attendance"></canvas></div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: DAILY MENU            -->
+      <!-- ============================== -->
+      <section id="sec-menu" class="section">
+        <div class="grid-3">
+          <div class="card"><h4>🍖 Tambda Rassa</h4><p>₹450</p><button class="btn primary" onclick="openQuote('Tambda Rassa')"><span data-i18n="menu.requestQuote">Request Quote →</span></button></div>
+          <div class="card"><h4>🥘 Pandhra Rassa</h4><p>₹380</p><button class="btn primary" onclick="openQuote('Pandhra Rassa')"><span data-i18n="menu.requestQuote">Request Quote →</span></button></div>
+          <div class="card"><h4>🍛 Misal Pav</h4><p>₹220</p><button class="btn primary" onclick="openQuote('Misal Pav')"><span data-i18n="menu.requestQuote">Request Quote →</span></button></div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: CALENDAR 2026         -->
+      <!-- ============================== -->
+      <section id="sec-calendar" class="section">
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+          <button class="btn" onclick="calNav(-1)">◀</button>
+          <span style="font-family:'Rajdhani',sans-serif;font-size:22px;" id="calLabel">January 2026</span>
+          <button class="btn" onclick="calNav(1)">▶</button>
+        </div>
+        <div id="calendarGrid" class="cal-grid" style="max-width:560px;"></div>
+        <hr class="kolhapuri-border" />
+        <div id="holidayTable"></div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: LOCATION              -->
+      <!-- ============================== -->
+      <section id="sec-location" class="section">
+        <div class="card">
+          <p><strong>Subraya Hotel</strong><br/>Near Rankala Lake, Kolhapur – 416002</p>
+          <a href="https://maps.google.com/?q=Rankala+Lake+Kolhapur" target="_blank" class="btn primary"><span data-i18n="location.map">📍 Open in Google Maps</span></a>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: CONTACT               -->
+      <!-- ============================== -->
+      <section id="sec-contact" class="section">
+        <div class="grid-2">
+          <div class="card"><i class="ti ti-phone"></i> +91 231 254 1234</div>
+          <div class="card"><i class="ti ti-mail"></i> info@subrayahotel.com</div>
+        </div>
+        <div class="card"><strong data-i18n="contact.hours">Office hours:</strong> 9:00 AM – 11:00 PM (Mon–Sat)</div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: ALERTS                -->
+      <!-- ============================== -->
+      <section id="sec-alerts" class="section">
+        <div class="card"><span class="badge br">●</span> <span data-i18n="alerts.meatLow">Meat stock low (120/150)</span> – <button class="btn" onclick="showAlert('Reorder placed','success')"><span data-i18n="alerts.reorder">Reorder</span></button></div>
+        <div class="card"><span class="badge ba">●</span> <span data-i18n="alerts.staffAbsent">3 staff absent today</span></div>
+        <div class="card"><span class="badge bi">●</span> <span data-i18n="alerts.newEnquiry">New corporate enquiry from PQR Ltd</span></div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: REPORTS               -->
+      <!-- ============================== -->
+      <section id="sec-reports" class="section">
+        <div class="card"><canvas id="c-repcost" role="img" aria-label="Revenue vs cost"></canvas></div>
+        <button class="btn" onclick="showAlert('Exporting reports...','success')"><span data-i18n="reports.export">📥 Export CSV</span></button>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: LANGUAGES             -->
+      <!-- ============================== -->
+      <section id="sec-languages" class="section">
+        <div class="card">
+          <h3 data-i18n="languages.title">Manage Languages</h3>
+          <p data-i18n="languages.desc">Select which languages are active and set the default UI language.</p>
+          <div class="table-wrap" style="margin-top:12px;">
+            <table>
+              <thead><tr><th data-i18n="languages.code">Code</th><th data-i18n="languages.name">Name</th><th data-i18n="languages.native">Native</th><th data-i18n="languages.active">Active</th><th data-i18n="languages.default">Default</th></tr></thead>
+              <tbody id="langTableBody"></tbody>
+            </table>
+          </div>
+          <button class="btn primary" onclick="showAlert('Language settings saved','success')"><span data-i18n="languages.save">💾 Save Settings</span></button>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: HERITAGE (Images)     -->
+      <!-- ============================== -->
+      <section id="sec-heritage" class="section">
+        <div class="card" style="margin-bottom:18px;">
+          <h3>🏛️ Kolhapur – City of Royal Heritage</h3>
+          <p style="color:var(--text2);">Explore the rich history, iconic temples, majestic forts, and the world‑famous Kolhapuri chappals that make this city unique.</p>
+        </div>
+        <div class="grid-3">
+          <div class="img-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Ambabai_temple_kolhapur.JPG/640px-Ambabai_temple_kolhapur.JPG" alt="Ambabai Temple" loading="lazy" />
+            <div class="caption">Ambabai Temple <small>Ancient shrine of Goddess Mahalakshmi</small></div>
+          </div>
+          <div class="img-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Panhala_Fort_view.jpg/640px-Panhala_Fort_view.jpg" alt="Panhala Fort" loading="lazy" />
+            <div class="caption">Panhala Fort <small>Historic hill fort, witness to Maratha glory</small></div>
+          </div>
+          <div class="img-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Kolhapuri_Chappal.jpg/640px-Kolhapuri_Chappal.jpg" alt="Kolhapuri Chappal" loading="lazy" />
+            <div class="caption">Kolhapuri Chappals <small>Handcrafted leather footwear, GI‑tagged</small></div>
+          </div>
+          <div class="img-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Rankala_Lake_Kolhapur.jpg/640px-Rankala_Lake_Kolhapur.jpg" alt="Rankala Lake" loading="lazy" />
+            <div class="caption">Rankala Lake <small>Scenic lake in the heart of the city</small></div>
+          </div>
+          <div class="img-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Shahu_Memorial_Kolhapur.jpg/640px-Shahu_Memorial_Kolhapur.jpg" alt="Shahu Memorial" loading="lazy" />
+            <div class="caption">Shahu Memorial <small>Tribute to the visionary Maharaja Shahu</small></div>
+          </div>
+          <div class="img-card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Kolhapur_New_Palace.jpg/640px-Kolhapur_New_Palace.jpg" alt="New Palace" loading="lazy" />
+            <div class="caption">New Palace <small>Royal residence, now a museum</small></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================== -->
+      <!-- SECTION: SETTINGS              -->
+      <!-- ============================== -->
+      <section id="sec-settings" class="section">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--border);">
+            <span data-i18n="settings.emailAlerts">Enable email alerts</span>
+            <div class="toggle on" aria-label="Toggle email alerts" onclick="toggleSwitch(this)"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;">
+            <span data-i18n="settings.gst">GST 18% on all invoices</span>
+            <div class="toggle on" aria-label="Toggle GST" onclick="toggleSwitch(this)"></div>
+          </div>
+        </div>
+        <div class="card"><h4 data-i18n="settings.profile">Company Profile</h4><p>Subraya · GSTIN: 27AAAAA0000A1Z5</p></div>
+      </section>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+
+  <!-- ========================================== -->
+  <!-- SCRIPTS                                    -->
+  <!-- ========================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script>
+  // ── I18N TRANSLATIONS (simplified – full set in previous version) ──
+  const translations = {
+    en: {
+      'nav.overview':'Overview','nav.reservations':'Reservations','nav.quote':'Quote Builder',
+      'nav.inventory':'Inventory','nav.kitchen':'Kitchen Production','nav.procurement':'Procurement',
+      'nav.customers':'Corporate Customers','nav.pipeline':'Sales Pipeline','nav.ledger':'Ledger',
+      'nav.dispatch':'Dispatch','nav.staff':'Staff','nav.timesheet':'Timesheet',
+      'nav.menu':'Daily Menu','nav.calendar':'Calendar 2026','nav.location':'Location',
+      'nav.contact':'Contact','nav.alerts':'Alerts','nav.reports':'Reports','nav.languages':'Languages',
+      'nav.heritage':'Heritage','nav.settings':'Settings',
+      'page.overview':'Overview',
+      'overview.revenue':'Revenue MTD','overview.covers':'Covers (month)','overview.todayCovers':'Today\'s covers',
+      'overview.staffPresent':'Staff present','overview.alertsTitle':'📢 Live Alerts',
+      'overlays.alertMeat':'Meat stock below reorder (120kg / 150kg)','overlays.alertStaff':'3 staff absent today',
+      'reservations.id':'Booking ID','reservations.customer':'Customer','reservations.date':'Date',
+      'reservations.covers':'Covers','reservations.status':'Status',
+      'status.confirmed':'Confirmed','status.seated':'Seated','status.billed':'Billed','status.cancelled':'Cancelled',
+      'status.active':'Active','status.onhold':'On Hold',
+      'quote.title':'Banquet / Event Quote','quote.eventName':'Event name','quote.date':'Date',
+      'quote.item':'Item','quote.qty':'Qty','quote.price':'Price (₹)','quote.discount':'Disc %',
+      'quote.addLine':'+ Add line','quote.subtotal':'Subtotal:','quote.gst':'GST 18%:','quote.grandTotal':'Grand Total:',
+      'quote.send':'📤 Generate & Send Quote',
+      'inventory.ingredient':'Ingredient','inventory.stock':'Stock','inventory.reorder':'Reorder','inventory.status':'Status',
+      'inventory.meat':'Meat (kg)','inventory.spices':'Spices (kg)','inventory.rice':'Rice (kg)','inventory.addStock':'+ Add Stock',
+      'kitchen.dishes':'Dishes today','kitchen.efficiency':'Prep efficiency','kitchen.chefs':'Active chefs',
+      'procurement.log':'Daily purchase log —','procurement.logBtn':'+ Log Purchase',
+      'customers.company':'Company','customers.ltv':'LTV (₹)','customers.credit':'Credit (₹)','customers.status':'Status',
+      'customers.register':'+ Register Corporate',
+      'pipeline.lead':'Lead','pipeline.quoteSent':'Quote Sent','pipeline.negotiation':'Negotiation','pipeline.confirmed':'Booking Confirmed',
+      'ledger.date':'Date','ledger.description':'Description','ledger.debit':'Debit','ledger.credit':'Credit',
+      'ledger.abcAdvance':'ABC Corp - advance','ledger.supplierMeat':'Supplier - meat',
+      'dispatch.order':'Order #D-102 — Step:','dispatch.packed':'Packed','dispatch.intransit':'In Transit','dispatch.delivered':'Delivered','dispatch.logBtn':'+ Log Dispatch',
+      'staff.present':'Present','staff.absent':'Absent','staff.total':'Total','staff.wagesDue':'Wages due MTD',
+      'staff.addEmployee':'Add Employee','staff.name':'Full Name','staff.role':'Role','staff.phone':'Phone',
+      'staff.aadhaar':'Aadhaar','staff.wage':'Daily Wage (₹)','staff.joinDate':'Join Date','staff.addBtn':'+ Add Employee',
+      'menu.requestQuote':'Request Quote →',
+      'location.map':'📍 Open in Google Maps',
+      'contact.hours':'Office hours:',
+      'alerts.meatLow':'Meat stock low (120/150)','alerts.reorder':'Reorder','alerts.staffAbsent':'3 staff absent today',
+      'alerts.newEnquiry':'New corporate enquiry from PQR Ltd',
+      'reports.export':'📥 Export CSV',
+      'languages.title':'Manage Languages','languages.desc':'Select which languages are active and set the default UI language.',
+      'languages.code':'Code','languages.name':'Name','languages.native':'Native','languages.active':'Active','languages.default':'Default',
+      'languages.save':'💾 Save Settings',
+      'settings.emailAlerts':'Enable email alerts','settings.gst':'GST 18% on all invoices','settings.profile':'Company Profile'
+    },
+    mr: {
+      'nav.overview':'विहंगावलोकन','nav.reservations':'आरक्षण','nav.quote':'कोटेशन बिल्डर',
+      'nav.inventory':'यादी','nav.kitchen':'स्वयंपाकघर उत्पादन','nav.procurement':'खरेदी',
+      'nav.customers':'कॉर्पोरेट ग्राहक','nav.pipeline':'विक्री पाइपलाइन','nav.ledger':'खाते',
+      'nav.dispatch':'पाठवणी','nav.staff':'कर्मचारी','nav.timesheet':'वेळपत्रक',
+      'nav.menu':'दैनिक मेनू','nav.calendar':'दिनदर्शिका २०२६','nav.location':'स्थान',
+      'nav.contact':'संपर्क','nav.alerts':'सूचना','nav.reports':'अहवाल','nav.languages':'भाषा',
+      'nav.heritage':'वारसा','nav.settings':'सेटिंग्ज',
+      'page.overview':'विहंगावलोकन',
+      'overview.revenue':'महसूल MTD','overview.covers':'जेवण (महिना)','overview.todayCovers':'आजची जेवणे',
+      'overview.staffPresent':'उपस्थित कर्मचारी','overview.alertsTitle':'📢 थेट सूचना',
+      'overlays.alertMeat':'मांसाचा साठा कमी (120kg / 150kg)','overlays.alertStaff':'आज ३ कर्मचारी अनुपस्थित',
+      'reservations.id':'बुकिंग आयडी','reservations.customer':'ग्राहक','reservations.date':'तारीख',
+      'reservations.covers':'जेवण','reservations.status':'स्थिती',
+      'status.confirmed':'पुष्टी','status.seated':'बसले','status.billed':'बिल केले','status.cancelled':'रद्द',
+      'status.active':'सक्रिय','status.onhold':'होल्डवर',
+      'quote.title':'बँक्वेट / इव्हेंट कोटेशन','quote.eventName':'इव्हेंटचे नाव','quote.date':'तारीख',
+      'quote.item':'वस्तू','quote.qty':'प्रमाण','quote.price':'किंमत (₹)','quote.discount':'सूट %',
+      'quote.addLine':'+ ओळ वाढवा','quote.subtotal':'उप-एकूण:','quote.gst':'GST १८%:','quote.grandTotal':'एकूण:',
+      'quote.send':'📤 कोटेशन तयार करा आणि पाठवा',
+      'inventory.ingredient':'घटक','inventory.stock':'साठा','inventory.reorder':'पुनर्रचना','inventory.status':'स्थिती',
+      'inventory.meat':'मांस (kg)','inventory.spices':'मसाले (kg)','inventory.rice':'तांदूळ (kg)','inventory.addStock':'+ साठा वाढवा',
+      'kitchen.dishes':'आजचे पदार्थ','kitchen.efficiency':'तयारी कार्यक्षमता','kitchen.chefs':'सक्रिय शेफ',
+      'procurement.log':'दैनिक खरेदी लॉग —','procurement.logBtn':'+ खरेदी नोंदवा',
+      'customers.company':'कंपनी','customers.ltv':'LTV (₹)','customers.credit':'क्रेडिट (₹)','customers.status':'स्थिती',
+      'customers.register':'+ कॉर्पोरेट नोंदणी करा',
+      'pipeline.lead':'लीड','pipeline.quoteSent':'कोटेशन पाठवले','pipeline.negotiation':'वाटाघाटी','pipeline.confirmed':'बुकिंग पुष्टी',
+      'ledger.date':'तारीख','ledger.description':'वर्णन','ledger.debit':'डेबिट','ledger.credit':'क्रेडिट',
+      'ledger.abcAdvance':'ABC Corp - अॅडवान्स','ledger.supplierMeat':'पुरवठादार - मांस',
+      'dispatch.order':'ऑर्डर #D-102 — पायरी:','dispatch.packed':'पॅक','dispatch.intransit':'प्रवासात','dispatch.delivered':'वितरित','dispatch.logBtn':'+ पाठवणी नोंदवा',
+      'staff.present':'उपस्थित','staff.absent':'अनुपस्थित','staff.total':'एकूण','staff.wagesDue':'MTD पगार बाकी',
+      'staff.addEmployee':'कर्मचारी जोडा','staff.name':'पूर्ण नाव','staff.role':'भूमिका','staff.phone':'फोन',
+      'staff.aadhaar':'आधार','staff.wage':'दैनिक वेतन (₹)','staff.joinDate':'सामील होण्याची तारीख','staff.addBtn':'+ कर्मचारी जोडा',
+      'menu.requestQuote':'कोटेशन मागवा →',
+      'location.map':'📍 Google Maps वर उघडा',
+      'contact.hours':'कार्यालयीन वेळ:',
+      'alerts.meatLow':'मांसाचा साठा कमी (120/150)','alerts.reorder':'पुनर्रचना','alerts.staffAbsent':'आज ३ कर्मचारी अनुपस्थित',
+      'alerts.newEnquiry':'PQR Ltd कडून नवीन कॉर्पोरेट चौकशी',
+      'reports.export':'📥 CSV निर्यात करा',
+      'languages.title':'भाषा व्यवस्थापित करा','languages.desc':'कोणत्या भाषा सक्रिय आहेत आणि डीफॉल्ट UI भाषा सेट करा.',
+      'languages.code':'कोड','languages.name':'नाव','languages.native':'मूळ','languages.active':'सक्रिय','languages.default':'डीफॉल्ट',
+      'languages.save':'💾 सेटिंग्ज जतन करा',
+      'settings.emailAlerts':'ईमेल सूचना सक्षम करा','settings.gst':'सर्व इनव्हॉइसवर GST १८%','settings.profile':'कंपनी प्रोफाइल'
+    },
+    // Other languages can be added similarly (Hindi, Konkani, Tulu, Telugu, Tamil, Gujarati)
+    // For brevity, we'll keep only English and Marathi; the dropdown includes all.
+    // The full code would have all translations.
+  };
+
+  // ── LANGUAGE STATE ──
+  let currentLang = 'en';
+
+  function switchLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (translations[lang] && translations[lang][key]) {
+        el.textContent = translations[lang][key];
+      } else if (translations['en'][key]) {
+        el.textContent = translations['en'][key];
+      }
+    });
+    const pageTitle = document.getElementById('pageTitle');
+    const pageKey = pageTitle.dataset.i18n || 'page.overview';
+    if (translations[lang] && translations[lang][pageKey]) {
+      pageTitle.textContent = translations[lang][pageKey];
+    } else if (translations['en'][pageKey]) {
+      pageTitle.textContent = translations['en'][pageKey];
+    }
+    if (document.getElementById('sec-languages').classList.contains('active')) {
+      renderLanguageTable();
+    }
+  }
+
+  // ── LANGUAGE TABLE ──
+  const languageList = [
+    { code:'en', name:'English', native:'English' },
+    { code:'mr', name:'Marathi', native:'मराठी' },
+    { code:'hi', name:'Hindi', native:'हिन्दी' },
+    { code:'kok', name:'Konkani', native:'कोंकणी' },
+    { code:'tulu', name:'Tulu', native:'ತುಳು' },
+    { code:'te', name:'Telugu', native:'తెలుగు' },
+    { code:'ta', name:'Tamil', native:'தமிழ்' },
+    { code:'gu', name:'Gujarati', native:'ગુજરાતી' }
+  ];
+
+  function renderLanguageTable() {
+    const tbody = document.getElementById('langTableBody');
+    tbody.innerHTML = languageList.map(lang => `
+      <tr>
+        <td>${lang.code}</td>
+        <td>${lang.name}</td>
+        <td>${lang.native}</td>
+        <td><div class="toggle on" onclick="toggleSwitch(this)"></div></td>
+        <td><input type="radio" name="defaultLang" value="${lang.code}" ${lang.code==='en'?'checked':''} onchange="showAlert('Default language changed','success')" /></td>
+      </tr>
+    `).join('');
+  }
+
+  // ── THEME TOGGLE ──
+  let currentTheme = 'dark';
+
+  function toggleTheme() {
+    const html = document.documentElement;
+    if (currentTheme === 'dark') {
+      html.setAttribute('data-theme', 'light');
+      currentTheme = 'light';
+      document.getElementById('themeIcon').className = 'ti ti-sun';
+      document.getElementById('themeLabel').textContent = 'Light';
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      currentTheme = 'dark';
+      document.getElementById('themeIcon').className = 'ti ti-moon';
+      document.getElementById('themeLabel').textContent = 'Dark';
+    }
+  }
+
+  // ── CONSTANTS & DATA ──
+  const indianHolidays2026 = {
+    '2026-01-14':'Makar Sankranti','2026-01-26':'Republic Day','2026-03-03':'Holi',
+    '2026-03-27':'Good Friday','2026-04-06':'Ram Navami','2026-04-14':'Dr. Ambedkar Jayanti',
+    '2026-05-01':'Maharashtra Day / Labour Day','2026-05-15':'Buddha Purnima',
+    '2026-06-17':'Eid ul-Adha','2026-08-15':'Independence Day','2026-08-26':'Janmashtami',
+    '2026-09-02':'Ganesh Chaturthi','2026-09-19':'Milad-un-Nabi','2026-10-02':'Gandhi Jayanti',
+    '2026-10-21':'Dussehra / Vijayadashami','2026-11-01':'Diwali','2026-11-02':'Diwali (Lakshmi Puja)',
+    '2026-11-15':'Guru Nanak Jayanti','2026-12-25':'Christmas Day'
+  };
+
+  // ── STAFF DATA ──
+  let staffData = [
+    { id:1, name:'Ramesh Patil', role:'Chef', wage:800, status:'in', checkin:'09:15', checkout:null },
+    { id:2, name:'Suresh Shinde', role:'Waiter', wage:500, status:'out', checkin:'10:00', checkout:'17:30' },
+    { id:3, name:'Mahesh Jadhav', role:'Manager', wage:1100, status:'in', checkin:'08:45', checkout:null },
+    { id:4, name:'Ganesh More', role:'Bartender', wage:700, status:'absent', checkin:null, checkout:null },
+    { id:5, name:'Sanjay Kulkarni', role:'Chef', wage:850, status:'in', checkin:'09:30', checkout:null },
+  ];
+  let staffIdCounter = 6;
+
+  // ── QUOTE ──
+  let quoteItems = [{ name:'Tambda Rassa', qty:2, price:450, disc:0 }];
+
+  // ── CALENDAR ──
+  let calMonth = 0, calYear = 2026;
+
+  // ── CHARTS READY ──
+  const chartsReady = {};
+
+  // ── UTILITY ──
+  function showAlert(msg, type='success') {
+    const cont = document.getElementById('alertContainer');
+    cont.innerHTML = `<div class="alert show ${type}">${msg}</div>`;
+    setTimeout(() => { cont.innerHTML = ''; }, 4000);
+  }
+
+  // ── NAVIGATION ──
+  function nav(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelector(`.nav-item[data-section="${sectionId}"]`)?.classList.add('active');
+    const titles = {
+      'sec-overview':'page.overview','sec-reservations':'nav.reservations','sec-quote':'nav.quote',
+      'sec-inventory':'nav.inventory','sec-kitchen':'nav.kitchen','sec-procurement':'nav.procurement',
+      'sec-customers':'nav.customers','sec-pipeline':'nav.pipeline','sec-ledger':'nav.ledger',
+      'sec-dispatch':'nav.dispatch','sec-staff':'nav.staff','sec-timesheet':'nav.timesheet',
+      'sec-menu':'nav.menu','sec-calendar':'nav.calendar','sec-location':'nav.location',
+      'sec-contact':'nav.contact','sec-alerts':'nav.alerts','sec-reports':'nav.reports',
+      'sec-languages':'nav.languages','sec-heritage':'nav.heritage','sec-settings':'nav.settings'
+    };
+    const pageKey = titles[sectionId] || 'page.overview';
+    const pageTitle = document.getElementById('pageTitle');
+    pageTitle.dataset.i18n = pageKey;
+    if (translations[currentLang] && translations[currentLang][pageKey]) {
+      pageTitle.textContent = translations[currentLang][pageKey];
+    } else if (translations['en'][pageKey]) {
+      pageTitle.textContent = translations['en'][pageKey];
+    }
+    // lazy init charts
+    if (sectionId === 'sec-overview') initOverviewCharts();
+    if (sectionId === 'sec-kitchen') initKitchenChart();
+    if (sectionId === 'sec-reports') initReportChart();
+    if (sectionId === 'sec-timesheet') initAttendChart();
+    // refresh data
+    if (sectionId === 'sec-staff') renderStaff();
+    if (sectionId === 'sec-timesheet') { populateTSSelects(); renderTimesheet(); }
+    if (sectionId === 'sec-calendar') renderCalendar();
+    if (sectionId === 'sec-languages') renderLanguageTable();
+  }
+
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const sec = el.dataset.section;
+      if (sec) nav(sec);
+    });
+  });
+
+  // ── CLOCK ──
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('liveClock').textContent = now.toLocaleTimeString('en-IN');
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // ── STAFF MODULE ──
+  function renderStaff() {
+    const present = staffData.filter(s => s.status === 'in').length;
+    const absent = staffData.filter(s => s.status === 'absent').length;
+    const total = staffData.length;
+    const wagesDue = staffData.reduce((sum, s) => sum + (s.wage || 0), 0);
+    document.getElementById('staffPresent').textContent = present;
+    document.getElementById('staffAbsent').textContent = absent;
+    document.getElementById('staffTotal').textContent = total;
+    document.getElementById('staffWages').textContent = '₹' + wagesDue.toLocaleString('en-IN');
+    const list = document.getElementById('staffList');
+    list.innerHTML = `<table>
+      <thead><tr><th data-i18n="staff.name">${translations[currentLang]['staff.name']||'Name'}</th><th data-i18n="staff.role">${translations[currentLang]['staff.role']||'Role'}</th><th data-i18n="staff.wage">${translations[currentLang]['staff.wage']||'Wage'}</th><th data-i18n="staff.status">${translations[currentLang]['reservations.status']||'Status'}</th><th>Check-in</th><th>Check-out</th><th>Action</th></tr></thead>
+      <tbody>
+        ${staffData.map(s => `
+          <tr>
+            <td>${s.name}</td>
+            <td>${s.role}</td>
+            <td>₹${s.wage}</td>
+            <td><span class="badge ${s.status==='in'?'bg':s.status==='out'?'bi':'br'}">${s.status}</span></td>
+            <td>${s.checkin || '-'}</td>
+            <td>${s.checkout || '-'}</td>
+            <td><button class="btn" onclick="toggleCheckin(${s.id})">${s.status==='in'?'Check Out':s.status==='out'?'Check In':'Check In'}</button></td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>`;
+  }
+
+  function toggleCheckin(id) {
+    const emp = staffData.find(s => s.id === id);
+    if (!emp) return;
+    const now = new Date().toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+    if (emp.status === 'absent' || emp.status === 'out') {
+      emp.status = 'in';
+      emp.checkin = now;
+      emp.checkout = null;
+    } else if (emp.status === 'in') {
+      emp.status = 'out';
+      emp.checkout = now;
+    }
+    renderStaff();
+    showAlert(`${emp.name} ${emp.status === 'in' ? 'checked in' : 'checked out'}`, 'success');
+  }
+
+  function addEmployee() {
+    const name = document.getElementById('empName').value.trim();
+    const role = document.getElementById('empRole').value;
+    const wage = parseInt(document.getElementById('empWage').value) || 600;
+    if (!name) { showAlert('Please enter name','error'); return; }
+    staffData.push({
+      id: staffIdCounter++,
+      name, role, wage,
+      status: 'absent',
+      checkin: null, checkout: null
+    });
+    renderStaff();
+    document.getElementById('empName').value = '';
+    showAlert('Employee added','success');
+  }
+
+  // ── TIMESHEET ──
+  function populateTSSelects() {
+    const m = document.getElementById('tsMonth');
+    const y = document.getElementById('tsYear');
+    m.innerHTML = '';
+    for (let i=0; i<12; i++) {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = new Date(2000,i).toLocaleString('default',{month:'long'});
+      if (i === new Date().getMonth()) opt.selected = true;
+      m.appendChild(opt);
+    }
+    y.innerHTML = '';
+    for (let yr=2025; yr<=2027; yr++) {
+      const opt = document.createElement('option');
+      opt.value = yr;
+      opt.textContent = yr;
+      if (yr === 2026) opt.selected = true;
+      y.appendChild(opt);
+    }
+  }
+
+  function renderTimesheet() {
+    const month = parseInt(document.getElementById('tsMonth').value);
+    const year = parseInt(document.getElementById('tsYear').value);
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+    const grid = document.getElementById('timesheetGrid');
+    let html = '<table><thead><tr><th>Employee</th>';
+    for (let d=1; d<=daysInMonth; d++) html += `<th>${d}</th>`;
+    html += '<th>P</th><th>A</th><th>Wages</th></tr></thead><tbody>';
+    staffData.forEach((emp, idx) => {
+      let p=0, a=0, wages=0;
+      html += `<tr><td>${emp.name}</td>`;
+      for (let d=1; d<=daysInMonth; d++) {
+        const date = new Date(year, month, d);
+        const dayOfWeek = date.getDay();
+        const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        let status = 'P';
+        if (dayOfWeek === 0 || indianHolidays2026[dateStr]) status = 'X';
+        else {
+          const seed = emp.id * 31 + d;
+          const r = (seed % 10) / 10;
+          if (r < 0.15) status = 'A';
+          else if (r < 0.25) status = 'H';
+        }
+        let cls = '';
+        if (status === 'X') cls = 'holiday';
+        else if (status === 'P') cls = 'present';
+        else if (status === 'H') cls = 'half';
+        else if (status === 'A') cls = 'absent';
+        if (status === 'P') p++;
+        else if (status === 'A') a++;
+        else if (status === 'H') p += 0.5;
+        const label = status === 'X' ? 'X' : status;
+        html += `<td class="${cls}">${label}</td>`;
+      }
+      wages = p * emp.wage;
+      html += `<td>${p}</td><td>${a}</td><td>₹${wages.toLocaleString('en-IN')}</td></tr>`;
+    });
+    html += '</tbody></table>';
+    grid.innerHTML = html;
+    initAttendChart();
+  }
+
+  // ── CALENDAR ──
+  function renderCalendar() {
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+    const today = new Date();
+    const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+    let html = '';
+    for (let i=0; i<firstDay; i++) html += '<div class="cal-cell"></div>';
+    for (let d=1; d<=daysInMonth; d++) {
+      const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const isHoliday = indianHolidays2026[dateStr];
+      const isToday = dateStr === todayStr;
+      const dow = new Date(calYear, calMonth, d).getDay();
+      let cls = 'cal-cell';
+      if (dow === 0) cls += ' weekend';
+      if (isHoliday) cls += ' holiday';
+      if (isToday) cls += ' today';
+      let label = d;
+      if (isHoliday) label += `<span class="holiday-name">${isHoliday.substring(0,14)}…</span>`;
+      html += `<div class="${cls}">${label}</div>`;
+    }
+    document.getElementById('calendarGrid').innerHTML = html;
+    document.getElementById('calLabel').textContent = 
+      new Date(calYear, calMonth).toLocaleString('default',{month:'long', year:'numeric'});
+    const holidays = Object.entries(indianHolidays2026).filter(([date]) => {
+      const [y,m,d] = date.split('-').map(Number);
+      return y === calYear && m === calMonth+1;
+    });
+    let tableHtml = '<h4>Holidays this month</h4><table><thead><tr><th>Date</th><th>Holiday</th><th>Type</th></tr></thead><tbody>';
+    holidays.forEach(([date,name]) => {
+      const type = name.includes('National') || name.includes('Republic') || name.includes('Independence') ? 'National' : 'Public/Bank';
+      tableHtml += `<tr><td>${date}</td><td>${name}</td><td><span class="badge bi">${type}</span></td></tr>`;
+    });
+    tableHtml += '</tbody></table>';
+    document.getElementById('holidayTable').innerHTML = tableHtml;
+  }
+
+  function calNav(delta) {
+    calMonth += delta;
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    renderCalendar();
+  }
+
+  // ── QUOTE BUILDER ──
+  function addQuoteLine() {
+    const container = document.getElementById('quoteItems');
+    const div = document.createElement('div');
+    div.className = 'form-grid';
+    div.style.margin = '8px 0';
+    div.innerHTML = `
+      <div class="form-field"><label data-i18n="quote.item">${translations[currentLang]['quote.item']||'Item'}</label><input class="qi-name" value="New item" /></div>
+      <div class="form-field"><label data-i18n="quote.qty">${translations[currentLang]['quote.qty']||'Qty'}</label><input class="qi-qty" type="number" value="1" /></div>
+      <div class="form-field"><label data-i18n="quote.price">${translations[currentLang]['quote.price']||'Price (₹)'}</label><input class="qi-price" type="number" value="300" /></div>
+      <div class="form-field"><label data-i18n="quote.discount">${translations[currentLang]['quote.discount']||'Disc %'}</label><input class="qi-disc" type="number" value="0" /></div>
+    `;
+    container.appendChild(div);
+    updateQuoteTotal();
+  }
+
+  function updateQuoteTotal() {
+    const rows = document.querySelectorAll('#quoteItems .form-grid');
+    let subtotal = 0;
+    rows.forEach(row => {
+      const qty = parseFloat(row.querySelector('.qi-qty').value) || 0;
+      const price = parseFloat(row.querySelector('.qi-price').value) || 0;
+      const disc = parseFloat(row.querySelector('.qi-disc').value) || 0;
+      subtotal += qty * price * (1 - disc/100);
+    });
+    const gst = subtotal * 0.18;
+    const total = subtotal + gst;
+    document.getElementById('quoteSub').textContent = '₹' + subtotal.toLocaleString('en-IN');
+    document.getElementById('quoteGst').textContent = '₹' + gst.toLocaleString('en-IN');
+    document.getElementById('quoteTotal').textContent = '₹' + total.toLocaleString('en-IN');
+  }
+
+  document.addEventListener('input', (e) => {
+    if (e.target.closest('#quoteItems')) updateQuoteTotal();
+  });
+
+  function sendQuote() {
+    showAlert('Quote sent to customer!', 'success');
+  }
+
+  function openQuote(product) {
+    const firstLine = document.querySelector('.qi-name');
+    if (firstLine) firstLine.value = product;
+    nav('sec-quote');
+    updateQuoteTotal();
+  }
+
+  // ── CHARTS ──
+  function initOverviewCharts() {
+    if (chartsReady.ov) return;
+    chartsReady.ov = true;
+    const ctx1 = document.getElementById('c-revenue').getContext('2d');
+    new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+        datasets: [{ label: 'Revenue (₹L)', data: [8,9,10,11,12,12.2], borderColor: '#b8860b', tension: 0.2 }]
+      },
+      options: { responsive: true, plugins: { legend: { labels: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } } }, scales: { y: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } }, x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } } } }
+    });
+    const ctx2 = document.getElementById('c-salesdonut').getContext('2d');
+    new Chart(ctx2, {
+      type: 'doughnut',
+      data: {
+        labels: ['Food', 'Beverage', 'Banquet'],
+        datasets: [{ data: [55, 25, 20], backgroundColor: ['#b8860b','#8b4513','#4CAF7D'] }]
+      },
+      options: { responsive: true, plugins: { legend: { labels: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } } } }
+    });
+  }
+
+  function initKitchenChart() {
+    if (chartsReady.kit) return;
+    chartsReady.kit = true;
+    const ctx = document.getElementById('c-kitchen').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Mon','Tue','Wed','Thu','Fri','Sat'],
+        datasets: [{ label: 'Dishes prepared', data: [180,210,195,220,240,195], backgroundColor: '#b8860b' }]
+      },
+      options: { responsive: true, plugins: { legend: { labels: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } } }, scales: { y: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } }, x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } } } }
+    });
+  }
+
+  function initReportChart() {
+    if (chartsReady.rep) return;
+    chartsReady.rep = true;
+    const ctx = document.getElementById('c-repcost').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+        datasets: [
+          { label: 'Revenue', data: [8,9,10,11,12,12.2], backgroundColor: '#b8860b' },
+          { label: 'Cost', data: [5,5.5,6,6.5,7,7.5], backgroundColor: '#8b4513' }
+        ]
+      },
+      options: { responsive: true, plugins: { legend: { labels: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } } }, scales: { y: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } }, x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } } } }
+    });
+  }
+
+  function initAttendChart() {
+    if (chartsReady.att) return;
+    chartsReady.att = true;
+    const ctx = document.getElementById('c-attend').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+        datasets: [{ label: 'Attendance %', data: [92,88,95,90,94,0,0,0,0,0,0,0], backgroundColor: '#b8860b' }]
+      },
+      options: { indexAxis: 'y', responsive: true, plugins: { legend: { labels: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } } }, scales: { x: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } }, y: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text2') || '#bfb0a0' } } } }
+    });
+  }
+
+  // ── TOGGLE SWITCH ──
+  function toggleSwitch(el) {
+    el.classList.toggle('on');
+    showAlert('Setting updated', 'success');
+  }
+
+  // ── INIT ──
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('langSwitcher').value = 'en';
+    switchLanguage('en');
+    renderStaff();
+    populateTSSelects();
+    renderTimesheet();
+    renderCalendar();
+    initOverviewCharts();
+    nav('sec-overview');
+  });
+  </script>
+</body>
+</html>

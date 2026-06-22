@@ -1,0 +1,105 @@
+{
+  "name": "AI_3x_QABuddy",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nI am QA Buddy ",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -336,
+        -80
+      ],
+      "id": "bffa4258-ae5a-40d9-a17f-4ca971ba1771",
+      "name": "When chat message received",
+      "webhookId": "1dec92d9-6a89-4747-ab18-562b635218a6",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a career assistant and your video on GAMS is related to the QA technical."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -128,
+        -80
+      ],
+      "id": "b41db1e7-42a4-43da-9251-dbbd8496af55",
+      "name": "AI Agent",
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "model": "qwen/qwen3-32b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        128
+      ],
+      "id": "220b5fa8-48a7-438d-b05e-08164a168f56",
+      "name": "QWEN Brain",
+      "credentials": {
+        "groqApi": {
+          "id": "gfvb93D68YW7YfzG",
+          "name": "Groq account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QWEN Brain": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "eaf80e25-92dc-4f9d-a03c-918cf11d04d7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5f46ab61580820fce830a69dc36f3562474826cebfa4afe32162a34d17f47179"
+  },
+  "nodeGroups": [],
+  "id": "wNGEikHM9MIMo78H",
+  "tags": [
+    {
+      "name": "AI3X",
+      "id": "UoiN2ogcqVDNVI7l",
+      "updatedAt": "2026-06-09T03:01:12.543Z",
+      "createdAt": "2026-06-09T03:01:12.543Z"
+    }
+  ]
+}

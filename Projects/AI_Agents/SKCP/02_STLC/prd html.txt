@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>PRD — Shree Kundodari B2B Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --brand:#c41e1f;--gold:#c9ab82;--dark:#100802;
+  --ink:#1a1d27;--ink2:#4a4f62;--ink3:#7a7f92;
+  --line:#e2e4ea;--bg:#f8f9fc;--white:#ffffff;
+  --green:#2e7d52;--amber:#b57800;--blue:#1a6bbf;
+  --shadow:0 2px 12px rgba(0,0,0,.08);
+  --radius:8px;
+}
+body{font-family:'Inter',sans-serif;font-size:13px;color:var(--ink);background:var(--bg);line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+
+/* ── PRINT / PDF ── */
+@media print{
+  body{background:#fff;font-size:11pt}
+  .no-print{display:none}
+  .page-break{page-break-before:always}
+  .section{break-inside:avoid}
+  header{background:var(--brand)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cover-band{background:var(--gold)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .status-badge,.version-badge,.kpi-box,.req-row,.table-row-alt{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ── DOCUMENT WRAPPER ── */
+.doc{max-width:900px;margin:0 auto;background:var(--white);box-shadow:var(--shadow)}
+
+/* ── COVER PAGE ── */
+.cover{background:var(--dark);color:#fff;padding:0;position:relative;overflow:hidden;min-height:320px}
+.cover-top{background:var(--brand);padding:14px 36px;display:flex;align-items:center;gap:14px}
+.cover-logo{width:52px;height:52px;background:#100802;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1.5px solid rgba(201,171,130,.4)}
+.cover-logo svg{width:46px;height:46px}
+.cover-brand{font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:#fff}
+.cover-brand-sub{font-size:10px;color:rgba(255,255,255,.7);letter-spacing:.06em;margin-top:1px}
+.cover-body{padding:40px 36px 32px}
+.cover-doc-type{font-size:10px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+.cover-title{font-family:'Rajdhani',sans-serif;font-size:36px;font-weight:700;color:#fff;line-height:1.15;margin-bottom:8px}
+.cover-subtitle{font-size:14px;color:rgba(255,255,255,.65);margin-bottom:28px}
+.cover-band{height:4px;background:var(--gold)}
+.cover-meta{display:flex;gap:32px;flex-wrap:wrap;padding:18px 36px;background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.08)}
+.cover-meta-item label{font-size:9.5px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.06em;display:block}
+.cover-meta-item span{font-size:13px;color:rgba(255,255,255,.88);font-weight:500}
+.version-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(201,171,130,.2);color:var(--gold);font-size:10px;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid rgba(201,171,130,.3);margin-bottom:16px}
+
+/* ── TOC ── */
+.toc{padding:32px 36px;border-bottom:1px solid var(--line)}
+.toc h2{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.toc h2::before{content:'';display:inline-block;width:3px;height:22px;background:var(--brand);border-radius:2px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.toc-item{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:var(--radius);background:var(--bg);font-size:12px;color:var(--ink2)}
+.toc-item .toc-num{width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toc-item .toc-title{flex:1;font-weight:500;color:var(--ink)}
+.toc-item .toc-page{font-size:10px;color:var(--ink3)}
+
+/* ── CONTENT SECTIONS ── */
+.content{padding:32px 36px}
+.section{margin-bottom:36px}
+.section-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:1.5px solid var(--line)}
+.section-num{width:36px;height:36px;border-radius:8px;background:var(--brand);color:#fff;font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--ink)}
+.section-subtitle{font-size:11px;color:var(--ink3);margin-top:2px}
+
+h3{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin:18px 0 9px;border-left:3px solid var(--gold);padding-left:9px}
+h4{font-size:12.5px;font-weight:600;color:var(--ink);margin:12px 0 6px}
+p{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:10px}
+
+/* ── TABLES ── */
+.prd-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:14px}
+.prd-table th{background:var(--dark);color:#fff;padding:8px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.prd-table td{padding:7px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+.prd-table tr:nth-child(even) td{background:#fafbfc}
+.prd-table tr:hover td{background:#f0f2f8}
+.table-section-header td{background:rgba(196,30,31,.06)!important;color:var(--brand);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:99px;font-size:9.5px;font-weight:600;white-space:nowrap}
+.badge-red{background:rgba(196,30,31,.12);color:var(--brand)}
+.badge-green{background:rgba(46,125,82,.12);color:var(--green)}
+.badge-amber{background:rgba(181,120,0,.12);color:var(--amber)}
+.badge-blue{background:rgba(26,107,191,.12);color:var(--blue)}
+.badge-gold{background:rgba(201,171,130,.2);color:#7a5f30}
+.badge-dark{background:var(--dark);color:#fff}
+
+/* ── KPI BOXES ── */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.kpi-box{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;position:relative;overflow:hidden}
+.kpi-box::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--brand)}
+.kpi-box.green::before{background:var(--green)}.kpi-box.amber::before{background:var(--amber)}.kpi-box.blue::before{background:var(--blue)}.kpi-box.gold::before{background:var(--gold)}
+.kpi-val{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--ink)}
+.kpi-lbl{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+
+/* ── REQUIREMENT ROWS ── */
+.req-row{display:flex;gap:10px;padding:9px 12px;border-radius:var(--radius);margin-bottom:6px;border:1px solid var(--line);background:#fff;align-items:flex-start}
+.req-id{font-size:9.5px;font-weight:700;color:#fff;background:var(--ink);padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;font-family:monospace}
+.req-id.must{background:var(--brand)}.req-id.should{background:var(--amber)}.req-id.could{background:var(--green)}
+.req-text{font-size:12px;color:var(--ink);flex:1;line-height:1.55}
+.req-tag{font-size:9px;color:var(--ink3);flex-shrink:0;margin-top:2px;text-align:right;line-height:1.4}
+
+/* ── FLOW DIAGRAM ── */
+.flow{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin:12px 0;background:var(--bg);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--line)}
+.flow-step{text-align:center;flex:1;min-width:80px}
+.flow-dot{width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 5px;font-family:'Rajdhani',sans-serif}
+.flow-dot.paid{background:var(--green)}
+.flow-dot.active{background:var(--amber)}
+.flow-label{font-size:9.5px;color:var(--ink2);font-weight:500}
+.flow-arrow{color:var(--gold);font-size:18px;flex-shrink:0;padding:0 4px;margin-top:-12px}
+
+/* ── LANG GRID ── */
+.lang-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:14px}
+.lang-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;display:flex;align-items:center;gap:8px}
+.lang-code{width:28px;height:28px;border-radius:6px;background:var(--dark);color:var(--gold);font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lang-name{font-size:12.5px;font-weight:500;color:var(--ink)}
+.lang-native{font-size:11px;color:var(--ink3)}
+
+/* ── SECTION REGISTRY ── */
+.reg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px}
+.reg-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;border-left:3px solid var(--brand)}
+.reg-card.ops{border-left-color:var(--blue)}.reg-card.b2b{border-left-color:var(--green)}.reg-card.hr{border-left-color:var(--amber)}.reg-card.admin{border-left-color:var(--brand)}
+.reg-id{font-size:10px;font-weight:700;color:#fff;background:var(--ink);padding:1px 7px;border-radius:4px;font-family:monospace;display:inline-block;margin-bottom:4px}
+.reg-name{font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.reg-desc{font-size:11px;color:var(--ink3)}
+
+/* ── PRINT BUTTON ── */
+.print-btn{position:fixed;top:18px;right:18px;background:var(--brand);color:#fff;border:none;padding:10px 20px;border-radius:var(--radius);font-family:'Inter',sans-serif;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:7px;box-shadow:0 4px 12px rgba(196,30,31,.3);z-index:999;transition:all .15s}
+.print-btn:hover{background:#a01818;transform:translateY(-1px)}
+.print-btn svg{width:16px;height:16px}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--line);margin:24px 0}
+
+/* ── CALLOUT ── */
+.callout{padding:12px 16px;border-radius:var(--radius);margin:12px 0;border-left:4px solid;font-size:12.5px}
+.callout.info{background:rgba(26,107,191,.06);border-color:var(--blue);color:var(--blue)}
+.callout.warn{background:rgba(181,120,0,.07);border-color:var(--amber);color:var(--amber)}
+.callout.success{background:rgba(46,125,82,.07);border-color:var(--green);color:var(--green)}
+.callout b{font-weight:700}
+
+/* ── FOOTER ── */
+.doc-footer{background:var(--dark);color:rgba(255,255,255,.5);padding:16px 36px;font-size:10px;display:flex;justify-content:space-between;align-items:center}
+.doc-footer strong{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+  Save as PDF
+</button>
+
+<div class="doc">
+
+<!-- ══════════════ COVER PAGE ══════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#100802"/>
+        <circle cx="50" cy="34" r="22" fill="none" stroke="#ffd700" stroke-width="2.5" opacity=".6"/>
+        <text x="50" y="30" text-anchor="middle" font-size="26" font-weight="900" fill="#ffd700" font-family="serif" opacity=".95">श्री</text>
+        <path d="M22 68 Q22 38 50 28 Q78 38 78 68" stroke="#c9ab82" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+        <rect x="14" y="60" width="10" height="7" fill="#666" rx="1"/><rect x="14" y="50" width="10" height="7" fill="#777" rx="1"/>
+        <rect x="76" y="60" width="10" height="7" fill="#666" rx="1"/><rect x="76" y="50" width="10" height="7" fill="#777" rx="1"/>
+        <rect x="10" y="74" width="80" height="18" rx="3" fill="#c41e1f"/>
+        <text x="50" y="87" text-anchor="middle" font-size="9" font-weight="900" fill="#fff" font-family="Arial">KUNDODARI</text>
+      </svg>
+    </div>
+    <div>
+      <div class="cover-brand">Shree Kundodari Cement Products</div>
+      <div class="cover-brand-sub">BHOSARI MIDC · PIMPRI-CHINCHWAD · PUNE 411026 · MAHARASHTRA</div>
+    </div>
+  </div>
+  <div class="cover-band"></div>
+  <div class="cover-body">
+    <div class="cover-doc-type">📄 Product Requirements Document</div>
+    <div class="version-badge">✦ Version 5.0 — Final Release</div>
+    <div class="cover-title">B2B Management Portal<br>Dashboard System</div>
+    <div class="cover-subtitle">"Build your dreams with our passion" — Complete specification for the production-ready single-file web application covering Operations, B2B Commerce, Payments, HR, and Administration.</div>
+  </div>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><label>Document Type</label><span>Product Requirements Document (PRD)</span></div>
+    <div class="cover-meta-item"><label>Version</label><span>5.0 — Final</span></div>
+    <div class="cover-meta-item"><label>Prepared For</label><span>Shree Kundodari Cement Products</span></div>
+    <div class="cover-meta-item"><label>Date</label><span>June 2026</span></div>
+    <div class="cover-meta-item"><label>Platform</label><span>Single-file Web App (index.html)</span></div>
+    <div class="cover-meta-item"><label>Status</label><span>✅ Approved & Deployed</span></div>
+  </div>
+</div>
+
+<!-- ══════════════ TABLE OF CONTENTS ══════════════ -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <div class="toc-grid">
+    <div class="toc-item"><div class="toc-num">1</div><div class="toc-title">Executive Summary</div><div class="toc-page">§1</div></div>
+    <div class="toc-item"><div class="toc-num">2</div><div class="toc-title">Business Context & Goals</div><div class="toc-page">§2</div></div>
+    <div class="toc-item"><div class="toc-num">3</div><div class="toc-title">Stakeholders & Users</div><div class="toc-page">§3</div></div>
+    <div class="toc-item"><div class="toc-num">4</div><div class="toc-title">System Architecture</div><div class="toc-page">§4</div></div>
+    <div class="toc-item"><div class="toc-num">5</div><div class="toc-title">Design System & Brand</div><div class="toc-page">§5</div></div>
+    <div class="toc-item"><div class="toc-num">6</div><div class="toc-title">Section Registry (23 Modules)</div><div class="toc-page">§6</div></div>
+    <div class="toc-item"><div class="toc-num">7</div><div class="toc-title">Functional Requirements</div><div class="toc-page">§7</div></div>
+    <div class="toc-item"><div class="toc-num">8</div><div class="toc-title">Payment Centre Specification</div><div class="toc-page">§8</div></div>
+    <div class="toc-item"><div class="toc-num">9</div><div class="toc-title">HR & Payroll Specification</div><div class="toc-page">§9</div></div>
+    <div class="toc-item"><div class="toc-num">10</div><div class="toc-title">Multilingual System</div><div class="toc-page">§10</div></div>
+    <div class="toc-item"><div class="toc-num">11</div><div class="toc-title">Data Models</div><div class="toc-page">§11</div></div>
+    <div class="toc-item"><div class="toc-num">12</div><div class="toc-title">Non-Functional Requirements</div><div class="toc-page">§12</div></div>
+    <div class="toc-item"><div class="toc-num">13</div><div class="toc-title">Indian Holidays 2026</div><div class="toc-page">§13</div></div>
+    <div class="toc-item"><div class="toc-num">14</div><div class="toc-title">Deployment Guide</div><div class="toc-page">§14</div></div>
+    <div class="toc-item"><div class="toc-num">15</div><div class="toc-title">Version History & Changelog</div><div class="toc-page">§15</div></div>
+    <div class="toc-item"><div class="toc-num">16</div><div class="toc-title">Delivery Checklist</div><div class="toc-page">§16</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ══ §1 EXECUTIVE SUMMARY ══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div><div class="section-title">Executive Summary</div><div class="section-subtitle">Overview, purpose, and scope of the B2B Dashboard</div></div>
+  </div>
+
+  <p>This Product Requirements Document (PRD) specifies the complete design, functionality, and technical implementation of the <strong>Shree Kundodari Cement Products B2B Management Portal</strong> — a production-ready, single-file web application (index.html) for managing cement manufacturing operations, B2B sales, payments, HR, and administration.</p>
+
+  <p>The portal serves as a unified digital command centre for the proprietor, production manager, sales team, and store manager at the Bhosari MIDC facility. It eliminates fragmented spreadsheets and manual tracking by consolidating 23 functional modules into one responsive, accessible, browser-based dashboard.</p>
+
+  <div class="kpi-row">
+    <div class="kpi-box"><div class="kpi-val">23</div><div class="kpi-lbl">Functional Modules</div></div>
+    <div class="kpi-box green"><div class="kpi-val">9</div><div class="kpi-lbl">Languages Supported</div></div>
+    <div class="kpi-box blue"><div class="kpi-val">7</div><div class="kpi-lbl">Payment Methods</div></div>
+    <div class="kpi-box amber"><div class="kpi-val">15</div><div class="kpi-lbl">Labour Workers</div></div>
+    <div class="kpi-box gold"><div class="kpi-val">0</div><div class="kpi-lbl">Build Steps Required</div></div>
+    <div class="kpi-box"><div class="kpi-val">6</div><div class="kpi-lbl">Product SKUs</div></div>
+  </div>
+
+  <div class="callout info"><b>Delivery Format:</b> Single self-contained <code>index.html</code> file — opens by double-click or drag-and-drop. Zero npm, zero build step, zero server required. Deployable to Vercel/Netlify in under 2 minutes.</div>
+</div>
+
+<!-- ══ §2 BUSINESS CONTEXT ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div><div class="section-title">Business Context & Goals</div><div class="section-subtitle">Company profile, product catalogue, and dashboard objectives</div></div>
+  </div>
+
+  <h3>2.1 Company Profile</h3>
+  <table class="prd-table">
+    <tr><th>Field</th><th>Details</th></tr>
+    <tr><td><strong>Legal Name</strong></td><td>Shree Kundodari Cement Products</td></tr>
+    <tr><td><strong>Business Type</strong></td><td>B2B Manufacturing — Cement Blocks & Paver Products</td></tr>
+    <tr><td><strong>Location</strong></td><td>Bhosari MIDC, Pimpri-Chinchwad, Pune – 411026, Maharashtra, India</td></tr>
+    <tr><td><strong>GSTIN</strong></td><td>27AABCS1429B1ZB (Maharashtra State Code: 27)</td></tr>
+    <tr><td><strong>Phone</strong></td><td>+91 98765 43210</td></tr>
+    <tr><td><strong>Email / WhatsApp</strong></td><td>info@kundodari.com / +91 98765 43210</td></tr>
+    <tr><td><strong>UPI ID</strong></td><td>kundodari@upi</td></tr>
+    <tr><td><strong>Founded</strong></td><td>2008 (17+ years in operation)</td></tr>
+    <tr><td><strong>Certifications</strong></td><td>IS 2185 Part 1 & 2, IS 15658, BIS Approved</td></tr>
+    <tr><td><strong>Working Hours</strong></td><td>Mon–Fri: 7 AM – 6 PM | Sat: 7 AM – 4 PM | Sun: Closed</td></tr>
+    <tr><td><strong>Monthly Revenue</strong></td><td>₹9.8L+ MTD | Annual est. ₹1.2Cr</td></tr>
+    <tr><td><strong>Tagline</strong></td><td>"Build your dreams with our passion"</td></tr>
+  </table>
+
+  <h3>2.2 Product Catalogue</h3>
+  <table class="prd-table">
+    <tr><th>Product</th><th>SKU</th><th>Price / Unit</th><th>IS Standard</th><th>Stock Status</th></tr>
+    <tr><td>Solid Block 6"×8"×16"</td><td>SB-6816</td><td>₹37</td><td>IS 2185 Part 1</td><td><span class="badge badge-green">Adequate</span></td></tr>
+    <tr><td>Solid Block 4"×8"×16"</td><td>SB-4816</td><td>₹28</td><td>IS 2185 Part 1</td><td><span class="badge badge-green">Adequate</span></td></tr>
+    <tr><td>Hollow Block 2-hole</td><td>HB-2H</td><td>₹40</td><td>IS 2185 Part 2</td><td><span class="badge badge-green">Adequate</span></td></tr>
+    <tr><td>Hollow Block 3-hole</td><td>HB-3H</td><td>₹44</td><td>IS 2185 Part 2</td><td><span class="badge badge-amber">Low</span></td></tr>
+    <tr><td>Paver Block I-shape 60mm</td><td>PB-I60</td><td>₹28</td><td>IS 15658</td><td><span class="badge badge-green">Adequate</span></td></tr>
+    <tr><td>Paver Block Hex 60mm</td><td>PB-HX60</td><td>₹30</td><td>IS 15658</td><td><span class="badge badge-amber">Low</span></td></tr>
+  </table>
+  <p style="font-size:11.5px;color:var(--ink3)">GST: 18% on all products | MOQ: 100 units | Free delivery above ₹1L | Lead time: 2–3 working days</p>
+
+  <h3>2.3 B2B Business Goals</h3>
+  <div class="req-row"><div class="req-id must">G-01</div><div class="req-text">Centralise operations — replace scattered spreadsheets with a single unified portal</div><div class="req-tag">Priority: Critical</div></div>
+  <div class="req-row"><div class="req-id must">G-02</div><div class="req-text">Enable real-time stock visibility with reorder alerts to prevent production stoppages</div><div class="req-tag">Priority: Critical</div></div>
+  <div class="req-row"><div class="req-id must">G-03</div><div class="req-text">Streamline B2B order-to-payment cycle: Quote → Order → Dispatch → Payment Received</div><div class="req-tag">Priority: Critical</div></div>
+  <div class="req-row"><div class="req-id should">G-04</div><div class="req-text">Digitise labour attendance, timesheet, and payroll to reduce manual wage calculation errors</div><div class="req-tag">Priority: High</div></div>
+  <div class="req-row"><div class="req-id should">G-05</div><div class="req-text">Support multi-language interface for staff from Karnataka, Goa, Tamil Nadu, and Gujarat</div><div class="req-tag">Priority: High</div></div>
+  <div class="req-row"><div class="req-id could">G-06</div><div class="req-text">Provide online order acceptance via Portal, WhatsApp, Email, and Phone channels</div><div class="req-tag">Priority: Medium</div></div>
+
+  <h3>2.4 Live Dashboard KPIs (Sample Data)</h3>
+  <table class="prd-table">
+    <tr><th>Metric</th><th>Current Value</th><th>Target / Threshold</th></tr>
+    <tr><td>Revenue MTD</td><td>₹9.8L</td><td>▲ +14% vs last month</td></tr>
+    <tr><td>Blocks Produced (Month)</td><td>24,600 units</td><td>Target: 23,000 (+7%)</td></tr>
+    <tr><td>Today's Output</td><td>1,240 units</td><td>Daily target: 1,150</td></tr>
+    <tr><td>Cement Stock</td><td>186 bags</td><td><span class="badge badge-red">⚠ Reorder at 300</span></td></tr>
+    <tr><td>Active B2B Customers</td><td>38 (+3 new)</td><td>Monthly growth: 2+</td></tr>
+    <tr><td>Pending Orders</td><td>4</td><td>SLA: Dispatch within 2 days</td></tr>
+    <tr><td>Labour On-Site</td><td>12 / 15</td><td>Minimum: 10 for full production</td></tr>
+    <tr><td>Outstanding AR</td><td>₹1.4L (3 overdue)</td><td>Max 30-day overdue threshold</td></tr>
+    <tr><td>Pipeline Value</td><td>₹18.4L (9 leads)</td><td>Win rate target: 80%+</td></tr>
+    <tr><td>Wages Due (June 2026)</td><td>₹72,000</td><td>PF: ₹8,640 | Net: ₹63,360</td></tr>
+  </table>
+</div>
+
+<!-- ══ §3 STAKEHOLDERS ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div><div class="section-title">Stakeholders & User Personas</div><div class="section-subtitle">Who uses the dashboard and what they need</div></div>
+  </div>
+
+  <table class="prd-table">
+    <tr><th>Role</th><th>Primary Sections Used</th><th>Key Needs</th><th>Access Level</th></tr>
+    <tr><td><strong>Proprietor / Director</strong></td><td>Overview, Reports, Ledger, Payments, About</td><td>Revenue KPIs, P&amp;L, cash flow, AR aging</td><td><span class="badge badge-dark">Admin</span></td></tr>
+    <tr><td><strong>Production Manager</strong></td><td>Production, Inventory, Raw Materials, Labour</td><td>Daily output tracking, cement stock alerts, shift logs</td><td><span class="badge badge-blue">Manager</span></td></tr>
+    <tr><td><strong>Sales Executive</strong></td><td>Orders, Quote Builder, Customers, Pipeline, Online Orders</td><td>Quote generation, order tracking, B2B client management</td><td><span class="badge badge-blue">Manager</span></td></tr>
+    <tr><td><strong>Store Manager</strong></td><td>Inventory, Raw Materials, Dispatch, Catalogue</td><td>Stock levels, dispatch coordination, reorder triggers</td><td><span class="badge badge-green">Staff</span></td></tr>
+    <tr><td><strong>Accounts / Finance</strong></td><td>Ledger, Payments, Wages, Reports</td><td>Transaction recording, wages processing, GST reports</td><td><span class="badge badge-blue">Manager</span></td></tr>
+    <tr><td><strong>B2B Customers</strong></td><td>Online Orders, Catalogue, Contact</td><td>Browse products, place orders, track delivery status</td><td><span class="badge badge-amber">Customer</span></td></tr>
+  </table>
+
+  <h3>3.1 B2B Customer Accounts</h3>
+  <table class="prd-table">
+    <tr><th>Company</th><th>City</th><th>LTV</th><th>Outstanding</th><th>Payment Terms</th><th>Status</th></tr>
+    <tr><td><strong>Rajesh Constructions</strong></td><td>Pune</td><td>₹4.2L</td><td>₹0</td><td>Net 15</td><td><span class="badge badge-green">Active</span></td></tr>
+    <tr><td><strong>Patil Builders</strong></td><td>Nashik</td><td>₹2.8L</td><td>₹7,200</td><td>Net 30</td><td><span class="badge badge-green">Active</span></td></tr>
+    <tr><td><strong>Suresh Infra</strong></td><td>PCMC</td><td>₹2.1L</td><td>₹0</td><td>Advance</td><td><span class="badge badge-green">Active</span></td></tr>
+    <tr><td><strong>Ganesh Homes</strong></td><td>Lonavala</td><td>₹1.3L</td><td>₹14,200</td><td>Net 30</td><td><span class="badge badge-amber">Overdue</span></td></tr>
+    <tr><td><strong>Omkar Infrastructure</strong></td><td>Pune</td><td>—</td><td>—</td><td>TBD</td><td><span class="badge badge-blue">Pending</span></td></tr>
+  </table>
+</div>
+
+<!-- ══ §4 SYSTEM ARCHITECTURE ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div><div class="section-title">System Architecture</div><div class="section-subtitle">Technology stack, CDN dependencies, and file structure</div></div>
+  </div>
+
+  <h3>4.1 Technology Stack</h3>
+  <table class="prd-table">
+    <tr><th>Layer</th><th>Technology</th><th>Version / Source</th><th>Purpose</th></tr>
+    <tr><td>Structure</td><td>HTML5</td><td>Standard</td><td>Semantic document layout</td></tr>
+    <tr><td>Styling</td><td>CSS3 (Custom Properties)</td><td>Standard</td><td>Design tokens, dark/light themes, responsive layout</td></tr>
+    <tr><td>Interactivity</td><td>Vanilla JavaScript ES6+</td><td>Standard</td><td>All logic — charts, forms, navigation, payment flow</td></tr>
+    <tr><td>Charts</td><td>Chart.js</td><td>v4.4.1 (CDN pinned)</td><td>Revenue, production, pipeline, attendance charts</td></tr>
+    <tr><td>Icons</td><td>Tabler Icons</td><td>v2.44.0 (CDN pinned)</td><td>All UI icons (400+ icons used)</td></tr>
+    <tr><td>Typography</td><td>Google Fonts</td><td>Rajdhani + Inter</td><td>Headings (Rajdhani) + body text (Inter)</td></tr>
+    <tr><td>Deployment</td><td>Static HTML</td><td>Single index.html</td><td>Zero build step, zero server required</td></tr>
+  </table>
+
+  <h3>4.2 External CDN Dependencies</h3>
+  <div class="callout warn"><b>Pinned Versions — Do Not Upgrade Without Testing:</b> All CDN links use exact version pinning to ensure reproducibility.</div>
+  <table class="prd-table">
+    <tr><th>Resource</th><th>CDN URL</th></tr>
+    <tr><td>Google Fonts</td><td><code>fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600</code></td></tr>
+    <tr><td>Tabler Icons</td><td><code>cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css</code></td></tr>
+    <tr><td>Chart.js</td><td><code>cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js</code></td></tr>
+  </table>
+
+  <h3>4.3 File Output Specification</h3>
+  <table class="prd-table">
+    <tr><th>Property</th><th>Value</th></tr>
+    <tr><td>Filename</td><td><code>index.html</code></td></tr>
+    <tr><td>Target Line Count</td><td>900 – 1,400 lines</td></tr>
+    <tr><td>External Dependencies</td><td>3 CDN links only (Fonts, Icons, Chart.js)</td></tr>
+    <tr><td>Separate Files</td><td>None — fully self-contained</td></tr>
+    <tr><td>Build Tool Required</td><td>None</td></tr>
+    <tr><td>Browser Support</td><td>Chrome 90+, Firefox 88+, Safari 14+, Edge 90+</td></tr>
+    <tr><td>Favicon</td><td>🏗️ emoji SVG data URI embedded in head</td></tr>
+  </table>
+
+  <h3>4.4 Internal HTML Structure</h3>
+  <table class="prd-table">
+    <tr><th>Block</th><th>Contents</th></tr>
+    <tr><td><code>&lt;head&gt;</code></td><td>charset, viewport, title, favicon, Google Fonts, Tabler Icons, Chart.js, full &lt;style&gt; block</td></tr>
+    <tr><td><code>#lang-bar</code></td><td>9-language switcher — first element in &lt;body&gt;</td></tr>
+    <tr><td><code>.sidebar</code></td><td>SVG logo + brand name, 6 nav groups with dividers, theme toggle, footer</td></tr>
+    <tr><td><code>.topbar</code></td><td>Page title, search input, export button, New Quote button, admin avatar</td></tr>
+    <tr><td><code>.content</code></td><td>23 × &lt;div id="sec-{name}" class="section"&gt;</td></tr>
+    <tr><td><code>#toast</code></td><td>Fixed-position toast notification</td></tr>
+    <tr><td><code>&lt;script&gt;</code></td><td>Ordered JS blocks: LANGUAGE → THEME → NAV → CHARTS → all module logic → INIT</td></tr>
+  </table>
+</div>
+
+<!-- ══ §5 DESIGN SYSTEM ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div><div class="section-title">Design System & Brand Identity</div><div class="section-subtitle">Colour tokens, typography, components, and logo specification</div></div>
+  </div>
+
+  <h3>5.1 Colour Design Tokens</h3>
+  <table class="prd-table">
+    <tr><th>Token</th><th>Dark Theme</th><th>Light Theme</th><th>Usage</th></tr>
+    <tr><td><code>--bg</code></td><td>#0d0f14</td><td>#f4f5f8</td><td>Page background</td></tr>
+    <tr><td><code>--bg2</code></td><td>#13161f</td><td>#ffffff</td><td>Sidebar, cards</td></tr>
+    <tr><td><code>--bg3</code></td><td>#1a1e2a</td><td>#f0f1f5</td><td>Inputs, hover states</td></tr>
+    <tr><td><code>--accent</code></td><td>#c9ab82</td><td>#8b6840</td><td>Brand gold — primary accent</td></tr>
+    <tr><td><code>--green / --green-t</code></td><td>#4caf7d / #6de0a5</td><td>#2e7d52 / #2e7d52</td><td>Success, positive KPIs</td></tr>
+    <tr><td><code>--amber / --amber-t</code></td><td>#e8a317 / #f0c060</td><td>#b57800 / #b57800</td><td>Warnings, low stock</td></tr>
+    <tr><td><code>--red / --red-t</code></td><td>#e24b4a / #f08080</td><td>#c62828 / #c62828</td><td>Critical alerts, danger</td></tr>
+    <tr><td><code>--blue / --blue-t</code></td><td>#378add / #7ab8f5</td><td>#1a6bbf / #1a6bbf</td><td>Info, links, B2B status</td></tr>
+    <tr><td><code>--purple / --purple-t</code></td><td>#9b59b6 / #c39bd3</td><td>#6a1b9a / #6a1b9a</td><td>Pipeline, special KPIs</td></tr>
+  </table>
+
+  <h3>5.2 Typography Scale</h3>
+  <table class="prd-table">
+    <tr><th>Element</th><th>Font</th><th>Size</th><th>Weight</th></tr>
+    <tr><td>Brand name, page title</td><td>Rajdhani</td><td>13.5–18px</td><td>700</td></tr>
+    <tr><td>KPI values</td><td>Rajdhani</td><td>24px</td><td>700</td></tr>
+    <tr><td>Card / section titles</td><td>Rajdhani</td><td>15–20px</td><td>600–700</td></tr>
+    <tr><td>Nav items, body text</td><td>Inter</td><td>12–13px</td><td>400–500</td></tr>
+    <tr><td>KPI labels, badges, th</td><td>Inter</td><td>9.5–10px uppercase</td><td>500–600</td></tr>
+    <tr><td>Form labels, small notes</td><td>Inter</td><td>10–11px</td><td>400–500</td></tr>
+  </table>
+
+  <h3>5.3 Brand Logo Specification</h3>
+  <p>The Shree Kundodari logo is always rendered as an inline SVG — never as an external image or generic icon. It encodes the brand visually through five elements:</p>
+  <table class="prd-table">
+    <tr><th>Element</th><th>Visual</th><th>Meaning</th></tr>
+    <tr><td>Background</td><td>#100802 dark brown</td><td>Earth / concrete base</td></tr>
+    <tr><td>Gold halo ring</td><td>#ffd700 circle, 60% opacity</td><td>Auspiciousness / divinity</td></tr>
+    <tr><td>श्री text</td><td>Gold serif, 26pt, 95% opacity</td><td>Sanskrit invocation of prosperity</td></tr>
+    <tr><td>Stone arch path</td><td>#c9ab82 quadratic bezier, 5pt</td><td>Construction / cement arches</td></tr>
+    <tr><td>Red banner + KUNDODARI</td><td>#c41e1f rect, white bold text</td><td>Brand identity / nameplate</td></tr>
+  </table>
+  <p><strong>Sizes:</strong> 40×40px in sidebar brand section | 120×120px in About Us hero banner</p>
+
+  <h3>5.4 Component Library</h3>
+  <table class="prd-table">
+    <tr><th>Component</th><th>CSS Classes</th><th>Specification</th></tr>
+    <tr><td>KPI Card</td><td><code>.kpi .g/.a/.r/.b/.p</code></td><td>3px left border strip (colour-coded), Rajdhani 24px value, 9.5px uppercase label</td></tr>
+    <tr><td>Card container</td><td><code>.card</code></td><td>--bg2 background, 0.5px border, 12px radius, 15px padding, 13px margin-bottom</td></tr>
+    <tr><td>Badges</td><td><code>.bg .ba .br .bi .bc</code></td><td>Pill shape, 9.5px bold — green/amber/red/blue/accent variants</td></tr>
+    <tr><td>Progress bars</td><td><code>.prog .pf.g/.a/.r/.d</code></td><td>5px height, full-width track, colour-coded fill</td></tr>
+    <tr><td>Delivery track</td><td><code>.dt-step .done/.active/.paid</code></td><td>6-step horizontal tracker; .paid = green (Payment Received)</td></tr>
+    <tr><td>Toggle switch</td><td><code>.sw .sw.on</code></td><td>34×18px pill; accent background when on</td></tr>
+    <tr><td>Alert banner</td><td><code>.alert .s/.e</code></td><td>Success (green) / Error (red); .show class reveals it</td></tr>
+    <tr><td>Tab bar</td><td><code>.tab-bar .tab .tab.active</code></td><td>2px bottom border accent on active tab</td></tr>
+    <tr><td>Toast</td><td><code>#toast .toast.s/.e</code></td><td>Fixed bottom-right; auto-hides after 3s</td></tr>
+  </table>
+</div>
+
+<!-- ══ §6 SECTION REGISTRY ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div><div class="section-title">Section Registry — 23 Modules</div><div class="section-subtitle">Complete list of dashboard sections, nav groups, and version introduced</div></div>
+  </div>
+
+  <h3>6.1 Operations Group</h3>
+  <div class="reg-grid">
+    <div class="reg-card ops"><div class="reg-id">overview</div><div class="reg-name">Overview</div><div class="reg-desc">8 KPI cards, revenue line chart, sales donut, live alerts feed — v1.0</div></div>
+    <div class="reg-card ops"><div class="reg-id">orders</div><div class="reg-name">Orders</div><div class="reg-desc">Filterable order table, status/payment badges, new order entry — v1.0</div></div>
+    <div class="reg-card ops"><div class="reg-id">quote</div><div class="reg-name">Quote Builder</div><div class="reg-desc">Multi-product quote, per-line discount, GST 18% auto-calc, send/export — v2.0</div></div>
+    <div class="reg-card ops"><div class="reg-id">inventory</div><div class="reg-name">Inventory</div><div class="reg-desc">SKU table with reserved vs available, progress bars, stock entry form — v2.0</div></div>
+    <div class="reg-card ops"><div class="reg-id">production</div><div class="reg-name">Production</div><div class="reg-desc">Weekly bar chart, 5 KPIs, shift log form, machine uptime — v2.0</div></div>
+    <div class="reg-card ops"><div class="reg-id">rawmat</div><div class="reg-name">Raw Materials</div><div class="reg-desc">Material stock levels, days remaining, supplier info, purchase log — v2.0</div></div>
+  </div>
+
+  <h3>6.2 B2B Commerce Group</h3>
+  <div class="reg-grid">
+    <div class="reg-card b2b"><div class="reg-id">catalogue</div><div class="reg-name">Product Catalogue</div><div class="reg-desc">Product cards with stock bars, "Request Quote →" CTA, MOQ rules — v2.0</div></div>
+    <div class="reg-card b2b"><div class="reg-id">customers</div><div class="reg-name">Customers</div><div class="reg-desc">Account list, credit management tab, B2B registration form — v2.0</div></div>
+    <div class="reg-card b2b"><div class="reg-id">pipeline</div><div class="reg-name">Sales Pipeline</div><div class="reg-desc">4-stage kanban (Lead→Quote→Negotiation→PO), stage donut chart — v2.0</div></div>
+    <div class="reg-card b2b"><div class="reg-id">ledger</div><div class="reg-name">Ledger</div><div class="reg-desc">Transaction rows (credit green/debit red), AR summary, filter — v2.0</div></div>
+    <div class="reg-card b2b"><div class="reg-id">dispatch</div><div class="reg-name">Dispatch</div><div class="reg-desc"><strong>6-step tracker</strong> incl. "Payment Received" final step — v3.0 → v5.0</div></div>
+    <div class="reg-card b2b"><div class="reg-id">online-orders</div><div class="reg-name">Online Orders</div><div class="reg-desc">Multi-channel (Portal/WhatsApp/Email/Phone), analytics, integrations — v5.0</div></div>
+  </div>
+
+  <h3>6.3 Payments Group</h3>
+  <div class="reg-card" style="border-left-color:#c41e1f;margin-bottom:12px">
+    <div class="reg-id">payments</div><div class="reg-name">Payment Centre</div>
+    <div class="reg-desc">7 payment methods (QR/UPI/NEFT/Card/Cheque/Cash/Other), Pay-to-Vendor ↔ Receive-from-Customer toggle, confirm modal, receipt, transaction history with filters, method-wise summary bars, outstanding AR tracker — v4.0</div>
+  </div>
+
+  <h3>6.4 HR Group</h3>
+  <div class="reg-grid">
+    <div class="reg-card hr"><div class="reg-id">labour</div><div class="reg-name">Labour & Attendance</div><div class="reg-desc">15 workers, live clock, check-in/out toggle, add-worker form with bank details — v2.0</div></div>
+    <div class="reg-card hr"><div class="reg-id">wages</div><div class="reg-name">Wages & Payroll</div><div class="reg-desc">4 tabs: Register (PF+advance+net), Pay Wages, Payment History, Advance/Deduction — v3.0</div></div>
+    <div class="reg-card hr"><div class="reg-id">timesheet</div><div class="reg-name">Timesheet</div><div class="reg-desc">Month×worker P/A/½/— grid, wages per worker, yearly attendance bar chart — v2.0</div></div>
+  </div>
+
+  <h3>6.5 Admin Group</h3>
+  <div class="reg-grid">
+    <div class="reg-card admin"><div class="reg-id">notifications</div><div class="reg-name">Alerts</div><div class="reg-desc">Alert list with coloured priority dots, mark-all-read — v1.0</div></div>
+    <div class="reg-card admin"><div class="reg-id">calendar</div><div class="reg-name">Calendar 2026</div><div class="reg-desc">Month navigator, 19 Indian holidays highlighted, full holiday table — v2.0</div></div>
+    <div class="reg-card admin"><div class="reg-id">reports</div><div class="reg-name">Reports & Analytics</div><div class="reg-desc">6 KPIs, revenue-vs-cost chart, attendance chart, 8 export buttons — v2.0</div></div>
+    <div class="reg-card admin"><div class="reg-id">map</div><div class="reg-name">Location</div><div class="reg-desc">Map placeholder, Google Maps deep-link, directions, truck entry gate info — v1.0</div></div>
+    <div class="reg-card admin"><div class="reg-id">contact</div><div class="reg-name">Contact</div><div class="reg-desc">4-item contact grid, personnel table with online/away live status — v1.0</div></div>
+    <div class="reg-card admin"><div class="reg-id">settings</div><div class="reg-name">Settings</div><div class="reg-desc">Company profile, pricing/tax config, alert preference toggles, theme toggle — v2.0</div></div>
+    <div class="reg-card admin"><div class="reg-id">about</div><div class="reg-name">About Us</div><div class="reg-desc">Hero banner with 120px logo, 8 stats, team cards, vision/mission/values — v5.0</div></div>
+  </div>
+</div>
+
+<!-- ══ §7 FUNCTIONAL REQUIREMENTS ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div><div class="section-title">Functional Requirements</div><div class="section-subtitle">Must/Should/Could requirements across all modules</div></div>
+  </div>
+
+  <h3>7.1 Navigation & Global Shell</h3>
+  <div class="req-row"><div class="req-id must">FR-001</div><div class="req-text">Sidebar navigation with 23 sections in 5 groups (Operations, B2B Commerce, Payments, HR, Admin) separated by dividers</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-002</div><div class="req-text">Active section highlighted with accent left-border and accent-bg background in nav</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-003</div><div class="req-text">Top bar with page title, global search, export button, New Quote CTA, admin avatar pill</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-004</div><div class="req-text">Nav badges (red pill with count) on Orders (4) and Alerts (3); green "New" badge on Payment Centre</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-005</div><div class="req-text">Dark/Light theme toggle in sidebar footer AND Settings page; persists during session</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-006</div><div class="req-text">Language bar (9 languages) always visible above .app wrapper; updates nav, title, brand name</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id should">FR-007</div><div class="req-text">Global search routes to relevant section based on keyword (order/stock/wage/customer/etc.)</div><div class="req-tag">SHOULD</div></div>
+  <div class="req-row"><div class="req-id should">FR-008</div><div class="req-text">Mobile responsive: sidebar collapses at ≤768px; grid switches to 1-column</div><div class="req-tag">SHOULD</div></div>
+
+  <h3>7.2 Overview Dashboard</h3>
+  <div class="req-row"><div class="req-id must">FR-010</div><div class="req-text">8 KPI cards: Revenue MTD, Blocks Produced, Pending Orders, Cement Stock, Active Clients, Labour On-Site, Pipeline Value, Outstanding AR</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-011</div><div class="req-text">Revenue line chart (Jan–Jun, ₹L) and Sales donut chart (Solid 48%/Hollow 32%/Paver 20%)</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-012</div><div class="req-text">Live alerts feed with priority dots (red/amber/blue/green) and timestamped messages</div><div class="req-tag">MUST</div></div>
+
+  <h3>7.3 Quote Builder</h3>
+  <div class="req-row"><div class="req-id must">FR-020</div><div class="req-text">Multi-product line items; per-line discount (0–30%); line total = price × qty × (1 − disc/100)</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-021</div><div class="req-text">Auto-calculate: Subtotal → Discount → GST 18% → Grand Total displayed in Rajdhani 26px accent</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-022</div><div class="req-text">"Request Quote →" on Catalogue cards pre-fills product in Quote Builder via openQuote()</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id should">FR-023</div><div class="req-text">Save Draft and Export as PDF actions with showAlert() confirmation</div><div class="req-tag">SHOULD</div></div>
+
+  <h3>7.4 Dispatch — 6-Step Tracker</h3>
+  <p>The dispatch workflow follows this exact 6-step sequence with specific visual states:</p>
+  <div class="flow">
+    <div class="flow-step"><div class="flow-dot">1</div><div class="flow-label">Confirmed</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-dot">2</div><div class="flow-label">Production</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-dot">3</div><div class="flow-label">Loaded</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-dot active">4</div><div class="flow-label">In Transit</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-dot">5</div><div class="flow-label">Delivered</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-dot paid">₹</div><div class="flow-label">Pmt Received</div></div>
+  </div>
+  <div class="req-row"><div class="req-id must">FR-030</div><div class="req-text">6-step delivery tracker per order; step 6 ("Payment Received") uses GREEN (.paid) visual state distinct from accent (.done)</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-031</div><div class="req-text">Order #1040 (Suresh Infra): all 6 steps done including Payment Received (₹22,400 NEFT)</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-032</div><div class="req-text">Order #1041 (Patil Builders): steps 1–3 done, step 4 active (In Transit); steps 5–6 pending</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-033</div><div class="req-text">Order #1042 (Rajesh): steps 1–5 done; step 6 (Payment Received) active/awaiting</div><div class="req-tag">MUST</div></div>
+
+  <h3>7.5 Online Orders Module</h3>
+  <div class="req-row"><div class="req-id must">FR-040</div><div class="req-text">Channel breakdown cards: B2B Portal, WhatsApp Business, Email Orders, Phone/IVR</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-041</div><div class="req-text">Place B2B online order form: customer, channel, product, qty, delivery date, payment mode, address</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">FR-042</div><div class="req-text">Recent online orders table (OO-042 through OO-047) with channel badges and status</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id should">FR-043</div><div class="req-text">Portal Analytics: registered users, session duration, quote-to-order conversion (68%), repeat orders</div><div class="req-tag">SHOULD</div></div>
+  <div class="req-row"><div class="req-id should">FR-044</div><div class="req-text">Integrations panel: WhatsApp API (Connected), Email (Connected), Google My Business (Pending)</div><div class="req-tag">SHOULD</div></div>
+</div>
+
+<!-- ══ §8 PAYMENT CENTRE ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <div><div class="section-title">Payment Centre Specification</div><div class="section-subtitle">All payment methods, transaction flow, and data model</div></div>
+  </div>
+
+  <h3>8.1 Payment Methods</h3>
+  <table class="prd-table">
+    <tr><th>Key</th><th>Icon</th><th>Display Name</th><th>Description</th><th>Extra Fields Required</th></tr>
+    <tr><td><code>qr</code></td><td>ti-qrcode</td><td>QR / UPI</td><td>GPay · PhonePe · Paytm · BHIM</td><td>UPI ID, Transaction ID + Show QR SVG panel</td></tr>
+    <tr><td><code>upi</code></td><td>ti-brand-google</td><td>UPI Direct</td><td>Bank-to-bank UPI transfer</td><td>UPI ID, Transaction ID</td></tr>
+    <tr><td><code>neft</code></td><td>ti-building-bank</td><td>NEFT / RTGS</td><td>Bank wire transfer</td><td>Bank Name, UTR No., Account (last 4 digits)</td></tr>
+    <tr><td><code>card</code></td><td>ti-credit-card</td><td>Card</td><td>Debit / Credit / RuPay / Amex</td><td>Card Type (select), Last 4 digits, Bank/Issuer</td></tr>
+    <tr><td><code>cheque</code></td><td>ti-writing</td><td>Cheque / DD</td><td>Bank cheque or demand draft</td><td>Bank Name, Cheque No., Cheque Date, Branch</td></tr>
+    <tr><td><code>cash</code></td><td>ti-cash</td><td>Cash</td><td>Physical cash payment</td><td>Received/Given by, Denomination selector</td></tr>
+    <tr><td><code>other</code></td><td>ti-dots-circle-horizontal</td><td>Other</td><td>Barter / Exchange / Other</td><td>Free text remarks</td></tr>
+  </table>
+
+  <h3>8.2 Payment Transaction Flow</h3>
+  <div class="flow" style="flex-wrap:wrap">
+    <div class="flow-step"><div class="flow-dot" style="width:36px;height:36px;font-size:9px">DIR</div><div class="flow-label">Select Direction<br>(Vendor/Customer)</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-dot" style="width:36px;height:36px;font-size:9px">MTH</div><div class="flow-label">Select Method<br>(7 options)</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-dot" style="width:36px;height:36px;font-size:9px">QR</div><div class="flow-label">QR Display<br>(if qr/upi)</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-dot" style="width:36px;height:36px;font-size:9px">FRM</div><div class="flow-label">Fill Form<br>(amount, party, ref)</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-dot active" style="width:36px;height:36px;font-size:9px">CNF</div><div class="flow-label">Confirm Modal<br>(review details)</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="flow-dot paid" style="width:36px;height:36px;font-size:9px">REC</div><div class="flow-label">Receipt + KPI<br>Update</div></div>
+  </div>
+
+  <h3>8.3 Transaction Data Model</h3>
+  <table class="prd-table">
+    <tr><th>Field</th><th>Type</th><th>Values</th><th>Notes</th></tr>
+    <tr><td><code>id</code></td><td>String</td><td>TXN-001, TXN-002…</td><td>Auto-incremented, zero-padded</td></tr>
+    <tr><td><code>dir</code></td><td>Enum</td><td>'in' | 'out'</td><td>in = Customer receipt, out = Vendor payment</td></tr>
+    <tr><td><code>party</code></td><td>String</td><td>From VENDORS or CUSTOMERS_LIST</td><td>Required field</td></tr>
+    <tr><td><code>method</code></td><td>String</td><td>Display name (e.g. 'NEFT / RTGS')</td><td>From PAY_METHODS[key].name</td></tr>
+    <tr><td><code>amount</code></td><td>Number</td><td>Positive ₹ value</td><td>Validated > 0 before confirm</td></tr>
+    <tr><td><code>date</code></td><td>String</td><td>'Jun 17' format</td><td>From date input</td></tr>
+    <tr><td><code>ref</code></td><td>String</td><td>Invoice/order ref or auto-generated</td><td>AUTO-{timestamp} if blank</td></tr>
+    <tr><td><code>status</code></td><td>Enum</td><td>'Paid' | 'Processing' | 'Pending'</td><td>Cheque/DD → Processing; others → Paid</td></tr>
+    <tr><td><code>type</code></td><td>Enum</td><td>'Vendor' | 'Customer'</td><td>Derived from dir</td></tr>
+  </table>
+
+  <h3>8.4 KPI Calculations</h3>
+  <table class="prd-table">
+    <tr><th>KPI</th><th>Formula</th></tr>
+    <tr><td>Paid to Vendors (MTD)</td><td>Σ amount WHERE dir='out' AND status='Paid'</td></tr>
+    <tr><td>Received from Customers</td><td>Σ amount WHERE dir='in' AND status='Paid'</td></tr>
+    <tr><td>Outstanding AR</td><td>Σ amount WHERE dir='in' AND status='Pending'</td></tr>
+    <tr><td>Transactions Today</td><td>COUNT WHERE date = today's date string</td></tr>
+    <tr><td>Processing</td><td>COUNT WHERE status='Processing'</td></tr>
+  </table>
+
+  <h3>8.5 Seeded Transaction History (Initial Data)</h3>
+  <table class="prd-table">
+    <tr><th>ID</th><th>Dir</th><th>Party</th><th>Method</th><th>Amount</th><th>Status</th></tr>
+    <tr><td>TXN-001</td><td><span class="badge badge-red">↑ Out</span></td><td>ACC Cement Depot</td><td>NEFT</td><td>₹42,500</td><td><span class="badge badge-green">Paid</span></td></tr>
+    <tr><td>TXN-002</td><td><span class="badge badge-green">↓ In</span></td><td>Rajesh Constructions</td><td>UPI</td><td>₹18,500</td><td><span class="badge badge-green">Paid</span></td></tr>
+    <tr><td>TXN-003</td><td><span class="badge badge-red">↑ Out</span></td><td>Shinde Aggregates</td><td>Cash</td><td>₹3,500</td><td><span class="badge badge-green">Paid</span></td></tr>
+    <tr><td>TXN-004</td><td><span class="badge badge-green">↓ In</span></td><td>Suresh Infra</td><td>NEFT</td><td>₹22,400</td><td><span class="badge badge-green">Paid</span></td></tr>
+    <tr><td>TXN-005</td><td><span class="badge badge-red">↑ Out</span></td><td>Patil Stone Depot</td><td>Cheque</td><td>₹14,800</td><td><span class="badge badge-blue">Processing</span></td></tr>
+    <tr><td>TXN-006</td><td><span class="badge badge-green">↓ In</span></td><td>Patil Builders</td><td>Card</td><td>₹7,200</td><td><span class="badge badge-green">Paid</span></td></tr>
+    <tr><td>TXN-007</td><td><span class="badge badge-green">↓ In</span></td><td>Ganesh Homes</td><td>Cash</td><td>₹14,200</td><td><span class="badge badge-amber">Pending</span></td></tr>
+    <tr><td>TXN-008</td><td><span class="badge badge-red">↑ Out</span></td><td>National Transport</td><td>UPI</td><td>₹6,000</td><td><span class="badge badge-green">Paid</span></td></tr>
+    <tr><td>TXN-009</td><td><span class="badge badge-green">↓ In</span></td><td>Sharma Infra</td><td>NEFT</td><td>₹15,000</td><td><span class="badge badge-green">Paid</span></td></tr>
+    <tr><td>TXN-010</td><td><span class="badge badge-red">↑ Out</span></td><td>Raj Electricals</td><td>Cash</td><td>₹2,200</td><td><span class="badge badge-green">Paid</span></td></tr>
+  </table>
+</div>
+
+<!-- ══ §9 HR & PAYROLL ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <div><div class="section-title">HR & Payroll Specification</div><div class="section-subtitle">Labour data, check-in logic, wages calculation, and timesheet</div></div>
+  </div>
+
+  <h3>9.1 Labour Register (15 Workers)</h3>
+  <table class="prd-table">
+    <tr><th>Name</th><th>Role</th><th>Daily Wage</th><th>Advance</th><th>Default Status</th></tr>
+    <tr><td>Ramesh Kumar</td><td>Block Maker</td><td>₹550</td><td>₹2,000</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Suresh Bhosale</td><td>Mixer Operator</td><td>₹600</td><td>₹0</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Mahesh Patil</td><td>Loader</td><td>₹480</td><td>₹0</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Ganesh Thorat</td><td>Block Maker</td><td>₹550</td><td>₹0</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Raju Jadhav</td><td>Helper</td><td>₹420</td><td>₹0</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Santosh More</td><td>Block Maker</td><td>₹550</td><td>₹0</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Vijay Shinde</td><td>Loader</td><td>₹480</td><td>₹1,500</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Anil Waghmare</td><td>Helper</td><td>₹420</td><td>₹0</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Dnyaneshwar Kale</td><td><strong>Supervisor</strong></td><td>₹800</td><td>₹0</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Pravin Gaikwad</td><td>Block Maker</td><td>₹550</td><td>₹0</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Kishor Deshmukh</td><td><strong>Driver</strong></td><td>₹650</td><td>₹0</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Rajendra Yadav</td><td>Helper</td><td>₹420</td><td>₹0</td><td><span class="badge badge-green">Present</span></td></tr>
+    <tr><td>Balaji Pawar</td><td>Block Maker</td><td>₹550</td><td>₹0</td><td><span class="badge badge-red">Absent</span></td></tr>
+    <tr><td>Omkar Nikam</td><td>Loader</td><td>₹480</td><td>₹0</td><td><span class="badge badge-red">Absent</span></td></tr>
+    <tr><td>Tushar Jagtap</td><td>Helper</td><td>₹420</td><td>₹0</td><td><span class="badge badge-red">Absent</span></td></tr>
+  </table>
+
+  <h3>9.2 Check-in / Check-out Logic</h3>
+  <table class="prd-table">
+    <tr><th>Current Status</th><th>Action</th><th>Result</th><th>Fields Updated</th></tr>
+    <tr><td><span class="badge badge-red">absent</span></td><td>Tap "Check In"</td><td><span class="badge badge-green">in</span></td><td>status='in', checkin=now(), checkout=''</td></tr>
+    <tr><td><span class="badge badge-green">in</span></td><td>Tap "Check Out"</td><td><span class="badge badge-amber">out</span></td><td>status='out', checkout=now()</td></tr>
+    <tr><td><span class="badge badge-amber">out</span></td><td>Tap "Check In"</td><td><span class="badge badge-green">in</span></td><td>status='in', checkin=now(), checkout=''</td></tr>
+  </table>
+  <div class="callout info"><b>Live Clock:</b> setInterval(1000) updates #l-time every second when the Labour section is active. Clock stops (clearInterval) when navigating away.</div>
+
+  <h3>9.3 Wages Calculation Formula</h3>
+  <table class="prd-table">
+    <tr><th>Step</th><th>Formula</th><th>Notes</th></tr>
+    <tr><td>Attendance Days</td><td>Σ(P + H × 0.5) for the month</td><td>Excluding Sundays and Indian holidays</td></tr>
+    <tr><td>Gross Wages</td><td>attendance_days × daily_wage</td><td>Rounded to nearest ₹</td></tr>
+    <tr><td>PF Deduction</td><td>gross × 0.12</td><td>12% employer Provident Fund contribution</td></tr>
+    <tr><td>Net Payable</td><td>gross − pf_deduction − adv</td><td>adv = outstanding advance amount</td></tr>
+    <tr><td>Status</td><td>net > 0 → "Pending" | net ≤ 0 → "Paid"</td><td>Used for payment-status badge</td></tr>
+  </table>
+
+  <h3>9.4 Wages Section Tabs</h3>
+  <table class="prd-table">
+    <tr><th>#</th><th>Tab Name</th><th>Contents</th></tr>
+    <tr><td>1</td><td>Wages Register</td><td>Dynamic table: Name, Role, Daily Rate, Days Present, Half Days, Absent, Gross, PF, Advance, Net Payable, Status</td></tr>
+    <tr><td>2</td><td>Pay Wages</td><td>Month selector, payment mode, date, UTR reference, per-worker or all; shows payable/PF/net summary</td></tr>
+    <tr><td>3</td><td>Payment History</td><td>Month-wise history: Labour, Days, OT Hours, OT Amount, Advance Deducted, Net Paid, Date, Mode, Status</td></tr>
+    <tr><td>4</td><td>Advance / Deduction</td><td>Log advance (amount, reason, repayment plan) + Log deduction (type: absent/PF/damage/other, amount)</td></tr>
+  </table>
+</div>
+
+<!-- ══ §10 MULTILINGUAL ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <div><div class="section-title">Multilingual System</div><div class="section-subtitle">9-language support specification and implementation</div></div>
+  </div>
+
+  <h3>10.1 Supported Languages</h3>
+  <div class="lang-grid">
+    <div class="lang-card"><div class="lang-code">EN</div><div><div class="lang-name">English</div><div class="lang-native">Default language</div></div></div>
+    <div class="lang-card"><div class="lang-code">HI</div><div><div class="lang-name">Hindi</div><div class="lang-native">हिंदी</div></div></div>
+    <div class="lang-card"><div class="lang-code">MR</div><div><div class="lang-name">Marathi</div><div class="lang-native">मराठी</div></div></div>
+    <div class="lang-card"><div class="lang-code">KN</div><div><div class="lang-name">Kannada</div><div class="lang-native">ಕನ್ನಡ</div></div></div>
+    <div class="lang-card"><div class="lang-code">TE</div><div><div class="lang-name">Telugu</div><div class="lang-native">తెలుగు</div></div></div>
+    <div class="lang-card"><div class="lang-code">TA</div><div><div class="lang-name">Tamil</div><div class="lang-native">தமிழ்</div></div></div>
+    <div class="lang-card"><div class="lang-code">GU</div><div><div class="lang-name">Gujarati</div><div class="lang-native">ગુજરાતી</div></div></div>
+    <div class="lang-card"><div class="lang-code">KOK</div><div><div class="lang-name">Konkani</div><div class="lang-native">Goan Konkani</div></div></div>
+    <div class="lang-card"><div class="lang-code">TCY</div><div><div class="lang-name">Tulu</div><div class="lang-native">ತುಳು</div></div></div>
+  </div>
+
+  <h3>10.2 setLang() Implementation Steps</h3>
+  <div class="req-row"><div class="req-id must">LNG-01</div><div class="req-text">Mark clicked button .active; remove .active from all other lang-btn elements</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">LNG-02</div><div class="req-text">Update #page-title text using LANG_LABELS[code][currentPageId]</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">LNG-03</div><div class="req-text">Update .brand-name innerHTML — split brand string on '\n' and replace with &lt;br&gt;</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">LNG-04</div><div class="req-text">Update .brand-sub text to translated tagline</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">LNG-05</div><div class="req-text">Update each .nav-item text node by matching icon class to section key via icon→key lookup map</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">LNG-06</div><div class="req-text">Preserve .nav-badge elements after text node replacement</div><div class="req-tag">MUST</div></div>
+
+  <h3>10.3 Required LANG_LABELS Keys (per language)</h3>
+  <p>Each language object in LANG_LABELS must include all 25 keys:</p>
+  <p style="font-family:monospace;font-size:11.5px;background:#f0f2f8;padding:10px 14px;border-radius:6px;border-left:3px solid var(--blue);color:var(--ink)">
+    overview · orders · quote · inventory · production · rawmat · catalogue · customers · pipeline · ledger · dispatch · payments · online-orders · labour · wages · timesheet · notifications · calendar · reports · map · contact · settings · about · brand · tagline
+  </p>
+</div>
+
+<!-- ══ §11 DATA MODELS ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">11</div>
+    <div><div class="section-title">Data Models</div><div class="section-subtitle">In-memory JavaScript data structures for all modules</div></div>
+  </div>
+
+  <h3>11.1 Order Data Model</h3>
+  <table class="prd-table">
+    <tr><th>Field</th><th>Type</th><th>Example</th></tr>
+    <tr><td>id</td><td>String</td><td>'#1042'</td></tr>
+    <tr><td>cust</td><td>String</td><td>'Rajesh Constructions'</td></tr>
+    <tr><td>product</td><td>String</td><td>'Solid 6" Block'</td></tr>
+    <tr><td>qty</td><td>Number</td><td>500</td></tr>
+    <tr><td>amount</td><td>String</td><td>'₹18,500'</td></tr>
+    <tr><td>date</td><td>String</td><td>'Jun 15'</td></tr>
+    <tr><td>payment</td><td>Enum</td><td>'Paid' | 'Partial' | 'Pending' | 'Advance'</td></tr>
+    <tr><td>status</td><td>Enum</td><td>'Delivered' | 'In Transit' | 'Pending' | 'Cancelled'</td></tr>
+  </table>
+
+  <h3>11.2 Product Data Model (PRODS)</h3>
+  <table class="prd-table">
+    <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+    <tr><td>name</td><td>String</td><td>Full product name with dimensions</td></tr>
+    <tr><td>sku</td><td>String</td><td>e.g. 'SB-6816'</td></tr>
+    <tr><td>price</td><td>Number</td><td>₹ per unit (pre-GST)</td></tr>
+    <tr><td>icon</td><td>String</td><td>Tabler icon class e.g. 'ti-box'</td></tr>
+    <tr><td>stock</td><td>Number</td><td>Current units in stock</td></tr>
+    <tr><td>max</td><td>Number</td><td>Maximum capacity for progress bar %</td></tr>
+  </table>
+
+  <h3>11.3 Quote Line Item (QI Array)</h3>
+  <table class="prd-table">
+    <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+    <tr><td>name</td><td>String</td><td>Product name</td></tr>
+    <tr><td>price</td><td>Number</td><td>Base price per unit</td></tr>
+    <tr><td>qty</td><td>Number</td><td>Editable quantity (min 1)</td></tr>
+    <tr><td>disc</td><td>Number</td><td>Discount % (0–30)</td></tr>
+    <tr><td>sku</td><td>String</td><td>Used for deduplication on add</td></tr>
+  </table>
+  <div class="callout success"><b>Deduplication:</b> If same SKU is added again, qty is incremented on existing line item rather than creating a duplicate row.</div>
+
+  <h3>11.4 Chart Data (Overview)</h3>
+  <table class="prd-table">
+    <tr><th>Chart</th><th>Canvas ID</th><th>Data</th></tr>
+    <tr><td>Revenue Line</td><td>c-rev</td><td>[6.2, 7.1, 7.8, 8.4, 9.0, 9.8] (Jan–Jun, ₹L)</td></tr>
+    <tr><td>Sales Donut</td><td>c-donut</td><td>[48, 32, 20] (Solid/Hollow/Paver %)</td></tr>
+    <tr><td>Production Bar</td><td>c-week</td><td>[980, 1100, 1050, 1200, 1320, 890, 600] (Mon–Sun)</td></tr>
+    <tr><td>Pipeline Donut</td><td>c-pipe</td><td>[6.2, 4.8, 5.4, 2.0] (Lead/Quote/Neg/PO, ₹L)</td></tr>
+    <tr><td>Revenue vs Cost</td><td>c-margin</td><td>Revenue [6.2…9.8] vs Cost [3.9…5.9] (₹L)</td></tr>
+    <tr><td>Attendance Bar</td><td>c-attend</td><td>[94,91,96,89,93,88,0,0,0,0,0,0] (Jan–Dec %)</td></tr>
+  </table>
+</div>
+
+<!-- ══ §12 NON-FUNCTIONAL REQUIREMENTS ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">12</div>
+    <div><div class="section-title">Non-Functional Requirements</div><div class="section-subtitle">Performance, accessibility, security, and maintainability</div></div>
+  </div>
+
+  <h3>12.1 Performance</h3>
+  <div class="req-row"><div class="req-id must">NFR-01</div><div class="req-text">Initial page load under 3 seconds on 4G connection (CDN assets load in parallel)</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">NFR-02</div><div class="req-text">Charts lazy-initialize only when their section becomes active (prevents hidden canvas errors)</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">NFR-03</div><div class="req-text">Theme toggle destroys all charts then re-inits visible chart after 50ms delay to prevent colour bleed</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id should">NFR-04</div><div class="req-text">Smooth CSS transitions (0.15s ease) on all interactive elements: nav hover, theme, buttons</div><div class="req-tag">SHOULD</div></div>
+
+  <h3>12.2 Accessibility</h3>
+  <div class="req-row"><div class="req-id must">NFR-10</div><div class="req-text">All &lt;canvas&gt; elements have role="img" and aria-label describing the chart content</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">NFR-11</div><div class="req-text">Form inputs have associated &lt;label&gt; elements; selects have readable option text</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id should">NFR-12</div><div class="req-text">Colour contrast ratios: text on --bg2 ≥ 4.5:1 in both dark and light modes</div><div class="req-tag">SHOULD</div></div>
+  <div class="req-row"><div class="req-id should">NFR-13</div><div class="req-text">Custom scrollbar: 5px width, rounded thumb, matches theme bg</div><div class="req-tag">SHOULD</div></div>
+
+  <h3>12.3 Security & Data</h3>
+  <div class="req-row"><div class="req-id must">NFR-20</div><div class="req-text">No API keys, credentials, or sensitive data hardcoded in the HTML file</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">NFR-21</div><div class="req-text">All data is in-memory only — no localStorage, no backend, no cookies</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">NFR-22</div><div class="req-text">QR code is a deterministic SVG pattern (not a real payment QR) — clearly decorative</div><div class="req-tag">MUST</div></div>
+
+  <h3>12.4 Indian Business Conventions</h3>
+  <div class="req-row"><div class="req-id must">NFR-30</div><div class="req-text">All monetary values use ₹ symbol + toLocaleString('en-IN') for Indian number formatting</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">NFR-31</div><div class="req-text">Large amounts shown in Lakh notation: ₹9.8L (not ₹9,80,000 or ₹980,000)</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">NFR-32</div><td class="req-text">Financial year: April → March. Working week: Mon–Sat. Sunday = rest day (excluded from timesheet)</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">NFR-33</div><div class="req-text">GSTIN format: 2-digit state code (27 for Maharashtra) + 13 alphanumeric characters</div><div class="req-tag">MUST</div></div>
+  <div class="req-row"><div class="req-id must">NFR-34</div><div class="req-text">PF (Provident Fund) deduction: exactly 12% of gross wages per worker per month</div><div class="req-tag">MUST</div></div>
+</div>
+
+<!-- ══ §13 INDIAN HOLIDAYS 2026 ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">13</div>
+    <div><div class="section-title">Indian Holidays 2026</div><div class="section-subtitle">Complete HOL object — single source of truth for Calendar, Timesheet, and Attendance</div></div>
+  </div>
+  <div class="callout warn"><b>Single Source of Truth:</b> This HOL object drives three modules simultaneously — Calendar (cell highlighting + table), Timesheet (day exclusions), and Attendance chart (working day calculation). Never duplicate or override.</div>
+  <table class="prd-table">
+    <tr><th>#</th><th>Date Key</th><th>Holiday Name</th><th>Day</th><th>Type</th></tr>
+    <tr><td>1</td><td>2026-01-14</td><td>Makar Sankranti</td><td>Wednesday</td><td><span class="badge badge-gold">Regional</span></td></tr>
+    <tr><td>2</td><td>2026-01-26</td><td>Republic Day</td><td>Monday</td><td><span class="badge badge-red">National</span></td></tr>
+    <tr><td>3</td><td>2026-03-03</td><td>Holi</td><td>Tuesday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>4</td><td>2026-03-27</td><td>Good Friday</td><td>Friday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>5</td><td>2026-04-06</td><td>Ram Navami</td><td>Monday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>6</td><td>2026-04-14</td><td>Dr. Ambedkar Jayanti</td><td>Tuesday</td><td><span class="badge badge-red">National</span></td></tr>
+    <tr><td>7</td><td>2026-05-01</td><td>Maharashtra Day / Labour Day</td><td>Friday</td><td><span class="badge badge-gold">State</span></td></tr>
+    <tr><td>8</td><td>2026-05-15</td><td>Buddha Purnima</td><td>Friday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>9</td><td>2026-06-17</td><td>Eid ul-Adha</td><td>Wednesday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>10</td><td>2026-08-15</td><td>Independence Day</td><td>Saturday</td><td><span class="badge badge-red">National</span></td></tr>
+    <tr><td>11</td><td>2026-08-26</td><td>Janmashtami</td><td>Wednesday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>12</td><td>2026-09-02</td><td>Ganesh Chaturthi</td><td>Wednesday</td><td><span class="badge badge-gold">State</span></td></tr>
+    <tr><td>13</td><td>2026-09-19</td><td>Milad-un-Nabi</td><td>Saturday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>14</td><td>2026-10-02</td><td>Gandhi Jayanti</td><td>Friday</td><td><span class="badge badge-red">National</span></td></tr>
+    <tr><td>15</td><td>2026-10-21</td><td>Dussehra / Vijayadashami</td><td>Wednesday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>16</td><td>2026-11-01</td><td>Diwali</td><td>Sunday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>17</td><td>2026-11-02</td><td>Diwali (Lakshmi Puja)</td><td>Monday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>18</td><td>2026-11-15</td><td>Guru Nanak Jayanti</td><td>Sunday</td><td><span class="badge badge-blue">Public</span></td></tr>
+    <tr><td>19</td><td>2026-12-25</td><td>Christmas Day</td><td>Friday</td><td><span class="badge badge-blue">Public</span></td></tr>
+  </table>
+</div>
+
+<!-- ══ §14 DEPLOYMENT GUIDE ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">14</div>
+    <div><div class="section-title">Deployment Guide</div><div class="section-subtitle">4 options to go live — from instant local preview to Vercel/Netlify/GitHub Pages</div></div>
+  </div>
+
+  <div class="callout warn"><b>Important:</b> Claude AI cannot deploy code or generate live URLs. The AI produces the index.html file; the user deploys it using one of the options below.</div>
+
+  <h3>Option A — Vercel (Recommended · Free · ~2 minutes)</h3>
+  <table class="prd-table">
+    <tr><th>Step</th><th>Action</th></tr>
+    <tr><td>1</td><td>Go to <strong>vercel.com</strong> → sign in or create free account</td></tr>
+    <tr><td>2</td><td>Click <strong>"Add New… → Project"</strong></td></tr>
+    <tr><td>3</td><td>Choose <strong>"Deploy without a Git repository"</strong></td></tr>
+    <tr><td>4</td><td>Drag your <code>index.html</code> file onto the upload area</td></tr>
+    <tr><td>5</td><td>Leave all settings default → click <strong>"Deploy"</strong></td></tr>
+    <tr><td>6</td><td>Live URL: <code>https://your-project-name.vercel.app</code></td></tr>
+    <tr><td>7</td><td>To update: re-deploy by uploading the new index.html</td></tr>
+  </table>
+
+  <h3>Option B — Netlify Drop (Fastest · No login required)</h3>
+  <table class="prd-table">
+    <tr><th>Step</th><th>Action</th></tr>
+    <tr><td>1</td><td>Go to <strong>app.netlify.com/drop</strong></td></tr>
+    <tr><td>2</td><td>Drag <code>index.html</code> directly onto the page</td></tr>
+    <tr><td>3</td><td>Instant live URL generated — no account needed for first deploy</td></tr>
+  </table>
+
+  <h3>Option C — Local Preview (Instant · Offline capable)</h3>
+  <table class="prd-table">
+    <tr><th>Step</th><th>Action</th></tr>
+    <tr><td>1</td><td>Save the artifact as <code>index.html</code> on your desktop</td></tr>
+    <tr><td>2</td><td>Double-click the file to open in any browser</td></tr>
+    <tr><td>3</td><td>CDN assets (fonts, icons, Chart.js) load from internet — requires connection</td></tr>
+    <tr><td>4</td><td>No server, no install, no build step required</td></tr>
+  </table>
+
+  <h3>Option D — GitHub Pages (Free · Version-controlled)</h3>
+  <table class="prd-table">
+    <tr><th>Step</th><th>Action</th></tr>
+    <tr><td>1</td><td>Create a new GitHub repository (public)</td></tr>
+    <tr><td>2</td><td>Upload <code>index.html</code> to the <code>main</code> branch root</td></tr>
+    <tr><td>3</td><td>Settings → Pages → Source: main branch → Save</td></tr>
+    <tr><td>4</td><td>Live at <code>https://yourusername.github.io/repo-name</code></td></tr>
+  </table>
+</div>
+
+<!-- ══ §15 VERSION HISTORY ══ -->
+<div class="section page-break">
+  <div class="section-header">
+    <div class="section-num">15</div>
+    <div><div class="section-title">Version History & Changelog</div><div class="section-subtitle">Evolutionary development from v1.0 to v5.0</div></div>
+  </div>
+  <table class="prd-table">
+    <tr><th>Version</th><th>Key Additions</th><th>Sections Added</th></tr>
+    <tr><td><span class="badge badge-dark">v1.0</span></td><td>Initial dashboard skeleton with core operations view</td><td>Overview, Orders, Location, Contact, Alerts</td></tr>
+    <tr><td><span class="badge badge-dark">v2.0</span></td><td>Full B2B commerce suite and HR modules</td><td>Quote Builder, Inventory, Production, Raw Materials, Customers, Pipeline, Ledger, Catalogue, Labour, Timesheet, Calendar 2026, Reports, Settings</td></tr>
+    <tr><td><span class="badge badge-dark">v3.0</span></td><td>Dispatch tracking, complete payroll system, dark/light theme</td><td>Dispatch (5-step), Wages & Payroll (4 tabs), Dark/Light toggle</td></tr>
+    <tr><td><span class="badge badge-dark">v4.0</span></td><td>Full payment centre, multilingual UI, brand logo SVG</td><td>Payment Centre (7 methods), Language bar (9 languages), Shree Kundodari SVG logo, 🏗️ favicon</td></tr>
+    <tr><td><span class="badge badge-red">v5.0 ✓</span></td><td>Complete feature parity — current production version</td><td>Dispatch 6th step "Payment Received", Online Orders, About Us page, updated brand name (Shree not Sri), full LANG_LABELS for all 9 languages</td></tr>
+  </table>
+</div>
+
+<!-- ══ §16 DELIVERY CHECKLIST ══ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-num">16</div>
+    <div><div class="section-title">Delivery Checklist</div><div class="section-subtitle">Pre-deployment verification — every item must pass before release</div></div>
+  </div>
+
+  <h3>16.1 Structure & Shell</h3>
+  <table class="prd-table">
+    <tr><th>✓</th><th>Requirement</th><th>Acceptance Criteria</th></tr>
+    <tr><td>☐</td><td>All 23 sections present</td><td>Each sec-{id} div exists and is reachable via sidebar</td></tr>
+    <tr><td>☐</td><td>Language bar renders</td><td>9 buttons visible; active state on English by default</td></tr>
+    <tr><td>☐</td><td>Theme toggle works</td><td>Dark/light switches correctly; charts re-init</td></tr>
+    <tr><td>☐</td><td>SVG logo correct</td><td>Gold श्री + arch + red banner in sidebar (40×40) and About Us (120×120)</td></tr>
+    <tr><td>☐</td><td>Favicon visible</td><td>🏗️ appears in browser tab</td></tr>
+    <tr><td>☐</td><td>Single file</td><td>No external .css or .js files; CDN links only</td></tr>
+  </table>
+
+  <h3>16.2 Core Modules</h3>
+  <table class="prd-table">
+    <tr><th>✓</th><th>Module</th><th>Acceptance Criteria</th></tr>
+    <tr><td>☐</td><td>Dispatch 6-step</td><td>Payment Received step visible; green (.paid) state on step 6</td></tr>
+    <tr><td>☐</td><td>Payment Centre</td><td>All 7 methods selectable; QR SVG renders; confirm modal → receipt flow completes</td></tr>
+    <tr><td>☐</td><td>Labour check-in/out</td><td>Status toggles correctly; live clock updates every 1 second</td></tr>
+    <tr><td>☐</td><td>Wages Register</td><td>Gross, PF (12%), advance deduction, net payable calculated correctly</td></tr>
+    <tr><td>☐</td><td>Timesheet</td><td>P/A/½/— renders for selected month; Sundays and holidays show —</td></tr>
+    <tr><td>☐</td><td>Calendar</td><td>Today highlighted (accent), holidays (red), Sundays (muted); table sorted by date</td></tr>
+    <tr><td>☐</td><td>Quote Builder</td><td>Line totals + GST correct; "Request Quote →" pre-fills from Catalogue</td></tr>
+    <tr><td>☐</td><td>Online Orders</td><td>Channel breakdown, order form, analytics, integrations all present</td></tr>
+    <tr><td>☐</td><td>About Us</td><td>Logo hero, 8 stats, team cards, vision/mission/values</td></tr>
+  </table>
+
+  <h3>16.3 Technical Quality</h3>
+  <table class="prd-table">
+    <tr><th>✓</th><th>Check</th><th>Acceptance Criteria</th></tr>
+    <tr><td>☐</td><td>Charts lazy-init</td><td>No "canvas not found" console errors on first load</td></tr>
+    <tr><td>☐</td><td>Google Maps link</td><td>Location page "Open in Google Maps" button opens correct Bhosari MIDC URL</td></tr>
+    <tr><td>☐</td><td>Form alerts</td><td>All form submit buttons trigger showAlert() with success message</td></tr>
+    <tr><td>☐</td><td>Settings toggles</td><td>.sw2.on class toggles correctly on all settings switches</td></tr>
+    <tr><td>☐</td><td>Currency formatting</td><td>₹ + toLocaleString('en-IN') used throughout — no hard-coded commas</td></tr>
+    <tr><td>☐</td><td>Language switching</td><td>All 9 languages update nav items, page title, and brand name correctly</td></tr>
+    <tr><td>☐</td><td>Mobile responsive</td><td>Sidebar hidden ≤768px; grid collapses to 1-column</td></tr>
+    <tr><td>☐</td><td>No placeholder text</td><td>No "Lorem ipsum", no "Your Company", no "TODO" in final file</td></tr>
+  </table>
+</div>
+
+</div><!-- /content -->
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<div class="doc-footer">
+  <div><strong>Shree Kundodari Cement Products</strong> · Bhosari MIDC, Pimpri-Chinchwad, Pune 411026</div>
+  <div>PRD v5.0 — June 2026 · Confidential</div>
+  <div>info@kundodari.com · <strong>kundodari@upi</strong></div>
+</div>
+
+</div><!-- /doc -->
+
+</body>
+</html>

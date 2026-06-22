@@ -1,0 +1,35 @@
+
+
+Change the topic - Adapt the content for a different subject which is Hotel Business. Name of the Hotel is Subraya of Kolhapur state in Maharashtra. 
+Hotel is veg/non-veg and also Bar and restaurant. Consider all the things from year 1985 to 2018 related to hel in creating the Kolhapur style UI whiah is production ready and vercel deployable with index.html file.
+
+Update the style - Overall design should be Kolhapur Style and consider the History of the Kolhapur while crating the UI
+
+Make it personal - Tailor specifically for your needs
+
+Share your vision - I'll bring it to life - UI should be Kolhapur but the interaction of the user with the UI  should be of the new age.
+
+--------------------------------------------------------
+Add Labours section with , check-in checkout, there timesheet for the monthly and yearly tracker.
+Labour Wage tracker.
+
+Add calendar for 2026 with Indian Holidays integrated with in it.
+
+Convert all my prompts into a single prompt and provide me the skill.md file in the R.I.C.E  P.O.T format.
+
+Use the SKILL which is for the block industry but use it for the Hotel Industry (Transform any artifact into something uniquely by customizing its core elements to Hotel Industry.)
+Yes, make it production ready with additional features which is mainly needed for the E-commerce B2B industry website from your end also.
+
+Provide me the Vercel URL link so that I can directly open the production-ready website:.
+-----------------------------------------------------
+Dark/Light Theme Toggle – click the sun/moon button in the top bar; colours, shadows, and background instantly switch.
+
+Heritage Section – 6 high‑quality images of Kolhapur’s iconic landmarks (Ambabai Temple, Panhala Fort, Kolhapuri Chappals, Rankala Lake, Shahu Memorial, New Palace) with captions.
+
+All images are sourced from Wikimedia Commons (public domain or free licenses) – they load fast and add local character.
+
+The Langauge dropdown still works with English and Marathi (others can be added easily).
+
+Fully responsive, production‑ready, and includes all B2B modules (Quote, Inventory, Ledger, Staff, Timesheet, Calendar, etc.).
+--------------------------------------------------
+So, the language is primarily JavaScript/TypeScript for the UI, with HTML + CSS for structure and styling, and a frontend framework like React or Angular to build the dashboard components.

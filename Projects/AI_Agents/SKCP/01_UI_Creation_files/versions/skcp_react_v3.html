@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sri Kundodhari Cement Products — B2B Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+/* ══════════════════════════════════════════════
+   DESIGN TOKENS — DARK + LIGHT
+══════════════════════════════════════════════ */
+:root{
+  --font-head:'Rajdhani',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --radius:8px;--radius-lg:12px;--radius-xl:16px;
+  --shadow:0 2px 12px rgba(0,0,0,.18);
+  --transition:.15s ease;
+  --sidebar-w:230px;
+}
+[data-theme="dark"]{
+  --bg:#0d0f14;--bg2:#13161f;--bg3:#1a1e2a;--bg4:#212536;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --text:#f1f2f6;--text2:#9a9fb0;--text3:#555c72;
+  --accent:#c9ab82;--accent2:#a8895f;--accent-bg:rgba(201,171,130,.12);
+  --green:#4caf7d;--green-bg:rgba(76,175,125,.14);--green-t:#6de0a5;
+  --amber:#e8a317;--amber-bg:rgba(232,163,23,.14);--amber-t:#f0c060;
+  --red:#e24b4a;--red-bg:rgba(226,75,74,.14);--red-t:#f08080;
+  --blue:#378add;--blue-bg:rgba(55,138,221,.14);--blue-t:#7ab8f5;
+  --purple:#9b59b6;--purple-bg:rgba(155,89,182,.14);--purple-t:#c39bd3;
+  --chart-grid:rgba(255,255,255,.05);--chart-tick:#555;
+  --scroll:#2a2e3d;
+}
+[data-theme="light"]{
+  --bg:#f4f5f8;--bg2:#ffffff;--bg3:#f0f1f5;--bg4:#e8eaf0;
+  --border:rgba(0,0,0,.07);--border2:rgba(0,0,0,.14);
+  --text:#1a1d27;--text2:#5a6070;--text3:#9ba0b0;
+  --accent:#8b6840;--accent2:#6d5030;--accent-bg:rgba(139,104,64,.1);
+  --green:#2e7d52;--green-bg:rgba(46,125,82,.1);--green-t:#2e7d52;
+  --amber:#b57800;--amber-bg:rgba(181,120,0,.1);--amber-t:#b57800;
+  --red:#c62828;--red-bg:rgba(198,40,40,.1);--red-t:#c62828;
+  --blue:#1a6bbf;--blue-bg:rgba(26,107,191,.1);--blue-t:#1a6bbf;
+  --purple:#6a1b9a;--purple-bg:rgba(106,27,154,.1);--purple-t:#6a1b9a;
+  --chart-grid:rgba(0,0,0,.06);--chart-tick:#999;
+  --scroll:#d0d3dc;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:var(--font-body);font-size:13px;background:var(--bg);color:var(--text);line-height:1.5;transition:background var(--transition),color var(--transition)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:99px}
+a{text-decoration:none;color:inherit}
+
+/* ── LAYOUT ── */
+.app{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--bg2);border-right:.5px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;transition:width var(--transition),background var(--transition)}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:.5px solid var(--border);background:var(--bg2);flex-shrink:0;transition:background var(--transition)}
+.content{flex:1;overflow-y:auto;padding:18px}
+
+/* ── BRAND ── */
+.brand{padding:16px 14px 14px;border-bottom:.5px solid var(--border);flex-shrink:0}
+.brand-row{display:flex;align-items:center;gap:10px}
+.brand-logo{width:38px;height:38px;border-radius:var(--radius);background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand-logo i{font-size:20px;color:#1a1208}
+.brand-name{font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--text);line-height:1.2}
+.brand-sub{font-size:9.5px;color:var(--text3);letter-spacing:.05em;margin-top:1px}
+.version-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;padding:2px 7px;border-radius:99px;background:var(--green-bg);color:var(--green-t);margin-top:6px;font-weight:500}
+
+/* ── NAV ── */
+.nav-group{padding:6px 0}
+.nav-label{font-size:9.5px;color:var(--text3);letter-spacing:.08em;padding:8px 14px 3px;text-transform:uppercase;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 14px;font-size:12.5px;color:var(--text2);cursor:pointer;border-left:2px solid transparent;user-select:none;transition:all var(--transition);position:relative}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-bg)}
+.nav-item i{font-size:16px;flex-shrink:0}
+.nav-badge{margin-left:auto;font-size:9.5px;padding:1px 6px;border-radius:99px;font-weight:600}
+.nb-red{background:var(--red-bg);color:var(--red-t)}
+.nb-amber{background:var(--amber-bg);color:var(--amber-t)}
+.nb-green{background:var(--green-bg);color:var(--green-t)}
+
+/* ── TOPBAR ── */
+.topbar-title{font-family:var(--font-head);font-size:18px;font-weight:700;flex-shrink:0;color:var(--text)}
+.tb-search{position:relative;flex:1;max-width:260px}
+.tb-search i{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text3)}
+.tb-search input{width:100%;background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:12px;padding:7px 10px 7px 30px;outline:none;transition:border-color var(--transition);font-family:var(--font-body)}
+.tb-search input:focus{border-color:var(--accent)}
+.tb-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+.icon-btn{width:34px;height:34px;border-radius:var(--radius);border:.5px solid var(--border);background:transparent;color:var(--text2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition);position:relative}
+.icon-btn:hover{background:var(--bg3);color:var(--text)}
+.icon-btn i{font-size:17px}
+.notif-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;border-radius:50%;background:var(--red);border:1.5px solid var(--bg2)}
+.tb-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius);font-size:12px;font-weight:500;cursor:pointer;border:.5px solid var(--border2);background:transparent;color:var(--text);transition:all var(--transition);font-family:var(--font-body)}
+.tb-btn:hover{background:var(--bg3)}
+.tb-btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1208;font-weight:600}
+.tb-btn.primary:hover{background:var(--accent2)}
+.avatar-pill{display:flex;align-items:center;gap:8px;padding:4px 10px 4px 4px;border-radius:99px;border:.5px solid var(--border);cursor:pointer;transition:background var(--transition)}
+.avatar-pill:hover{background:var(--bg3)}
+.av-circle{width:26px;height:26px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--accent)}
+.av-name{font-size:11.5px;font-weight:500;color:var(--text)}
+
+/* ── SECTIONS ── */
+.section{display:none;animation:fadeIn .18s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── KPI GRID ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;position:relative;overflow:hidden;transition:background var(--transition),border-color var(--transition)}
+.kpi::after{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--accent)}
+.kpi.g::after{background:var(--green)}
+.kpi.a::after{background:var(--amber)}
+.kpi.r::after{background:var(--red)}
+.kpi.b::after{background:var(--blue)}
+.kpi.p::after{background:var(--purple)}
+.kpi-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;font-weight:500}
+.kpi-val{font-family:var(--font-head);font-size:26px;font-weight:700;color:var(--text);line-height:1}
+.kpi-sub{font-size:10.5px;margin-top:3px;color:var(--text3)}
+.kpi-sub.up{color:var(--green-t)}
+.kpi-sub.dn{color:var(--amber-t)}
+.kpi-sub.cr{color:var(--red-t)}
+
+/* ── CARDS ── */
+.card{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:14px;transition:background var(--transition),border-color var(--transition)}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px}
+.card-title{font-family:var(--font-head);font-size:15px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px}
+.card-title i{font-size:18px;color:var(--accent)}
+.card-action{font-size:11px;color:var(--blue-t);cursor:pointer;flex-shrink:0}
+.card-action:hover{text-decoration:underline}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.g3{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:14px}
+
+/* ── CHARTS ── */
+.ch{position:relative;width:100%}
+.ch.h160{height:160px}.ch.h200{height:200px}.ch.h220{height:220px}.ch.h260{height:260px}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;padding:7px 10px;color:var(--text3);font-weight:600;border-bottom:.5px solid var(--border);font-size:10px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;font-family:var(--font-body)}
+td{padding:8px 10px;color:var(--text);border-bottom:.5px solid var(--border);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg3)}
+td.muted{color:var(--text2)}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:600;white-space:nowrap;letter-spacing:.02em}
+.bg{background:var(--green-bg);color:var(--green-t)}
+.ba{background:var(--amber-bg);color:var(--amber-t)}
+.br{background:var(--red-bg);color:var(--red-t)}
+.bi{background:var(--blue-bg);color:var(--blue-t)}
+.bp{background:var(--purple-bg);color:var(--purple-t)}
+.bc{background:var(--accent-bg);color:var(--accent)}
+
+/* ── PROGRESS ── */
+.prog{height:5px;background:var(--bg3);border-radius:99px;overflow:hidden;margin-top:4px}
+.pf{height:100%;border-radius:99px}
+.pf.g{background:var(--green)}.pf.a{background:var(--amber)}.pf.r{background:var(--red)}.pf.d{background:var(--accent)}
+
+/* ── FORMS ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.f-full{grid-column:1/-1}
+.fld{display:flex;flex-direction:column;gap:4px}
+.fld label{font-size:11px;color:var(--text2);font-weight:500}
+.fld input,.fld select,.fld textarea{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:12.5px;padding:7px 10px;outline:none;width:100%;transition:border-color var(--transition);font-family:var(--font-body)}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--accent)}
+.fld textarea{min-height:65px;resize:vertical}
+.fld select option{background:var(--bg2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border:.5px solid var(--border2);border-radius:var(--radius);font-size:12px;font-weight:500;cursor:pointer;transition:all var(--transition);background:transparent;color:var(--text);font-family:var(--font-body)}
+.btn:hover{background:var(--bg3)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1208;font-weight:600}
+.btn.primary:hover{background:var(--accent2)}
+.btn.success{background:var(--green-bg);border-color:var(--green);color:var(--green-t)}
+.btn.danger{background:var(--red-bg);border-color:var(--red);color:var(--red-t)}
+.btn.sm{padding:5px 11px;font-size:11px}
+.btn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.alert{display:none;padding:10px 14px;border-radius:var(--radius);font-size:12px;margin-top:10px;border:.5px solid;transition:all .2s}
+.alert.s{background:var(--green-bg);color:var(--green-t);border-color:var(--green)}
+.alert.e{background:var(--red-bg);color:var(--red-t);border-color:var(--red)}
+.alert.show{display:flex;align-items:center;gap:8px}
+
+/* ── THEME TOGGLE ── */
+.theme-toggle{display:flex;align-items:center;gap:7px;padding:8px 14px;margin:8px;border-radius:var(--radius);background:var(--bg3);cursor:pointer;border:.5px solid var(--border)}
+.tt-label{font-size:11.5px;color:var(--text2);flex:1}
+.toggle-sw{width:34px;height:18px;border-radius:99px;background:var(--border2);position:relative;transition:background var(--transition)}
+.toggle-sw.on{background:var(--accent)}
+.toggle-sw::after{content:'';position:absolute;width:12px;height:12px;border-radius:50%;background:white;top:3px;left:3px;transition:left var(--transition)}
+.toggle-sw.on::after{left:19px}
+
+/* ── MISC UI ── */
+.divider{height:.5px;background:var(--border);margin:6px 0}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:.5px solid var(--border);font-size:12.5px}
+.stat-row:last-child{border:none}
+.avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;flex-shrink:0;border:.5px solid var(--border)}
+.delivery-track{display:flex;gap:0;margin:12px 0}
+.dt-step{flex:1;text-align:center;position:relative}
+.dt-step::before{content:'';position:absolute;top:13px;left:-50%;right:50%;height:2px;background:var(--border2)}
+.dt-step:first-child::before{display:none}
+.dt-step.done::before{background:var(--accent)}
+.dt-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border2);background:var(--bg2);display:flex;align-items:center;justify-content:center;margin:0 auto 5px;font-size:12px;position:relative;z-index:1;transition:all var(--transition)}
+.dt-step.done .dt-dot{border-color:var(--accent);background:var(--accent);color:#1a1208}
+.dt-step.active .dt-dot{border-color:var(--accent);color:var(--accent)}
+.dt-label{font-size:10px;color:var(--text3)}
+.dt-step.done .dt-label,.dt-step.active .dt-label{color:var(--text2)}
+.notif-item{display:flex;gap:10px;padding:10px 0;border-bottom:.5px solid var(--border)}
+.notif-item:last-child{border:none}
+.n-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.n-text{font-size:12.5px;color:var(--text);line-height:1.55}
+.n-time{font-size:10px;color:var(--text3);margin-top:2px}
+.n-unread .n-text{font-weight:500}
+.pipe-stage{padding:10px;background:var(--bg3);border-radius:var(--radius);margin-bottom:8px;border:.5px solid var(--border)}
+.ps-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.ps-label{font-size:12px;font-weight:600;color:var(--text)}
+.ps-item{font-size:11.5px;color:var(--text2);padding:5px 9px;background:var(--bg2);border-radius:var(--radius);margin-bottom:3px;border:.5px solid var(--border);display:flex;justify-content:space-between;transition:background var(--transition)}
+.ps-item:hover{background:var(--bg3)}
+.ledger-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:.5px solid var(--border);font-size:12px}
+.ledger-row:last-child{border:none}
+.cr{color:var(--green-t);font-weight:500}.dr{color:var(--red-t);font-weight:500}
+.checkin-btn{padding:5px 12px;font-size:11px;border-radius:99px;cursor:pointer;border:.5px solid;font-weight:600;transition:all var(--transition);font-family:var(--font-body)}
+.ci-in{background:var(--green-bg);border-color:var(--green);color:var(--green-t)}
+.ci-out{background:var(--red-bg);border-color:var(--red);color:var(--red-t)}
+.ts-cell{text-align:center;font-size:11px;padding:5px 3px}
+.ts-p{color:var(--green-t)}.ts-a{color:var(--red-t)}.ts-h{color:var(--amber-t)}.ts-x{color:var(--text3)}
+.contact-item{display:flex;align-items:flex-start;gap:11px;padding:13px;background:var(--bg3);border-radius:var(--radius);border:.5px solid var(--border)}
+.ci-icon{width:36px;height:36px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci-icon i{font-size:17px;color:var(--accent)}
+.ci-label{font-size:10px;color:var(--text3);margin-bottom:1px}
+.ci-val{font-size:13px;font-weight:500;color:var(--text)}
+.timing-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:.5px solid var(--border)}
+.timing-row:last-child{border:none}
+.timing-day{font-size:13px;color:var(--text)}
+.timing-hrs{font-family:var(--font-head);font-size:14px;font-weight:600;color:var(--text)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-dn{font-size:10px;color:var(--text3);text-align:center;padding:5px 2px;font-weight:600}
+.cal-cell{min-height:44px;padding:5px;border-radius:6px;border:.5px solid transparent;cursor:pointer;transition:all .1s}
+.cal-cell:hover{background:var(--bg3);border-color:var(--border)}
+.cal-cell.empty{cursor:default;pointer-events:none}
+.cal-cell.today{background:var(--accent-bg);border-color:var(--accent)}
+.cal-cell.holiday{background:var(--red-bg);border-color:var(--red)}
+.cal-cell.weekend{background:var(--bg3)}
+.cal-num{font-size:11.5px;font-weight:500;color:var(--text2);text-align:center}
+.cal-cell.today .cal-num{color:var(--accent);font-weight:700}
+.cal-cell.holiday .cal-num{color:var(--red-t)}
+.cal-hn{font-size:8px;color:var(--red-t);text-align:center;line-height:1.2;margin-top:1px}
+.product-card{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:15px;cursor:pointer;transition:all var(--transition)}
+.product-card:hover{border-color:var(--accent);background:var(--accent-bg)}
+.product-icon{font-size:28px;color:var(--accent);margin-bottom:9px}
+.product-name{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:2px}
+.product-sku{font-size:10px;color:var(--text3);margin-bottom:6px}
+.product-price{font-family:var(--font-head);font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.stock-bar{margin-bottom:8px}
+.stock-label{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:3px}
+.add-to-cart{display:block;text-align:center;padding:6px;background:var(--blue-bg);color:var(--blue-t);border-radius:var(--radius);font-size:11.5px;font-weight:500;cursor:pointer;transition:all var(--transition)}
+.add-to-cart:hover{background:var(--blue);color:#fff}
+.q-item{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:.5px solid var(--border);font-size:12px}
+.q-item:last-child{border:none}
+.qi-name{flex:1;color:var(--text);font-weight:500}
+.qi-qty-inp{width:64px;font-size:11px;padding:4px 7px;background:var(--bg3);border:.5px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--font-body)}
+.qi-price{min-width:90px;text-align:right;font-weight:600;color:var(--text)}
+.qi-del{color:var(--text3);cursor:pointer;font-size:15px;padding:3px}
+.qi-del:hover{color:var(--red)}
+.total-bar{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-top:.5px solid var(--border)}
+.total-label{font-size:12.5px;color:var(--text2)}
+.total-val{font-family:var(--font-head);font-size:18px;font-weight:700;color:var(--text)}
+.labour-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:.5px solid var(--border)}
+.labour-row:last-child{border:none}
+.la-name{font-size:13px;font-weight:500;color:var(--text)}
+.la-role{font-size:10px;color:var(--text3)}
+.map-placeholder{background:var(--bg3);border-radius:var(--radius-lg);min-height:240px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--text3);font-size:13px;border:.5px solid var(--border)}
+.toggle-sw2{width:38px;height:20px;border-radius:99px;background:var(--border2);position:relative;cursor:pointer;transition:background var(--transition)}
+.toggle-sw2.on{background:var(--green)}
+.toggle-sw2::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:white;top:3px;left:3px;transition:left var(--transition)}
+.toggle-sw2.on::after{left:21px}
+.settings-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:.5px solid var(--border)}
+.settings-row:last-child{border:none}
+.sr-label{font-size:13px;font-weight:500;color:var(--text)}
+.sr-sub{font-size:10.5px;color:var(--text3);margin-top:1px}
+.wages-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:12px}
+.ws-box{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);padding:10px 12px;text-align:center}
+.ws-val{font-family:var(--font-head);font-size:18px;font-weight:700;color:var(--text)}
+.ws-lbl{font-size:10px;color:var(--text3);margin-top:2px}
+.payment-status{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:99px}
+.ps-paid{background:var(--green-bg);color:var(--green-t)}.ps-pending{background:var(--amber-bg);color:var(--amber-t)}.ps-processing{background:var(--blue-bg);color:var(--blue-t)}
+.tab-bar{display:flex;gap:0;border-bottom:.5px solid var(--border);margin-bottom:14px;overflow-x:auto}
+.tab{padding:8px 16px;font-size:12.5px;font-weight:500;color:var(--text2);cursor:pointer;border-bottom:2px solid transparent;transition:all var(--transition);white-space:nowrap}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.empty-state{text-align:center;padding:32px 0;color:var(--text3)}
+.empty-state i{font-size:38px;margin-bottom:8px;display:block}
+.empty-state p{font-size:12.5px}
+.search-highlight{background:var(--amber-bg);color:var(--amber-t);border-radius:2px;padding:0 2px}
+.online-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;box-shadow:0 0 5px var(--green)}
+.offline-dot{width:8px;height:8px;border-radius:50%;background:var(--text3);flex-shrink:0}
+@media(max-width:768px){.sidebar{display:none}.g2,.g3,.form-grid{grid-template-columns:1fr}.g4{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+<nav class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-row">
+      <div class="brand-logo"><i class="ti ti-building-factory-2"></i></div>
+      <div>
+        <div class="brand-name">Sri Kundodhari<br>Cement Products</div>
+        <div class="brand-sub">B2B MANAGEMENT PORTAL</div>
+      </div>
+    </div>
+    <div class="version-badge"><i class="ti ti-circle-check" style="font-size:11px"></i> v2.0 Production</div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-label">Operations</div>
+    <div class="nav-item active" onclick="nav('overview',this)"><i class="ti ti-layout-dashboard"></i>Overview</div>
+    <div class="nav-item" onclick="nav('orders',this)"><i class="ti ti-file-invoice"></i>Orders<span class="nav-badge nb-red">4</span></div>
+    <div class="nav-item" onclick="nav('quote',this)"><i class="ti ti-calculator"></i>Quote Builder</div>
+    <div class="nav-item" onclick="nav('inventory',this)"><i class="ti ti-package"></i>Inventory</div>
+    <div class="nav-item" onclick="nav('production',this)"><i class="ti ti-settings-2"></i>Production</div>
+    <div class="nav-item" onclick="nav('rawmat',this)"><i class="ti ti-stack-2"></i>Raw Materials</div>
+  </div>
+  <div class="divider"></div>
+  <div class="nav-group">
+    <div class="nav-label">B2B Commerce</div>
+    <div class="nav-item" onclick="nav('catalogue',this)"><i class="ti ti-shopping-bag"></i>Product Catalogue</div>
+    <div class="nav-item" onclick="nav('customers',this)"><i class="ti ti-building"></i>Customers<span class="nav-badge nb-amber">1</span></div>
+    <div class="nav-item" onclick="nav('pipeline',this)"><i class="ti ti-chart-dots"></i>Sales Pipeline</div>
+    <div class="nav-item" onclick="nav('ledger',this)"><i class="ti ti-receipt-2"></i>Ledger</div>
+    <div class="nav-item" onclick="nav('dispatch',this)"><i class="ti ti-truck"></i>Dispatch</div>
+  </div>
+  <div class="divider"></div>
+  <div class="nav-group">
+    <div class="nav-label">HR</div>
+    <div class="nav-item" onclick="nav('labour',this)"><i class="ti ti-users"></i>Labour & Attendance</div>
+    <div class="nav-item" onclick="nav('wages',this)"><i class="ti ti-coin-rupee"></i>Wages & Payroll</div>
+    <div class="nav-item" onclick="nav('timesheet',this)"><i class="ti ti-calendar-stats"></i>Timesheet</div>
+  </div>
+  <div class="divider"></div>
+  <div class="nav-group">
+    <div class="nav-label">Admin</div>
+    <div class="nav-item" onclick="nav('notifications',this)"><i class="ti ti-bell"></i>Alerts<span class="nav-badge nb-red">3</span></div>
+    <div class="nav-item" onclick="nav('calendar',this)"><i class="ti ti-calendar"></i>Calendar 2026</div>
+    <div class="nav-item" onclick="nav('reports',this)"><i class="ti ti-chart-bar"></i>Reports & Analytics</div>
+    <div class="nav-item" onclick="nav('map',this)"><i class="ti ti-map-2"></i>Location</div>
+    <div class="nav-item" onclick="nav('contact',this)"><i class="ti ti-phone"></i>Contact</div>
+    <div class="nav-item" onclick="nav('settings',this)"><i class="ti ti-settings"></i>Settings</div>
+  </div>
+
+  <div style="margin-top:auto">
+    <div class="theme-toggle" onclick="toggleTheme()" id="theme-toggle-btn">
+      <i class="ti ti-moon" id="theme-icon" style="font-size:15px;color:var(--text2)"></i>
+      <span class="tt-label" id="theme-label">Dark Mode</span>
+      <div class="toggle-sw on" id="theme-sw"></div>
+    </div>
+    <div style="padding:8px 14px 14px;font-size:10.5px;color:var(--text3);text-align:center">
+      Pimpri-Chinchwad, Pune · MH 411026<br>
+      <span style="color:var(--green-t)">● System Online</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ MAIN ═══════════════════════ -->
+<div class="main">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-title" id="page-title">Overview</div>
+    <div class="tb-search" style="margin-left:12px">
+      <i class="ti ti-search"></i>
+      <input placeholder="Search orders, customers, products…" id="global-search" oninput="handleSearch(this.value)"/>
+    </div>
+    <div class="tb-right">
+      <button class="icon-btn" onclick="nav('notifications',null)" title="Alerts"><i class="ti ti-bell"></i><span class="notif-dot"></span></button>
+      <button class="icon-btn" title="Export data"><i class="ti ti-download"></i></button>
+      <button class="tb-btn primary" onclick="nav('quote',null)"><i class="ti ti-plus"></i>New Quote</button>
+      <div class="avatar-pill">
+        <div class="av-circle">SK</div>
+        <div class="av-name">Admin</div>
+        <i class="ti ti-chevron-down" style="font-size:12px;color:var(--text3)"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content" id="main-content">
+
+<!-- ─── OVERVIEW ─────────────────────────────── -->
+<div id="sec-overview" class="section active">
+  <div class="kpi-grid">
+    <div class="kpi g"><div class="kpi-label">Revenue MTD</div><div class="kpi-val">₹9.8L</div><div class="kpi-sub up">▲ +14% vs last month</div></div>
+    <div class="kpi"><div class="kpi-label">Blocks Produced</div><div class="kpi-val">24,600</div><div class="kpi-sub up">▲ +8% this month</div></div>
+    <div class="kpi a"><div class="kpi-label">Pending Orders</div><div class="kpi-val">4</div><div class="kpi-sub dn">Awaiting dispatch</div></div>
+    <div class="kpi r"><div class="kpi-label">Cement Stock</div><div class="kpi-val">186</div><div class="kpi-sub cr">bags — Critical</div></div>
+    <div class="kpi g"><div class="kpi-label">Active Clients</div><div class="kpi-val">38</div><div class="kpi-sub up">▲ 3 new this month</div></div>
+    <div class="kpi b"><div class="kpi-label">Labour On-Site</div><div class="kpi-val">12/15</div><div class="kpi-sub">Checked in today</div></div>
+    <div class="kpi p"><div class="kpi-label">Pipeline Value</div><div class="kpi-val">₹18.4L</div><div class="kpi-sub">9 active leads</div></div>
+    <div class="kpi"><div class="kpi-label">Outstanding AR</div><div class="kpi-val">₹1.4L</div><div class="kpi-sub dn">3 overdue</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-trending-up"></i>Revenue — last 6 months</div><span class="badge bi">MTD</span></div>
+      <div class="ch h220"><canvas id="c-rev"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-chart-pie"></i>Sales by product</div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+        <span style="font-size:11px;color:var(--text2)"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#C4A882;margin-right:4px"></span>Solid 48%</span>
+        <span style="font-size:11px;color:var(--text2)"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#4CAF7D;margin-right:4px"></span>Hollow 32%</span>
+        <span style="font-size:11px;color:var(--text2)"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#E8A317;margin-right:4px"></span>Paver 20%</span>
+      </div>
+      <div class="ch h200"><canvas id="c-donut"></canvas></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-activity"></i>Live system alerts</div><span class="badge br">3 critical</span></div>
+    <div class="notif-item n-unread"><div class="n-dot" style="background:var(--red)"></div><div><div class="n-text">⚠ Cement stock critical: 186 bags. Reorder threshold 300 bags — estimated stockout in 2 days.</div><div class="n-time">Today, 8:15 AM</div></div></div>
+    <div class="notif-item n-unread"><div class="n-dot" style="background:var(--amber)"></div><div><div class="n-text">Order #1041 (Patil Builders) dispatch overdue by 1 day. Customer paid advance ₹7,200.</div><div class="n-time">Today, 7:00 AM</div></div></div>
+    <div class="notif-item n-unread"><div class="n-dot" style="background:var(--blue)"></div><div><div class="n-text">New B2B registration: Omkar Infrastructure Pvt. Ltd. — pending GSTIN verification.</div><div class="n-time">Today, 10:30 AM</div></div></div>
+    <div class="notif-item"><div class="n-dot" style="background:var(--green)"></div><div><div class="n-text">June production target met: 24,600 units achieved vs 23,000 target.</div><div class="n-time">Today, 9:00 AM</div></div></div>
+  </div>
+</div>
+
+<!-- ─── ORDERS ─────────────────────────────── -->
+<div id="sec-orders" class="section">
+  <div class="kpi-grid">
+    <div class="kpi g"><div class="kpi-label">New Today</div><div class="kpi-val">14</div></div>
+    <div class="kpi a"><div class="kpi-label">Pending Dispatch</div><div class="kpi-val">4</div></div>
+    <div class="kpi b"><div class="kpi-label">In Transit</div><div class="kpi-val">6</div></div>
+    <div class="kpi g"><div class="kpi-label">Delivered MTD</div><div class="kpi-val">87</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title"><i class="ti ti-file-invoice"></i>All orders</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input placeholder="Search orders…" style="font-size:11.5px;padding:5px 10px;background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body);outline:none;width:160px" oninput="filterOrders(this.value,'status-filter')"/>
+        <select id="status-filter" style="font-size:11.5px;padding:5px 9px;background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body)" onchange="filterOrders('','status-filter')">
+          <option>All</option><option>Pending</option><option>In Transit</option><option>Delivered</option><option>Cancelled</option>
+        </select>
+        <button class="btn sm primary" onclick="showAlert('order-save','s','Order entry ready')"><i class="ti ti-plus"></i>New Order</button>
+      </div>
+    </div>
+    <div class="tbl-wrap"><table><thead><tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Qty</th><th>Amount</th><th>Delivery</th><th>Payment</th><th>Status</th><th>Action</th></tr></thead><tbody id="orders-body"></tbody></table></div>
+    <div class="alert s" id="order-save"></div>
+  </div>
+</div>
+
+<!-- ─── QUOTE BUILDER ─────────────────────────────── -->
+<div id="sec-quote" class="section">
+  <div class="g2">
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-calculator"></i>Build quotation</div></div>
+      <div class="form-grid">
+        <div class="fld"><label>Company / Customer *</label><input id="q-company" placeholder="e.g. Rajesh Constructions"/></div>
+        <div class="fld"><label>GSTIN</label><input id="q-gstin" placeholder="27AAAAA0000A1Z5"/></div>
+        <div class="fld"><label>Contact Person</label><input id="q-contact" placeholder="Name"/></div>
+        <div class="fld"><label>Phone</label><input id="q-phone" placeholder="+91 XXXXX XXXXX"/></div>
+        <div class="fld"><label>Product *</label>
+          <select id="q-product">
+            <option value="">— Select product —</option>
+            <option value="Solid Block 6×8×16|37|SB-6816">Solid Block 6"×8"×16" — ₹37</option>
+            <option value="Solid Block 4×8×16|28|SB-4816">Solid Block 4"×8"×16" — ₹28</option>
+            <option value="Hollow Block 2-hole|40|HB-2H">Hollow Block 2-hole — ₹40</option>
+            <option value="Hollow Block 3-hole|44|HB-3H">Hollow Block 3-hole — ₹44</option>
+            <option value="Paver Block I-shape|28|PB-I60">Paver Block I-shape — ₹28</option>
+            <option value="Paver Block Hex|30|PB-HX60">Paver Block Hex — ₹30</option>
+          </select>
+        </div>
+        <div class="fld"><label>Quantity (units) *</label><input id="q-qty" type="number" min="1" value="500" placeholder="min 100"/></div>
+        <div class="fld"><label>Discount (%)</label><input id="q-disc" type="number" min="0" max="30" value="0"/></div>
+        <div class="fld"><label>Payment Terms</label>
+          <select id="q-terms">
+            <option>Advance (100%)</option>
+            <option>50% Advance + 50% on delivery</option>
+            <option>Net 15 days</option>
+            <option>Net 30 days</option>
+            <option>Credit (approved customers only)</option>
+          </select>
+        </div>
+        <div class="fld"><label>Delivery Date</label><input id="q-date" type="date" value="2026-06-25"/></div>
+        <div class="fld"><label>Transport</label>
+          <select id="q-transport">
+            <option>Ex-factory (customer's vehicle)</option>
+            <option>Door delivery (our vehicle)</option>
+            <option>Third-party logistics</option>
+          </select>
+        </div>
+        <div class="fld f-full"><label>Delivery Address</label><textarea id="q-addr" placeholder="Full site delivery address…"></textarea></div>
+        <div class="fld f-full"><label>Special Terms / Notes</label><textarea id="q-notes" placeholder="Additional terms, special requirements…" style="min-height:48px"></textarea></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn primary" onclick="addQuoteItem()"><i class="ti ti-plus"></i>Add to Quote</button>
+        <button class="btn" onclick="clearQuote()"><i class="ti ti-trash"></i>Clear All</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-receipt"></i>Quotation preview</div></div>
+      <div style="font-size:11.5px;color:var(--text3);margin-bottom:12px;line-height:1.6">
+        <b style="color:var(--text)">Quote #:</b> <span id="q-num">QUO-2026-0047</span><br>
+        <b style="color:var(--text)">Customer:</b> <span id="q-prev-name">—</span><br>
+        <b style="color:var(--text)">GSTIN:</b> <span id="q-prev-gstin">—</span><br>
+        <b style="color:var(--text)">Terms:</b> <span id="q-prev-terms">—</span><br>
+        <b style="color:var(--text)">Transport:</b> <span id="q-prev-trans">—</span>
+      </div>
+      <div id="quote-items"><div class="empty-state"><i class="ti ti-file-invoice" style="font-size:34px"></i><p>Add products to build your quote</p></div></div>
+      <div class="total-bar"><span class="total-label">Subtotal (excl. GST)</span><span class="total-val" id="q-sub" style="font-size:15px">₹0</span></div>
+      <div class="total-bar"><span class="total-label">Discount</span><span class="total-val" id="q-disc-amt" style="font-size:13px;color:var(--green-t)">—₹0</span></div>
+      <div class="total-bar"><span class="total-label">GST 18%</span><span class="total-val" id="q-gst" style="font-size:13px;color:var(--text2)">₹0</span></div>
+      <div class="total-bar" style="border-top:1.5px solid var(--border2);padding-top:10px">
+        <span class="total-label" style="font-size:14px;font-weight:600">Total incl. GST</span>
+        <span class="total-val" id="q-total" style="font-size:28px;color:var(--accent)">₹0</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+        <button class="btn" onclick="showAlert('q-alert','s','Quote saved as draft')"><i class="ti ti-device-floppy"></i>Save Draft</button>
+        <button class="btn primary" onclick="sendQuote()"><i class="ti ti-send"></i>Send to Customer</button>
+      </div>
+      <button class="btn" style="width:100%;margin-top:8px" onclick="showAlert('q-alert','s','PDF exported')"><i class="ti ti-pdf"></i>Export as PDF</button>
+      <div class="alert s" id="q-alert"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── INVENTORY ─────────────────────────────── -->
+<div id="sec-inventory" class="section">
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Total Units</div><div class="kpi-val">6,380</div></div>
+    <div class="kpi g"><div class="kpi-label">Solid Blocks</div><div class="kpi-val">2,800</div></div>
+    <div class="kpi a"><div class="kpi-label">Hollow Blocks</div><div class="kpi-val">2,180</div></div>
+    <div class="kpi b"><div class="kpi-label">Paver Blocks</div><div class="kpi-val">1,400</div></div>
+    <div class="kpi r"><div class="kpi-label">Low Stock SKUs</div><div class="kpi-val">2</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-package"></i>Live stock levels</div><span class="card-action" onclick="showAlert('inv-alert','s','Stock report exported')">Export CSV</span></div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>SKU</th><th>Product</th><th>Size</th><th>In Stock</th><th>Reserved</th><th>Available</th><th>Reorder At</th><th>Level</th><th>Status</th><th>Rate/unit</th></tr></thead>
+      <tbody>
+        <tr><td class="muted">SB-6816</td><td>Solid Block</td><td>6"×8"×16"</td><td>1,400</td><td>200</td><td>1,200</td><td>500</td><td><div class="prog"><div class="pf g" style="width:85%"></div></div></td><td><span class="badge bg">Adequate</span></td><td>₹37</td></tr>
+        <tr><td class="muted">SB-4816</td><td>Solid Block</td><td>4"×8"×16"</td><td>1,400</td><td>150</td><td>1,250</td><td>500</td><td><div class="prog"><div class="pf g" style="width:85%"></div></div></td><td><span class="badge bg">Adequate</span></td><td>₹28</td></tr>
+        <tr><td class="muted">HB-2H</td><td>Hollow Block</td><td>6"×8"×16"</td><td>1,200</td><td>100</td><td>1,100</td><td>400</td><td><div class="prog"><div class="pf d" style="width:72%"></div></div></td><td><span class="badge bg">Adequate</span></td><td>₹40</td></tr>
+        <tr><td class="muted">HB-3H</td><td>Hollow Block</td><td>8"×8"×16"</td><td>980</td><td>80</td><td>900</td><td>400</td><td><div class="prog"><div class="pf a" style="width:44%"></div></div></td><td><span class="badge ba">Low</span></td><td>₹44</td></tr>
+        <tr><td class="muted">PB-I60</td><td>Paver Block</td><td>I-shape 60mm</td><td>800</td><td>50</td><td>750</td><td>300</td><td><div class="prog"><div class="pf d" style="width:62%"></div></div></td><td><span class="badge bg">Adequate</span></td><td>₹28</td></tr>
+        <tr><td class="muted">PB-HX60</td><td>Paver Block</td><td>Hex 60mm</td><td>600</td><td>60</td><td>540</td><td>300</td><td><div class="prog"><div class="pf a" style="width:40%"></div></div></td><td><span class="badge ba">Low</span></td><td>₹30</td></tr>
+      </tbody>
+      </table>
+    </div>
+    <div class="alert s" id="inv-alert"></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-plus"></i>Add stock entry</div></div>
+    <div class="form-grid">
+      <div class="fld"><label>Product</label><select><option>Solid Block 6"×8"×16"</option><option>Solid Block 4"×8"×16"</option><option>Hollow Block 2-hole</option><option>Hollow Block 3-hole</option><option>Paver I-shape</option><option>Paver Hex</option></select></div>
+      <div class="fld"><label>Quantity (units)</label><input type="number" placeholder="Units" min="1"/></div>
+      <div class="fld"><label>Production Date</label><input type="date" value="2026-06-15"/></div>
+      <div class="fld"><label>Batch / Lot No.</label><input placeholder="B2026-06-15"/></div>
+      <div class="fld"><label>Quality Grade</label><select><option>Grade A (Premium)</option><option>Grade B (Standard)</option></select></div>
+      <div class="fld"><label>Storage Location</label><input placeholder="e.g. Yard A, Bay 3"/></div>
+    </div>
+    <div class="btn-row"><button class="btn primary" onclick="showAlert('inv-entry-alert','s','Stock entry logged successfully')"><i class="ti ti-circle-check"></i>Log Stock Entry</button></div>
+    <div class="alert s" id="inv-entry-alert"></div>
+  </div>
+</div>
+
+<!-- ─── PRODUCTION ─────────────────────────────── -->
+<div id="sec-production" class="section">
+  <div class="kpi-grid">
+    <div class="kpi g"><div class="kpi-label">Today's Output</div><div class="kpi-val">1,240</div><div class="kpi-sub up">▲ +8% vs target</div></div>
+    <div class="kpi"><div class="kpi-label">Monthly Output</div><div class="kpi-val">24,600</div><div class="kpi-sub up">Target: 23,000</div></div>
+    <div class="kpi g"><div class="kpi-label">Efficiency</div><div class="kpi-val">87%</div></div>
+    <div class="kpi a"><div class="kpi-label">Defect Rate</div><div class="kpi-val">1.3%</div></div>
+    <div class="kpi b"><div class="kpi-label">Machine Uptime</div><div class="kpi-val">94%</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-chart-bar"></i>Daily production — this week</div></div>
+    <div class="ch h220"><canvas id="c-week"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-plus"></i>Log production</div></div>
+    <div class="form-grid">
+      <div class="fld"><label>Date</label><input type="date" value="2026-06-15"/></div>
+      <div class="fld"><label>Shift</label><select><option>Morning (6AM–2PM)</option><option>Afternoon (2PM–10PM)</option></select></div>
+      <div class="fld"><label>Solid Blocks Produced</label><input type="number" value="520"/></div>
+      <div class="fld"><label>Hollow Blocks Produced</label><input type="number" value="400"/></div>
+      <div class="fld"><label>Paver Blocks Produced</label><input type="number" value="320"/></div>
+      <div class="fld"><label>Defective Units</label><input type="number" value="16"/></div>
+      <div class="fld"><label>Machine Used</label><select><option>Block Press #1</option><option>Block Press #2</option><option>Both</option></select></div>
+      <div class="fld"><label>Supervisor</label><input value="Dnyaneshwar Kale"/></div>
+      <div class="fld f-full"><label>Remarks / Issues</label><input placeholder="Notes for this shift…"/></div>
+    </div>
+    <div class="btn-row"><button class="btn primary" onclick="showAlert('prod-alert','s','Production log saved')"><i class="ti ti-circle-check"></i>Submit Log</button></div>
+    <div class="alert s" id="prod-alert"></div>
+  </div>
+</div>
+
+<!-- ─── RAW MATERIALS ─────────────────────────────── -->
+<div id="sec-rawmat" class="section">
+  <div class="kpi-grid">
+    <div class="kpi r"><div class="kpi-label">Cement (bags)</div><div class="kpi-val">186</div><div class="kpi-sub cr">Reorder now!</div></div>
+    <div class="kpi g"><div class="kpi-label">Sand (tonnes)</div><div class="kpi-val">22.4t</div></div>
+    <div class="kpi"><div class="kpi-label">Aggregate</div><div class="kpi-val">18.8t</div></div>
+    <div class="kpi g"><div class="kpi-label">Water Tank</div><div class="kpi-val">80%</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-stack-2"></i>Material stock</div></div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>Material</th><th>On-Site</th><th>Min Level</th><th>Days Remaining</th><th>Stock</th><th>Status</th><th>Last Purchase</th><th>Supplier</th></tr></thead>
+      <tbody>
+        <tr><td>Portland Cement</td><td>186 bags</td><td>300 bags</td><td class="muted" style="color:var(--red-t)">~2 days</td><td><div class="prog"><div class="pf r" style="width:38%"></div></div></td><td><span class="badge br">Reorder</span></td><td>Jun 13</td><td>ACC / UltraTech</td></tr>
+        <tr><td>River Sand</td><td>22.4 t</td><td>10 t</td><td class="muted">~9 days</td><td><div class="prog"><div class="pf g" style="width:75%"></div></div></td><td><span class="badge bg">OK</span></td><td>Jun 15</td><td>Shinde Aggregates</td></tr>
+        <tr><td>Coarse Aggregate 20mm</td><td>12.6 t</td><td>8 t</td><td class="muted">~7 days</td><td><div class="prog"><div class="pf d" style="width:63%"></div></div></td><td><span class="badge bg">OK</span></td><td>Jun 14</td><td>Patil Stone Depot</td></tr>
+        <tr><td>Fine Aggregate 12mm</td><td>6.2 t</td><td>5 t</td><td class="muted" style="color:var(--amber-t)">~4 days</td><td><div class="prog"><div class="pf a" style="width:52%"></div></div></td><td><span class="badge ba">Low</span></td><td>Jun 12</td><td>Patil Stone Depot</td></tr>
+        <tr><td>Water</td><td>8,000 L</td><td>2,000 L</td><td class="muted">Mains</td><td><div class="prog"><div class="pf g" style="width:80%"></div></div></td><td><span class="badge bg">OK</span></td><td>—</td><td>PCMC Water</td></tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-shopping-cart"></i>Log material purchase</div></div>
+    <div class="form-grid">
+      <div class="fld"><label>Date</label><input type="date" value="2026-06-15"/></div>
+      <div class="fld"><label>Material</label><select><option>Portland Cement (bags)</option><option>River Sand (tonnes)</option><option>Coarse Aggregate (tonnes)</option><option>Fine Aggregate (tonnes)</option></select></div>
+      <div class="fld"><label>Quantity</label><input type="number" placeholder="qty"/></div>
+      <div class="fld"><label>Unit Cost (₹)</label><input type="number" placeholder="0.00"/></div>
+      <div class="fld"><label>Supplier</label><input placeholder="Supplier name"/></div>
+      <div class="fld"><label>Invoice No.</label><input placeholder="INV-XXXXX"/></div>
+      <div class="fld"><label>Payment Mode</label><select><option>Bank Transfer</option><option>Cash</option><option>Cheque</option><option>UPI</option></select></div>
+      <div class="fld"><label>Vehicle No. (delivery)</label><input placeholder="MH-12-AB-1234"/></div>
+    </div>
+    <div class="btn-row"><button class="btn primary" onclick="showAlert('rm-alert','s','Purchase recorded & stock updated')"><i class="ti ti-circle-check"></i>Save Purchase</button></div>
+    <div class="alert s" id="rm-alert"></div>
+  </div>
+</div>
+
+<!-- ─── PRODUCT CATALOGUE ─────────────────────────────── -->
+<div id="sec-catalogue" class="section">
+  <div class="card" style="margin-bottom:14px">
+    <div class="card-head"><div class="card-title"><i class="ti ti-shopping-bag"></i>B2B Product Catalogue</div>
+      <div style="display:flex;gap:8px"><select style="font-size:11.5px;padding:5px 9px;background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body)"><option>All Categories</option><option>Solid Blocks</option><option>Hollow Blocks</option><option>Paver Blocks</option></select>
+      <button class="btn sm primary" onclick="nav('quote',null)"><i class="ti ti-calculator"></i>Build Quote</button></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px" id="catalogue-grid"></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-clock"></i>Factory & Shop Timings</div></div>
+      <div class="timing-row"><div class="timing-day">Monday – Friday</div><div class="timing-hrs">7:00 AM – 6:00 PM</div></div>
+      <div class="timing-row"><div class="timing-day">Saturday</div><div class="timing-hrs">7:00 AM – 4:00 PM</div></div>
+      <div class="timing-row"><div class="timing-day">Sunday</div><span class="badge br">Closed</span></div>
+      <div class="timing-row"><div class="timing-day">Public Holidays</div><span class="badge br">Closed</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-truck"></i>MOQ & Logistics</div></div>
+      <div class="stat-row"><span style="color:var(--text2)">Min. Order Qty (MOQ)</span><span class="badge bc">100 units</span></div>
+      <div class="stat-row"><span style="color:var(--text2)">Bulk discount ≥1000 units</span><span class="badge bg">5% off</span></div>
+      <div class="stat-row"><span style="color:var(--text2)">Bulk discount ≥5000 units</span><span class="badge bg">10% off</span></div>
+      <div class="stat-row"><span style="color:var(--text2)">Free delivery above</span><span class="badge bi">₹1L order</span></div>
+      <div class="stat-row"><span style="color:var(--text2)">Lead time</span><span style="color:var(--text);font-weight:500">2–3 working days</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CUSTOMERS ─────────────────────────────── -->
+<div id="sec-customers" class="section">
+  <div class="kpi-grid">
+    <div class="kpi g"><div class="kpi-label">Total Clients</div><div class="kpi-val">38</div></div>
+    <div class="kpi b"><div class="kpi-label">New This Month</div><div class="kpi-val">3</div></div>
+    <div class="kpi a"><div class="kpi-label">Pending Approval</div><div class="kpi-val">1</div></div>
+    <div class="kpi g"><div class="kpi-label">Top LTV</div><div class="kpi-val">₹4.2L</div></div>
+    <div class="kpi r"><div class="kpi-label">Overdue Accounts</div><div class="kpi-val">2</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-building"></i>Customer accounts</div>
+      <button class="btn sm primary" onclick="showSubSection('cust-tabs','cust-register')"><i class="ti ti-user-plus"></i>Register New</button>
+    </div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>Company</th><th>Location</th><th>Contact</th><th>GSTIN</th><th>Orders</th><th>Total Value</th><th>Outstanding</th><th>Terms</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td><b>Rajesh Constructions</b></td><td class="muted">Pune</td><td class="muted">+91 98765 00001</td><td class="muted">27ABCDE1234F1Z5</td><td>18</td><td>₹4.2L</td><td class="muted">₹0</td><td class="muted">Net 15</td><td><span class="badge bg">Active</span></td><td><span class="card-action">View</span></td></tr>
+        <tr><td><b>Patil Builders</b></td><td class="muted">Nashik</td><td class="muted">+91 98765 00002</td><td class="muted">27FGHIJ5678K2Z6</td><td>11</td><td>₹2.8L</td><td style="color:var(--amber-t)">₹7,200</td><td class="muted">Net 30</td><td><span class="badge bg">Active</span></td><td><span class="card-action">View</span></td></tr>
+        <tr><td><b>Suresh Infra</b></td><td class="muted">PCMC</td><td class="muted">+91 98765 00003</td><td class="muted">27KLMNO9012P3Z7</td><td>9</td><td>₹2.1L</td><td class="muted">₹0</td><td class="muted">Advance</td><td><span class="badge bg">Active</span></td><td><span class="card-action">View</span></td></tr>
+        <tr><td><b>Ganesh Homes</b></td><td class="muted">Lonavala</td><td class="muted">+91 98765 00004</td><td class="muted">27PQRST3456U4Z8</td><td>6</td><td>₹1.3L</td><td style="color:var(--red-t)">₹14,200</td><td class="muted">Net 30</td><td><span class="badge ba">Overdue</span></td><td><span class="card-action">View</span></td></tr>
+        <tr><td><b>Omkar Infrastructure</b></td><td class="muted">Pune</td><td class="muted">+91 98765 00005</td><td class="muted">Pending</td><td>—</td><td>—</td><td class="muted">—</td><td class="muted">—</td><td><span class="badge bi">Pending</span></td><td><span class="card-action">Approve</span></td></tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="cust-tabs">
+    <div class="tab-bar">
+      <div class="tab active" onclick="showSubSection('cust-tabs','cust-register',this)">Register New Customer</div>
+      <div class="tab" onclick="showSubSection('cust-tabs','cust-credit',this)">Credit Management</div>
+    </div>
+    <div id="cust-register" class="tab-panel active">
+      <div class="card">
+        <div class="card-head"><div class="card-title"><i class="ti ti-user-plus"></i>Register B2B customer</div></div>
+        <div class="form-grid">
+          <div class="fld"><label>Company Name *</label><input placeholder="Legal company name"/></div>
+          <div class="fld"><label>GSTIN *</label><input placeholder="27XXXXXX0000X1ZX"/></div>
+          <div class="fld"><label>Contact Person</label><input placeholder="Name"/></div>
+          <div class="fld"><label>Designation</label><input placeholder="e.g. Procurement Manager"/></div>
+          <div class="fld"><label>Phone *</label><input placeholder="+91 XXXXX XXXXX"/></div>
+          <div class="fld"><label>Email</label><input type="email" placeholder="email@company.com"/></div>
+          <div class="fld"><label>Credit Limit (₹)</label><input type="number" placeholder="50000"/></div>
+          <div class="fld"><label>Payment Terms</label><select><option>Advance</option><option>Net 15</option><option>Net 30</option></select></div>
+          <div class="fld f-full"><label>Delivery Address</label><textarea placeholder="Full address…"></textarea></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn primary" onclick="showAlert('cust-alert','s','Customer registered — pending GSTIN verification')"><i class="ti ti-circle-check"></i>Register Customer</button>
+        </div>
+        <div class="alert s" id="cust-alert"></div>
+      </div>
+    </div>
+    <div id="cust-credit" class="tab-panel">
+      <div class="card">
+        <div class="card-head"><div class="card-title"><i class="ti ti-credit-card"></i>Credit exposure overview</div></div>
+        <div class="tbl-wrap">
+          <table><thead><tr><th>Customer</th><th>Credit Limit</th><th>Used</th><th>Available</th><th>Overdue Days</th><th>Risk</th></tr></thead>
+          <tbody>
+            <tr><td>Rajesh Constructions</td><td>₹1,00,000</td><td>₹0</td><td>₹1,00,000</td><td class="muted">0</td><td><span class="badge bg">Low</span></td></tr>
+            <tr><td>Patil Builders</td><td>₹75,000</td><td>₹7,200</td><td>₹67,800</td><td class="muted">8</td><td><span class="badge ba">Medium</span></td></tr>
+            <tr><td>Ganesh Homes</td><td>₹50,000</td><td>₹14,200</td><td>₹35,800</td><td style="color:var(--red-t)">32</td><td><span class="badge br">High</span></td></tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PIPELINE ─────────────────────────────── -->
+<div id="sec-pipeline" class="section">
+  <div class="kpi-grid">
+    <div class="kpi b"><div class="kpi-label">Pipeline Value</div><div class="kpi-val">₹18.4L</div></div>
+    <div class="kpi"><div class="kpi-label">Active Leads</div><div class="kpi-val">9</div></div>
+    <div class="kpi a"><div class="kpi-label">Quotes Sent</div><div class="kpi-val">4</div></div>
+    <div class="kpi g"><div class="kpi-label">Won This Month</div><div class="kpi-val">6</div></div>
+    <div class="kpi r"><div class="kpi-label">Lost This Month</div><div class="kpi-val">1</div></div>
+    <div class="kpi p"><div class="kpi-label">Win Rate</div><div class="kpi-val">85.7%</div></div>
+  </div>
+  <div class="g2">
+    <div>
+      <div class="pipe-stage"><div class="ps-head"><div class="ps-label">🔵 Lead / Inquiry</div><div style="font-size:11px;color:var(--text3)">3 deals · ₹6.2L</div></div>
+        <div class="ps-item"><span>Omkar Infrastructure — 5,000 Solid Blocks</span><span style="color:var(--text3)">₹1.85L</span></div>
+        <div class="ps-item"><span>Sai Builders — Hollow Blocks bulk</span><span style="color:var(--text3)">₹2.8L</span></div>
+        <div class="ps-item"><span>Pune Metro subcontractor</span><span style="color:var(--text3)">₹1.55L</span></div>
+      </div>
+      <div class="pipe-stage"><div class="ps-head"><div class="ps-label">🟡 Quote Sent</div><div style="font-size:11px;color:var(--text3)">2 deals · ₹4.8L</div></div>
+        <div class="ps-item"><span>Sharma Infra — Paver Blocks 10,000 units</span><span style="color:var(--text3)">₹3.0L</span></div>
+        <div class="ps-item"><span>Kiran Developers — Mixed order</span><span style="color:var(--text3)">₹1.8L</span></div>
+      </div>
+      <div class="pipe-stage"><div class="ps-head"><div class="ps-label">🟠 Negotiation</div><div style="font-size:11px;color:var(--text3)">2 deals · ₹5.4L</div></div>
+        <div class="ps-item"><span>Nashik Housing Board</span><span style="color:var(--text3)">₹3.4L</span></div>
+        <div class="ps-item"><span>Logitech Construction</span><span style="color:var(--text3)">₹2.0L</span></div>
+      </div>
+      <div class="pipe-stage" style="background:var(--green-bg);border-color:var(--green)"><div class="ps-head"><div class="ps-label" style="color:var(--green-t)">🟢 PO Received</div><div style="font-size:11px;color:var(--text3)">2 deals · ₹2.0L</div></div>
+        <div class="ps-item"><span>Rajesh Constructions — June top-up</span><span style="color:var(--text3)">₹1.2L</span></div>
+        <div class="ps-item"><span>Patil Builders — standard reorder</span><span style="color:var(--text3)">₹0.8L</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-head"><div class="card-title" style="font-size:13px"><i class="ti ti-chart-pie-2"></i>Stage breakdown</div></div>
+        <div class="ch h200"><canvas id="c-pipe"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title" style="font-size:13px"><i class="ti ti-plus"></i>Log new lead</div></div>
+        <div class="fld" style="margin-bottom:8px"><label>Company</label><input placeholder="Company name"/></div>
+        <div class="fld" style="margin-bottom:8px"><label>Estimated Value (₹)</label><input type="number" placeholder="100000"/></div>
+        <div class="fld" style="margin-bottom:8px"><label>Stage</label><select><option>Lead</option><option>Quote Sent</option><option>Negotiation</option></select></div>
+        <button class="btn primary" style="width:100%;margin-top:8px" onclick="showAlert('pipe-alert','s','Lead added to pipeline')"><i class="ti ti-plus"></i>Add Lead</button>
+        <div class="alert s" id="pipe-alert"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── LEDGER ─────────────────────────────── -->
+<div id="sec-ledger" class="section">
+  <div class="kpi-grid">
+    <div class="kpi g"><div class="kpi-label">Received MTD</div><div class="kpi-val">₹8.4L</div></div>
+    <div class="kpi r"><div class="kpi-label">Outstanding AR</div><div class="kpi-val">₹1.4L</div></div>
+    <div class="kpi a"><div class="kpi-label">Overdue &gt;30d</div><div class="kpi-val">₹42K</div></div>
+    <div class="kpi"><div class="kpi-label">Material Spend</div><div class="kpi-val">₹2.1L</div></div>
+    <div class="kpi p"><div class="kpi-label">Wages Paid</div><div class="kpi-val">₹48K</div></div>
+    <div class="kpi b"><div class="kpi-label">Net Cash Flow</div><div class="kpi-val">₹6.3L</div><div class="kpi-sub up">▲ Positive</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-receipt-2"></i>Transaction ledger</div>
+      <div style="display:flex;gap:8px">
+        <select style="font-size:11.5px;padding:5px 9px;background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body)"><option>All</option><option>Credit</option><option>Debit</option></select>
+        <span class="card-action">Export</span>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>Date</th><th>Description</th><th>Type</th><th>Credit</th><th>Debit</th><th>Balance</th><th>Mode</th></tr></thead>
+      <tbody>
+        <tr><td class="muted">Jun 15</td><td>Rajesh Constructions — Order #1042</td><td><span class="badge bg">Sales</span></td><td class="cr">+₹18,500</td><td>—</td><td>₹9,84,200</td><td class="muted">NEFT</td></tr>
+        <tr><td class="muted">Jun 15</td><td>Cement purchase — ACC (50 bags)</td><td><span class="badge br">Material</span></td><td>—</td><td class="dr">−₹4,250</td><td>₹9,79,950</td><td class="muted">UPI</td></tr>
+        <tr><td class="muted">Jun 15</td><td>Sand purchase — Shinde Aggregates</td><td><span class="badge br">Material</span></td><td>—</td><td class="dr">−₹3,500</td><td>₹9,76,450</td><td class="muted">Cash</td></tr>
+        <tr><td class="muted">Jun 14</td><td>Suresh Infra — Order #1040</td><td><span class="badge bg">Sales</span></td><td class="cr">+₹22,400</td><td>—</td><td>₹9,54,050</td><td class="muted">NEFT</td></tr>
+        <tr><td class="muted">Jun 14</td><td>Aggregate — Patil Stone Depot</td><td><span class="badge br">Material</span></td><td>—</td><td class="dr">−₹4,800</td><td>₹9,31,650</td><td class="muted">Cheque</td></tr>
+        <tr><td class="muted">Jun 13</td><td>Sharma Infra — Advance 50%</td><td><span class="badge bg">Sales</span></td><td class="cr">+₹15,000</td><td>—</td><td>₹9,16,650</td><td class="muted">NEFT</td></tr>
+        <tr><td class="muted">Jun 10</td><td>Labour wages — Jun 1–10</td><td><span class="badge br">Wages</span></td><td>—</td><td class="dr">−₹48,000</td><td>₹9,01,650</td><td class="muted">Cash</td></tr>
+        <tr><td class="muted">Jun 10</td><td>Ganesh Homes — ⚠ Overdue payment</td><td><span class="badge ba">AR</span></td><td>—</td><td class="dr">₹14,200 DUE</td><td>—</td><td class="muted">Pending</td></tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ─── DISPATCH ─────────────────────────────── -->
+<div id="sec-dispatch" class="section">
+  <div class="kpi-grid">
+    <div class="kpi a"><div class="kpi-label">Ready to Dispatch</div><div class="kpi-val">4</div></div>
+    <div class="kpi b"><div class="kpi-label">In Transit</div><div class="kpi-val">6</div></div>
+    <div class="kpi g"><div class="kpi-label">Delivered Today</div><div class="kpi-val">3</div></div>
+    <div class="kpi"><div class="kpi-label">Active Vehicles</div><div class="kpi-val">2</div></div>
+  </div>
+  <div class="g2">
+    <div>
+      <div class="card">
+        <div class="card-head"><div class="card-title"><i class="ti ti-truck"></i>Order #1040 — Suresh Infra</div><span class="badge bg">Delivered</span></div>
+        <div class="delivery-track">
+          <div class="dt-step done"><div class="dt-dot"><i class="ti ti-check"></i></div><div class="dt-label">Confirmed</div></div>
+          <div class="dt-step done"><div class="dt-dot"><i class="ti ti-check"></i></div><div class="dt-label">Production</div></div>
+          <div class="dt-step done"><div class="dt-dot"><i class="ti ti-check"></i></div><div class="dt-label">Loaded</div></div>
+          <div class="dt-step done"><div class="dt-dot"><i class="ti ti-check"></i></div><div class="dt-label">In Transit</div></div>
+          <div class="dt-step done"><div class="dt-dot"><i class="ti ti-check"></i></div><div class="dt-label">Delivered</div></div>
+        </div>
+        <div style="font-size:11.5px;color:var(--text2)">1,800 Solid Blocks · MH-12-AB-1234 · Driver: Kishor</div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title"><i class="ti ti-truck"></i>Order #1041 — Patil Builders</div><span class="badge ba">In Transit</span></div>
+        <div class="delivery-track">
+          <div class="dt-step done"><div class="dt-dot"><i class="ti ti-check"></i></div><div class="dt-label">Confirmed</div></div>
+          <div class="dt-step done"><div class="dt-dot"><i class="ti ti-check"></i></div><div class="dt-label">Production</div></div>
+          <div class="dt-step done"><div class="dt-dot"><i class="ti ti-check"></i></div><div class="dt-label">Loaded</div></div>
+          <div class="dt-step active"><div class="dt-dot"><i class="ti ti-truck"></i></div><div class="dt-label">In Transit</div></div>
+          <div class="dt-step"><div class="dt-dot"></div><div class="dt-label">Delivered</div></div>
+        </div>
+        <div style="font-size:11.5px;color:var(--text2)">300 Hollow Blocks · MH-12-CD-5678 · ETA: Jun 16</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-clipboard-list"></i>Log dispatch</div></div>
+      <div class="fld" style="margin-bottom:9px"><label>Order ID</label><input placeholder="#1042"/></div>
+      <div class="fld" style="margin-bottom:9px"><label>Vehicle No.</label><input placeholder="MH-12-XX-0000"/></div>
+      <div class="fld" style="margin-bottom:9px"><label>Driver Name</label><input placeholder="Driver name"/></div>
+      <div class="fld" style="margin-bottom:9px"><label>Driver Phone</label><input placeholder="+91 XXXXX"/></div>
+      <div class="fld" style="margin-bottom:9px"><label>Dispatch Date & Time</label><input type="datetime-local" value="2026-06-15T08:00"/></div>
+      <div class="fld" style="margin-bottom:9px"><label>Expected Delivery</label><input type="date" value="2026-06-16"/></div>
+      <div class="fld" style="margin-bottom:9px"><label>Delivery Notes</label><input placeholder="Site contact, gate instructions…"/></div>
+      <button class="btn primary" style="width:100%;margin-top:8px" onclick="showAlert('disp-alert','s','Dispatch logged & customer notified')"><i class="ti ti-send"></i>Mark Dispatched</button>
+      <div class="alert s" id="disp-alert"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── LABOUR ─────────────────────────────── -->
+<div id="sec-labour" class="section">
+  <div class="kpi-grid">
+    <div class="kpi g"><div class="kpi-label">Checked In</div><div class="kpi-val" id="l-present">12</div></div>
+    <div class="kpi r"><div class="kpi-label">Absent Today</div><div class="kpi-val" id="l-absent">3</div></div>
+    <div class="kpi"><div class="kpi-label">Total Labour</div><div class="kpi-val">15</div></div>
+    <div class="kpi b"><div class="kpi-label">Live Time</div><div class="kpi-val" id="l-time" style="font-size:16px">—</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-users"></i>Daily check-in / check-out</div></div>
+    <div id="labour-list"></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-user-plus"></i>Add new labour</div></div>
+    <div class="form-grid">
+      <div class="fld"><label>Full Name *</label><input id="l-name" placeholder="Full name"/></div>
+      <div class="fld"><label>Role</label><select id="l-role"><option>Block Maker</option><option>Mixer Operator</option><option>Loader</option><option>Supervisor</option><option>Helper</option><option>Driver</option></select></div>
+      <div class="fld"><label>Phone</label><input id="l-phone" placeholder="+91 XXXXX XXXXX"/></div>
+      <div class="fld"><label>Aadhaar No.</label><input id="l-aadhar" placeholder="XXXX XXXX XXXX"/></div>
+      <div class="fld"><label>Daily Wage (₹)</label><input id="l-wage" type="number" placeholder="500"/></div>
+      <div class="fld"><label>Join Date</label><input id="l-join" type="date" value="2026-06-15"/></div>
+      <div class="fld"><label>Bank Account No.</label><input id="l-bank" placeholder="Account number"/></div>
+      <div class="fld"><label>IFSC Code</label><input id="l-ifsc" placeholder="SBIN0001234"/></div>
+    </div>
+    <div class="btn-row"><button class="btn primary" onclick="addLabour()"><i class="ti ti-circle-check"></i>Add Labour</button></div>
+    <div class="alert s" id="labour-alert"></div>
+  </div>
+</div>
+
+<!-- ─── WAGES ─────────────────────────────── -->
+<div id="sec-wages" class="section">
+  <div class="kpi-grid">
+    <div class="kpi r"><div class="kpi-label">Total Payable (Jun)</div><div class="kpi-val">₹72,000</div></div>
+    <div class="kpi g"><div class="kpi-label">Paid So Far</div><div class="kpi-val">₹48,000</div></div>
+    <div class="kpi a"><div class="kpi-label">Pending</div><div class="kpi-val">₹24,000</div></div>
+    <div class="kpi"><div class="kpi-label">PF Contribution</div><div class="kpi-val">₹8,640</div></div>
+    <div class="kpi b"><div class="kpi-label">Avg Daily Wage</div><div class="kpi-val">₹518</div></div>
+    <div class="kpi p"><div class="kpi-label">Overtime Hrs</div><div class="kpi-val">48 hrs</div></div>
+  </div>
+
+  <div id="wages-tabs">
+    <div class="tab-bar">
+      <div class="tab active" onclick="showSubSection('wages-tabs','wages-register',this)">Wages Register</div>
+      <div class="tab" onclick="showSubSection('wages-tabs','wages-pay',this)">Pay Wages</div>
+      <div class="tab" onclick="showSubSection('wages-tabs','wages-history',this)">Payment History</div>
+      <div class="tab" onclick="showSubSection('wages-tabs','wages-advance',this)">Advance / Deduction</div>
+    </div>
+
+    <!-- WAGES REGISTER -->
+    <div id="wages-register" class="tab-panel active">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title"><i class="ti ti-table"></i>June 2026 wages register</div>
+          <div style="display:flex;gap:8px">
+            <select style="font-size:11.5px;padding:5px 9px;background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body)"><option>June 2026</option><option>May 2026</option><option>April 2026</option></select>
+            <button class="btn sm" onclick="showAlert('wages-export','s','Wages register exported')"><i class="ti ti-download"></i>Export</button>
+          </div>
+        </div>
+        <div class="tbl-wrap" id="wages-register-table"></div>
+        <div class="alert s" id="wages-export"></div>
+      </div>
+    </div>
+
+    <!-- PAY WAGES -->
+    <div id="wages-pay" class="tab-panel">
+      <div class="card">
+        <div class="card-head"><div class="card-title"><i class="ti ti-coin-rupee"></i>Process wage payment</div></div>
+        <div class="form-grid">
+          <div class="fld"><label>Payment Month</label><select><option>June 2026</option><option>May 2026</option></select></div>
+          <div class="fld"><label>Payment Mode</label><select><option>Cash</option><option>Bank Transfer (NEFT)</option><option>UPI</option><option>Cheque</option></select></div>
+          <div class="fld"><label>Payment Date</label><input type="date" value="2026-06-30"/></div>
+          <div class="fld"><label>Reference No. (UTR/Cheque)</label><input placeholder="UTR or cheque number"/></div>
+          <div class="fld f-full"><label>Select Labour (leave blank for all)</label>
+            <select id="pay-labour"><option value="">All labour</option></select>
+          </div>
+          <div class="fld f-full"><label>Remarks</label><input placeholder="e.g. June 2026 first fortnight wages"/></div>
+        </div>
+        <div style="margin-top:12px;padding:12px;background:var(--bg3);border-radius:var(--radius);font-size:12.5px;color:var(--text2)">
+          Total payable for selected: <b style="color:var(--text);font-size:16px">₹72,000</b> &nbsp;|&nbsp; PF deduction: <b style="color:var(--text)">₹8,640</b> &nbsp;|&nbsp; Net payable: <b style="color:var(--accent);font-size:16px">₹63,360</b>
+        </div>
+        <div class="btn-row">
+          <button class="btn primary" onclick="showAlert('pay-alert','s','Wage payment recorded & slips generated')"><i class="ti ti-coin-rupee"></i>Process Payment</button>
+          <button class="btn" onclick="showAlert('pay-alert','s','Pay slips PDF generated')"><i class="ti ti-pdf"></i>Generate Pay Slips</button>
+        </div>
+        <div class="alert s" id="pay-alert"></div>
+      </div>
+    </div>
+
+    <!-- PAYMENT HISTORY -->
+    <div id="wages-history" class="tab-panel">
+      <div class="card">
+        <div class="card-head"><div class="card-title"><i class="ti ti-history"></i>Wage payment history</div></div>
+        <div class="tbl-wrap">
+          <table><thead><tr><th>Month</th><th>Labour</th><th>Days Present</th><th>Daily Wage</th><th>OT Hours</th><th>OT Amount</th><th>Advance Deducted</th><th>Net Paid</th><th>Date Paid</th><th>Mode</th><th>Status</th></tr></thead>
+          <tbody id="wages-history-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADVANCE / DEDUCTION -->
+    <div id="wages-advance" class="tab-panel">
+      <div class="g2">
+        <div class="card">
+          <div class="card-head"><div class="card-title"><i class="ti ti-cash"></i>Log advance payment</div></div>
+          <div class="fld" style="margin-bottom:9px"><label>Labour</label><select id="adv-labour-sel"></select></div>
+          <div class="fld" style="margin-bottom:9px"><label>Advance Amount (₹)</label><input id="adv-amount" type="number" placeholder="0"/></div>
+          <div class="fld" style="margin-bottom:9px"><label>Date</label><input type="date" value="2026-06-15"/></div>
+          <div class="fld" style="margin-bottom:9px"><label>Reason</label><input placeholder="e.g. Medical emergency"/></div>
+          <div class="fld" style="margin-bottom:9px"><label>Repayment plan</label><select><option>Deduct next month</option><option>Deduct over 2 months</option><option>Deduct over 3 months</option></select></div>
+          <button class="btn primary" style="width:100%;margin-top:8px" onclick="showAlert('adv-alert','s','Advance recorded — will be deducted from wages')"><i class="ti ti-circle-check"></i>Record Advance</button>
+          <div class="alert s" id="adv-alert"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div class="card-title"><i class="ti ti-minus"></i>Log deduction</div></div>
+          <div class="fld" style="margin-bottom:9px"><label>Labour</label><select id="ded-labour-sel"></select></div>
+          <div class="fld" style="margin-bottom:9px"><label>Deduction Type</label><select><option>Absent (unpaid)</option><option>Advance recovery</option><option>Damage/loss</option><option>PF contribution</option><option>Other</option></select></div>
+          <div class="fld" style="margin-bottom:9px"><label>Amount (₹)</label><input type="number" placeholder="0"/></div>
+          <div class="fld" style="margin-bottom:9px"><label>Date</label><input type="date" value="2026-06-15"/></div>
+          <div class="fld" style="margin-bottom:9px"><label>Remarks</label><input placeholder="Notes…"/></div>
+          <button class="btn danger" style="width:100%;margin-top:8px" onclick="showAlert('ded-alert','s','Deduction logged')"><i class="ti ti-minus"></i>Log Deduction</button>
+          <div class="alert s" id="ded-alert"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title"><i class="ti ti-list"></i>Advance & deduction register</div></div>
+        <div class="tbl-wrap">
+          <table><thead><tr><th>Labour</th><th>Type</th><th>Amount</th><th>Date</th><th>Reason</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Ramesh Kumar</td><td><span class="badge ba">Advance</span></td><td class="dr">₹2,000</td><td class="muted">Jun 08</td><td class="muted">Medical emergency</td><td><span class="badge bi">Recovering</span></td></tr>
+            <tr><td>Suresh Bhosale</td><td><span class="badge br">Deduction</span></td><td class="dr">₹500</td><td class="muted">Jun 12</td><td class="muted">2 days absent</td><td><span class="badge bg">Deducted</span></td></tr>
+            <tr><td>Vijay Shinde</td><td><span class="badge ba">Advance</span></td><td class="dr">₹1,500</td><td class="muted">Jun 05</td><td class="muted">Family function</td><td><span class="badge bi">Recovering</span></td></tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TIMESHEET ─────────────────────────────── -->
+<div id="sec-timesheet" class="section">
+  <div class="kpi-grid">
+    <div class="kpi g"><div class="kpi-label">Working Days</div><div class="kpi-val" id="ts-days">—</div></div>
+    <div class="kpi"><div class="kpi-label">Best Attendance</div><div class="kpi-val" style="font-size:14px">Ramesh K.</div><div class="kpi-sub up">100%</div></div>
+    <div class="kpi a"><div class="kpi-label">Total Wages (Jun)</div><div class="kpi-val">₹72K</div></div>
+    <div class="kpi b"><div class="kpi-label">OT Hours</div><div class="kpi-val">48</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title"><i class="ti ti-calendar-stats"></i>Monthly timesheet</div>
+      <div style="display:flex;gap:8px">
+        <select id="ts-month" style="font-size:11.5px;padding:5px 9px;background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body)" onchange="renderTimesheet()">
+          <option value="0">January</option><option value="1">February</option><option value="2">March</option><option value="3">April</option><option value="4">May</option><option value="5" selected>June</option><option value="6">July</option><option value="7">August</option><option value="8">September</option><option value="9">October</option><option value="10">November</option><option value="11">December</option>
+        </select>
+        <select id="ts-year" style="font-size:11.5px;padding:5px 9px;background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body)" onchange="renderTimesheet()">
+          <option value="2025">2025</option><option value="2026" selected>2026</option>
+        </select>
+      </div>
+    </div>
+    <div style="overflow-x:auto"><table id="ts-table" style="font-size:11px;min-width:700px"><thead id="ts-head"></thead><tbody id="ts-body"></tbody></table></div>
+    <div style="display:flex;gap:14px;margin-top:10px;flex-wrap:wrap">
+      <span style="font-size:11px;color:var(--text2)"><span style="color:var(--green-t)">■</span> Present</span>
+      <span style="font-size:11px;color:var(--text2)"><span style="color:var(--red-t)">■</span> Absent</span>
+      <span style="font-size:11px;color:var(--text2)"><span style="color:var(--amber-t)">■</span> Half-day</span>
+      <span style="font-size:11px;color:var(--text2)"><span style="color:var(--text3)">■</span> Holiday/Sunday</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NOTIFICATIONS ─────────────────────────────── -->
+<div id="sec-notifications" class="section">
+  <div class="kpi-grid">
+    <div class="kpi r"><div class="kpi-label">Critical</div><div class="kpi-val">2</div></div>
+    <div class="kpi a"><div class="kpi-label">Warnings</div><div class="kpi-val">3</div></div>
+    <div class="kpi b"><div class="kpi-label">Info</div><div class="kpi-val">2</div></div>
+    <div class="kpi g"><div class="kpi-label">Resolved Today</div><div class="kpi-val">4</div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-bell"></i>All alerts</div><span class="card-action">Mark all read</span></div>
+    <div class="notif-item n-unread"><div class="n-dot" style="background:var(--red)"></div><div><div class="n-text">🚨 <b>Critical:</b> Cement stock at 186 bags — reorder threshold 300 bags. Estimated stockout in 2 days at current production rate.</div><div class="n-time">Today, 8:15 AM · <span style="color:var(--blue-t);cursor:pointer">Raise PO →</span></div></div></div>
+    <div class="notif-item n-unread"><div class="n-dot" style="background:var(--red)"></div><div><div class="n-text">🚨 <b>Critical:</b> Order #1041 (Patil Builders, 300 Hollow Blocks) dispatch overdue by 1 day. Customer has paid advance ₹7,200.</div><div class="n-time">Today, 7:00 AM · <span style="color:var(--blue-t);cursor:pointer">Dispatch now →</span></div></div></div>
+    <div class="notif-item n-unread"><div class="n-dot" style="background:var(--amber)"></div><div><div class="n-text">⚠ Hollow Block 3-hole stock at 980 units (44% of capacity). Approaching low threshold of 400 units.</div><div class="n-time">Today, 6:00 AM</div></div></div>
+    <div class="notif-item"><div class="n-dot" style="background:var(--blue)"></div><div><div class="n-text">ℹ New B2B registration: Omkar Infrastructure Pvt. Ltd., Pune. GSTIN verification pending.</div><div class="n-time">Yesterday, 5:30 PM · <span style="color:var(--blue-t);cursor:pointer">Review →</span></div></div></div>
+    <div class="notif-item"><div class="n-dot" style="background:var(--green)"></div><div><div class="n-text">✅ June 2026 production target achieved: 24,600 units vs 23,000 target (+7%).</div><div class="n-time">Today, 9:00 AM</div></div></div>
+    <div class="notif-item"><div class="n-dot" style="background:var(--amber)"></div><div><div class="n-text">⚠ Ganesh Homes payment overdue: ₹14,200 for 32 days (Order #1033). Recommend escalation.</div><div class="n-time">Jun 12 · <span style="color:var(--blue-t);cursor:pointer">Send reminder →</span></div></div></div>
+  </div>
+</div>
+
+<!-- ─── CALENDAR ─────────────────────────────── -->
+<div id="sec-calendar" class="section">
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title"><i class="ti ti-calendar"></i>Calendar 2026 — Indian Holidays</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="btn sm" onclick="calNav(-1)"><i class="ti ti-chevron-left"></i></button>
+        <span style="font-family:var(--font-head);font-size:16px;font-weight:700;color:var(--text)" id="cal-label">June 2026</span>
+        <button class="btn sm" onclick="calNav(1)"><i class="ti ti-chevron-right"></i></button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px">
+      <div class="cal-dn">Sun</div><div class="cal-dn">Mon</div><div class="cal-dn">Tue</div><div class="cal-dn">Wed</div><div class="cal-dn">Thu</div><div class="cal-dn">Fri</div><div class="cal-dn">Sat</div>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div style="display:flex;gap:14px;margin-top:10px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><div style="width:10px;height:10px;border-radius:3px;background:var(--accent-bg);border:.5px solid var(--accent)"></div> Today</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><div style="width:10px;height:10px;border-radius:3px;background:var(--red-bg);border:.5px solid var(--red)"></div> National Holiday</div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)"><div style="width:10px;height:10px;border-radius:3px;background:var(--bg3)"></div> Sunday</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-flag"></i>Indian National Holidays 2026</div></div>
+    <div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Day</th><th>Holiday</th><th>Type</th></tr></thead><tbody id="holiday-list"></tbody></table></div>
+  </div>
+</div>
+
+<!-- ─── REPORTS ─────────────────────────────── -->
+<div id="sec-reports" class="section">
+  <div class="kpi-grid">
+    <div class="kpi g"><div class="kpi-label">Revenue Jun</div><div class="kpi-val">₹9.8L</div><div class="kpi-sub up">▲ +14%</div></div>
+    <div class="kpi"><div class="kpi-label">Cost of Goods</div><div class="kpi-val">₹5.9L</div></div>
+    <div class="kpi g"><div class="kpi-label">Gross Margin</div><div class="kpi-val">39.8%</div><div class="kpi-sub up">▲ +2.1%</div></div>
+    <div class="kpi b"><div class="kpi-label">Units Sold</div><div class="kpi-val">24,600</div></div>
+    <div class="kpi p"><div class="kpi-label">Avg Order Value</div><div class="kpi-val">₹18,200</div></div>
+    <div class="kpi a"><div class="kpi-label">AR Outstanding</div><div class="kpi-val">₹1.4L</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-chart-line"></i>Revenue vs Cost — 6 months</div></div>
+      <div class="ch h220"><canvas id="c-margin"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-chart-bar"></i>Attendance 2026</div></div>
+      <div class="ch h220"><canvas id="c-attend"></canvas></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-download"></i>Export reports</div></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px">
+      <button class="btn primary" onclick="showAlert('rep-alert','s','Sales Report exported as PDF')"><i class="ti ti-file-invoice"></i>Sales Report (PDF)</button>
+      <button class="btn primary" onclick="showAlert('rep-alert','s','Production Report exported')"><i class="ti ti-settings-2"></i>Production Report</button>
+      <button class="btn primary" onclick="showAlert('rep-alert','s','Material Report exported')"><i class="ti ti-truck"></i>Material Report</button>
+      <button class="btn primary" onclick="showAlert('rep-alert','s','AR Aging Report exported')"><i class="ti ti-receipt-2"></i>AR Aging Report</button>
+      <button class="btn primary" onclick="showAlert('rep-alert','s','Wages Report exported')"><i class="ti ti-coin-rupee"></i>Wages & Payroll</button>
+      <button class="btn primary" onclick="showAlert('rep-alert','s','Attendance Report exported')"><i class="ti ti-calendar-stats"></i>Attendance Report</button>
+      <button class="btn primary" onclick="showAlert('rep-alert','s','GST Report exported')"><i class="ti ti-file-text"></i>GST Report (GSTR-1)</button>
+      <button class="btn primary" onclick="showAlert('rep-alert','s','P&L Statement exported')"><i class="ti ti-chart-bar"></i>P&L Statement</button>
+    </div>
+    <div class="alert s" id="rep-alert"></div>
+  </div>
+</div>
+
+<!-- ─── LOCATION ─────────────────────────────── -->
+<div id="sec-map" class="section">
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-map-2"></i>Site location</div></div>
+    <div class="map-placeholder">
+      <i class="ti ti-map-pin" style="font-size:52px;color:var(--accent)"></i>
+      <div style="font-size:15px;font-weight:600;color:var(--text)">Sri Kundodhari Cement Products</div>
+      <div style="font-size:12px;color:var(--text3);text-align:center">Bhosari MIDC, Pimpri-Chinchwad<br>Pune – 411026, Maharashtra, India</div>
+      <a href="https://maps.google.com/?q=Bhosari+MIDC+Pimpri+Chinchwad+Pune" target="_blank" class="btn primary" style="margin-top:10px;text-decoration:none"><i class="ti ti-external-link"></i>Open in Google Maps</a>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-route"></i>How to reach</div></div>
+      <div class="stat-row"><span style="color:var(--text2)">By Road</span><span style="color:var(--text);max-width:200px;text-align:right;font-size:12px">Pune–Nashik Highway (NH 60), Bhosari MIDC zone</span></div>
+      <div class="stat-row"><span style="color:var(--text2)">Landmark</span><span style="color:var(--text);max-width:200px;text-align:right;font-size:12px">2 km from Pimpri Railway Station</span></div>
+      <div class="stat-row"><span style="color:var(--text2)">Truck Entry</span><span style="color:var(--text);max-width:200px;text-align:right;font-size:12px">Gate No. 2 — North side, 7AM–5PM</span></div>
+      <div class="stat-row"><span style="color:var(--text2)">Nearest Junction</span><span style="color:var(--text);font-size:12px">Bhosari Phata</span></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-clock"></i>Working Hours</div></div>
+      <div class="timing-row"><div class="timing-day">Mon – Fri</div><div class="timing-hrs">7 AM – 6 PM</div></div>
+      <div class="timing-row"><div class="timing-day">Saturday</div><div class="timing-hrs">7 AM – 4 PM</div></div>
+      <div class="timing-row"><div class="timing-day">Sunday</div><span class="badge br">Closed</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONTACT ─────────────────────────────── -->
+<div id="sec-contact" class="section">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+    <div class="contact-item"><div class="ci-icon"><i class="ti ti-phone"></i></div><div><div class="ci-label">Main Office</div><div class="ci-val">+91 98765 43210</div></div></div>
+    <div class="contact-item"><div class="ci-icon"><i class="ti ti-phone"></i></div><div><div class="ci-label">Production Unit</div><div class="ci-val">+91 98765 43211</div></div></div>
+    <div class="contact-item"><div class="ci-icon"><i class="ti ti-mail"></i></div><div><div class="ci-label">Email</div><div class="ci-val">info@kundodhari.com</div></div></div>
+    <div class="contact-item"><div class="ci-icon"><i class="ti ti-brand-whatsapp"></i></div><div><div class="ci-label">WhatsApp (orders)</div><div class="ci-val">+91 98765 43210</div></div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-users"></i>Key personnel</div></div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>Role</th><th>Department</th><th>Phone</th><th>Available</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><b>Proprietor / Director</b></td><td class="muted">Management</td><td class="muted">+91 98765 43210</td><td class="muted">Mon–Sat, 9AM–5PM</td><td><div style="display:flex;align-items:center;gap:5px"><div class="online-dot"></div><span style="font-size:11px;color:var(--green-t)">Online</span></div></td></tr>
+        <tr><td><b>Production Manager</b></td><td class="muted">Factory</td><td class="muted">+91 98765 43212</td><td class="muted">Mon–Sat, 7AM–5PM</td><td><div style="display:flex;align-items:center;gap:5px"><div class="online-dot"></div><span style="font-size:11px;color:var(--green-t)">Online</span></div></td></tr>
+        <tr><td><b>Sales Executive</b></td><td class="muted">Orders & B2B</td><td class="muted">+91 98765 43213</td><td class="muted">Mon–Sat, 9AM–6PM</td><td><div style="display:flex;align-items:center;gap:5px"><div class="offline-dot"></div><span style="font-size:11px;color:var(--text3)">Away</span></div></td></tr>
+        <tr><td><b>Store Manager</b></td><td class="muted">Inventory</td><td class="muted">+91 98765 43214</td><td class="muted">Mon–Sat, 8AM–5PM</td><td><div style="display:flex;align-items:center;gap:5px"><div class="online-dot"></div><span style="font-size:11px;color:var(--green-t)">Online</span></div></td></tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SETTINGS ─────────────────────────────── -->
+<div id="sec-settings" class="section">
+  <div class="g2">
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-building"></i>Company profile</div></div>
+      <div class="form-grid">
+        <div class="fld"><label>Company Name</label><input value="Sri Kundodhari Cement Products"/></div>
+        <div class="fld"><label>GSTIN</label><input value="27AABCS1429B1ZB"/></div>
+        <div class="fld"><label>Phone</label><input value="+91 98765 43210"/></div>
+        <div class="fld"><label>Email</label><input value="info@kundodhari.com"/></div>
+        <div class="fld f-full"><label>Registered Address</label><textarea style="min-height:48px">Bhosari MIDC, Pimpri-Chinchwad, Pune – 411026, Maharashtra</textarea></div>
+      </div>
+      <div class="btn-row"><button class="btn primary" onclick="showAlert('set-alert','s','Profile updated')"><i class="ti ti-device-floppy"></i>Save Profile</button></div>
+      <div class="alert s" id="set-alert"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title"><i class="ti ti-receipt"></i>Pricing & Tax</div></div>
+      <div class="fld" style="margin-bottom:9px"><label>GST Rate on Blocks</label><select><option>18%</option><option>12%</option><option>5%</option></select></div>
+      <div class="fld" style="margin-bottom:9px"><label>Default Payment Terms</label><select><option>Advance (100%)</option><option>50-50</option><option>Net 30</option></select></div>
+      <div class="fld" style="margin-bottom:9px"><label>Min Order Quantity</label><input type="number" value="100"/></div>
+      <div class="fld" style="margin-bottom:9px"><label>Default Credit Limit (₹)</label><input type="number" value="50000"/></div>
+      <div class="fld" style="margin-bottom:9px"><label>Free delivery threshold (₹)</label><input type="number" value="100000"/></div>
+      <div class="btn-row"><button class="btn primary" onclick="showAlert('pricing-alert','s','Settings saved')"><i class="ti ti-device-floppy"></i>Save Settings</button></div>
+      <div class="alert s" id="pricing-alert"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-bell"></i>Alert preferences</div></div>
+    <div class="settings-row"><div><div class="sr-label">Low cement stock alert</div><div class="sr-sub">Notify when below 300 bags</div></div><div class="toggle-sw2 on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="settings-row"><div><div class="sr-label">Overdue dispatch alert</div><div class="sr-sub">Notify after 1 day delay</div></div><div class="toggle-sw2 on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="settings-row"><div><div class="sr-label">Payment overdue reminder</div><div class="sr-sub">Auto-alert after 30 days</div></div><div class="toggle-sw2 on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="settings-row"><div><div class="sr-label">Daily production summary email</div><div class="sr-sub">Sent at 6 PM every day</div></div><div class="toggle-sw2" onclick="this.classList.toggle('on')"></div></div>
+    <div class="settings-row"><div><div class="sr-label">Labour check-in reminder</div><div class="sr-sub">Alert if not checked in by 7:30 AM</div></div><div class="toggle-sw2 on" onclick="this.classList.toggle('on')"></div></div>
+    <div class="settings-row"><div><div class="sr-label">Low inventory reorder alerts</div><div class="sr-sub">Email + SMS on threshold breach</div></div><div class="toggle-sw2 on" onclick="this.classList.toggle('on')"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-head"><div class="card-title"><i class="ti ti-moon"></i>Appearance</div></div>
+    <div class="settings-row">
+      <div><div class="sr-label">Dark mode</div><div class="sr-sub">Toggle between light and dark theme</div></div>
+      <div class="toggle-sw2 on" id="settings-theme-sw" onclick="toggleTheme()"></div>
+    </div>
+    <div class="settings-row">
+      <div><div class="sr-label">Compact sidebar</div><div class="sr-sub">Collapse sidebar labels</div></div>
+      <div class="toggle-sw2" onclick="this.classList.toggle('on')"></div>
+    </div>
+  </div>
+</div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+// ══════════════════════════════════════════════
+// THEME
+// ══════════════════════════════════════════════
+let isDark = true;
+function toggleTheme() {
+  isDark = !isDark;
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  document.getElementById('theme-sw').classList.toggle('on', isDark);
+  document.getElementById('theme-icon').className = isDark ? 'ti ti-moon' : 'ti ti-sun';
+  document.getElementById('theme-label').textContent = isDark ? 'Dark Mode' : 'Light Mode';
+  const ssw = document.getElementById('settings-theme-sw');
+  if (ssw) ssw.classList.toggle('on', isDark);
+  // Re-render charts after theme change
+  setTimeout(() => { destroyCharts(); initVisibleCharts(); }, 50);
+}
+
+// ══════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════
+const PAGE_TITLES = {
+  overview:'Overview', orders:'Orders', quote:'Quote Builder',
+  inventory:'Inventory', production:'Production', rawmat:'Raw Materials',
+  catalogue:'Product Catalogue', customers:'Customers', pipeline:'Sales Pipeline',
+  ledger:'Ledger', dispatch:'Dispatch', labour:'Labour & Attendance',
+  wages:'Wages & Payroll', timesheet:'Timesheet', notifications:'Alerts',
+  calendar:'Calendar 2026', reports:'Reports & Analytics', map:'Location',
+  contact:'Contact', settings:'Settings'
+};
+function nav(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const sec = document.getElementById('sec-' + id);
+  if (!sec) return;
+  sec.classList.add('active');
+  if (el) el.classList.add('active');
+  document.getElementById('page-title').textContent = PAGE_TITLES[id] || id;
+  initVisibleCharts();
+  if (id === 'timesheet') renderTimesheet();
+  if (id === 'calendar') renderCalendar();
+  if (id === 'labour') updateLClock();
+  if (id === 'wages') { renderWagesTable(); populateLabourSelects(); }
+  if (id === 'catalogue') renderCatalogue();
+  if (id === 'reports') initReportCharts();
+  if (id === 'pipeline') initPipeChart();
+}
+
+// ══════════════════════════════════════════════
+// ALERT HELPER
+// ══════════════════════════════════════════════
+function showAlert(id, type, msg) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = `alert ${type} show`;
+  el.innerHTML = `<i class="ti ti-circle-check"></i> ${msg}`;
+  setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+// ══════════════════════════════════════════════
+// SUB-SECTION TABS
+// ══════════════════════════════════════════════
+function showSubSection(containerId, panelId, tabEl) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  container.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById(panelId);
+  if (panel) panel.classList.add('active');
+  if (tabEl) tabEl.classList.add('active');
+}
+
+// ══════════════════════════════════════════════
+// CHARTS
+// ══════════════════════════════════════════════
+const charts = {};
+function gc() { return getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim(); }
+function tc2() { return getComputedStyle(document.documentElement).getPropertyValue('--chart-tick').trim(); }
+function accentColor() { return isDark ? '#c9ab82' : '#8b6840'; }
+
+function destroyCharts() {
+  Object.keys(charts).forEach(k => { if (charts[k]) { charts[k].destroy(); delete charts[k]; } });
+}
+
+function mkChart(id, cfg) {
+  if (charts[id]) { charts[id].destroy(); }
+  const el = document.getElementById(id);
+  if (!el) return;
+  charts[id] = new Chart(el, cfg);
+}
+
+function initVisibleCharts() {
+  const sec = document.querySelector('.section.active');
+  if (!sec) return;
+  const id = sec.id;
+  if (id === 'sec-overview') initOverviewCharts();
+  if (id === 'sec-production') initProdChart();
+  if (id === 'sec-reports') initReportCharts();
+  if (id === 'sec-pipeline') initPipeChart();
+}
+
+function initOverviewCharts() {
+  const m6 = ['Jan','Feb','Mar','Apr','May','Jun'];
+  mkChart('c-rev', {
+    type:'line',
+    data:{ labels:m6, datasets:[{ label:'Revenue (L)', data:[6.2,7.1,7.8,8.4,9.0,9.8], borderColor:accentColor(), backgroundColor:`${accentColor()}22`, fill:true, tension:0.4, pointRadius:4, borderWidth:2 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false} }, scales:{ x:{grid:{color:gc()},ticks:{color:tc2(),font:{size:10}}}, y:{grid:{color:gc()},ticks:{color:tc2(),font:{size:10},callback:v=>'₹'+v+'L'}} } }
+  });
+  mkChart('c-donut', {
+    type:'doughnut',
+    data:{ labels:['Solid','Hollow','Paver'], datasets:[{ data:[48,32,20], backgroundColor:['#c9ab82','#4caf7d','#e8a317'], borderWidth:0 }] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'66%', plugins:{ legend:{display:false} } }
+  });
+}
+
+function initProdChart() {
+  mkChart('c-week', {
+    type:'bar',
+    data:{ labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], datasets:[{ label:'Blocks', data:[980,1100,1050,1200,1320,890,600], backgroundColor:accentColor(), borderRadius:4 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false} }, scales:{ x:{grid:{color:gc()},ticks:{color:tc2(),font:{size:10}}}, y:{grid:{color:gc()},ticks:{color:tc2(),font:{size:10}}} } }
+  });
+}
+
+function initReportCharts() {
+  const m6 = ['Jan','Feb','Mar','Apr','May','Jun'];
+  mkChart('c-margin', {
+    type:'line',
+    data:{ labels:m6, datasets:[
+      { label:'Revenue', data:[6.2,7.1,7.8,8.4,9.0,9.8], borderColor:'#4caf7d', tension:0.4, pointRadius:3, borderWidth:2 },
+      { label:'Cost', data:[3.9,4.4,4.7,5.0,5.5,5.9], borderColor:'#e24b4a', tension:0.4, pointRadius:3, borderWidth:2, borderDash:[5,4] }
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ labels:{ color:tc2(), font:{size:11}, boxWidth:12 } } }, scales:{ x:{grid:{color:gc()},ticks:{color:tc2(),font:{size:10}}}, y:{grid:{color:gc()},ticks:{color:tc2(),font:{size:10},callback:v=>'₹'+v+'L'}} } }
+  });
+  mkChart('c-attend', {
+    type:'bar',
+    data:{ labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+      datasets:[{ label:'Attendance %', data:[94,91,96,89,93,88,0,0,0,0,0,0], backgroundColor: ['#c9ab82','#c9ab82','#c9ab82','#c9ab82','#c9ab82','#c9ab82','#2a2e3d','#2a2e3d','#2a2e3d','#2a2e3d','#2a2e3d','#2a2e3d'], borderRadius:4 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false} }, scales:{ x:{grid:{color:gc()},ticks:{color:tc2(),font:{size:10}}}, y:{grid:{color:gc()},ticks:{color:tc2(),font:{size:10},callback:v=>v+'%'},max:100,min:0} } }
+  });
+}
+
+function initPipeChart() {
+  mkChart('c-pipe', {
+    type:'doughnut',
+    data:{ labels:['Lead','Quote Sent','Negotiation','PO Received'], datasets:[{ data:[6.2,4.8,5.4,2.0], backgroundColor:['#378add','#e8a317','#9b59b6','#4caf7d'], borderWidth:0 }] },
+    options:{ responsive:true, maintainAspectRatio:false, cutout:'55%', plugins:{ legend:{ labels:{ color:tc2(), font:{size:10}, boxWidth:10 } } } }
+  });
+}
+
+// ══════════════════════════════════════════════
+// ORDERS
+// ══════════════════════════════════════════════
+const ORDERS = [
+  { id:'#1042', cust:'Rajesh Constructions', product:'Solid 6" Block', qty:500, amount:'₹18,500', date:'Jun 15', payment:'Paid', status:'Delivered' },
+  { id:'#1041', cust:'Patil Builders', product:'Hollow 8" Block', qty:300, amount:'₹14,400', date:'Jun 16', payment:'Partial', status:'In Transit' },
+  { id:'#1040', cust:'Suresh Infra', product:'Paver I-Block', qty:800, amount:'₹22,400', date:'Jun 14', payment:'Paid', status:'Delivered' },
+  { id:'#1039', cust:'Ganesh Homes', product:'Solid 4" Block', qty:400, amount:'₹13,200', date:'Jun 17', payment:'Pending', status:'Pending' },
+  { id:'#1038', cust:'Shankar Traders', product:'Hollow 6" Block', qty:250, amount:'₹10,000', date:'Jun 14', payment:'Paid', status:'Delivered' },
+  { id:'#1037', cust:'Kiran Developers', product:'Paver Hex', qty:600, amount:'₹18,000', date:'Jun 18', payment:'Advance', status:'Pending' },
+  { id:'#1036', cust:'Sharma Infra', product:'Solid 6" Block', qty:1000, amount:'₹37,000', date:'Jun 13', payment:'Paid', status:'Delivered' },
+];
+const STATUS_BADGE = { Delivered:'bg', 'In Transit':'ba', Pending:'br', Cancelled:'br' };
+const PAY_BADGE = { Paid:'bg', Partial:'ba', Pending:'br', Advance:'bi' };
+
+function renderOrders(list) {
+  document.getElementById('orders-body').innerHTML = list.map(o =>
+    `<tr><td><b>${o.id}</b></td><td>${o.cust}</td><td class="muted">${o.product}</td><td>${o.qty}</td><td><b>${o.amount}</b></td><td class="muted">${o.date}</td><td><span class="badge ${PAY_BADGE[o.payment]||'bi'}">${o.payment}</span></td><td><span class="badge ${STATUS_BADGE[o.status]||'bi'}">${o.status}</span></td><td><span class="card-action">View</span></td></tr>`
+  ).join('');
+}
+renderOrders(ORDERS);
+
+function filterOrders(search, selectId) {
+  const status = document.getElementById(selectId)?.value || 'All';
+  renderOrders(ORDERS.filter(o =>
+    (status === 'All' || o.status === status) &&
+    (!search || [o.id,o.cust,o.product].some(v => v.toLowerCase().includes(search.toLowerCase())))
+  ));
+}
+
+// ══════════════════════════════════════════════
+// QUOTE BUILDER
+// ══════════════════════════════════════════════
+const quoteItems = [];
+let quoteNum = 47;
+
+function addQuoteItem() {
+  const sel = document.getElementById('q-product').value;
+  if (!sel) return;
+  const parts = sel.split('|');
+  const [name, price, sku] = [parts[0], parseInt(parts[1]), parts[2]];
+  const qty = Math.max(1, parseInt(document.getElementById('q-qty').value) || 1);
+  const disc = Math.min(30, Math.max(0, parseFloat(document.getElementById('q-disc').value) || 0));
+  const existing = quoteItems.find(i => i.sku === sku);
+  if (existing) { existing.qty += qty; }
+  else { quoteItems.push({ name, price, qty, disc, sku }); }
+  document.getElementById('q-prev-name').textContent = document.getElementById('q-company').value || '—';
+  document.getElementById('q-prev-gstin').textContent = document.getElementById('q-gstin').value || '—';
+  document.getElementById('q-prev-terms').textContent = document.getElementById('q-terms').value;
+  document.getElementById('q-prev-trans').textContent = document.getElementById('q-transport').value;
+  renderQuote();
+}
+
+function renderQuote() {
+  if (!quoteItems.length) {
+    document.getElementById('quote-items').innerHTML = '<div class="empty-state" style="padding:16px 0"><i class="ti ti-file-invoice"></i><p>Add products to build your quote</p></div>';
+    updateTotals(0, 0); return;
+  }
+  let total = 0, totalDisc = 0;
+  const html = quoteItems.map((it, i) => {
+    const lineDisc = it.price * it.qty * (it.disc / 100);
+    const line = it.price * it.qty - lineDisc;
+    total += line; totalDisc += lineDisc;
+    return `<div class="q-item">
+      <div class="qi-name">${it.name}<span style="font-size:10px;color:var(--text3);margin-left:5px">₹${it.price}/unit${it.disc > 0 ? ` · ${it.disc}% off` : ''}</span></div>
+      <input class="qi-qty-inp" type="number" value="${it.qty}" min="1" onchange="updateQty(${i},this.value)"/>
+      <div class="qi-price">₹${Math.round(line).toLocaleString('en-IN')}</div>
+      <div class="qi-del" onclick="removeItem(${i})"><i class="ti ti-x"></i></div>
+    </div>`;
+  }).join('');
+  document.getElementById('quote-items').innerHTML = html;
+  updateTotals(total, totalDisc);
+}
+
+function updateTotals(sub, disc) {
+  const gst = Math.round(sub * 0.18);
+  document.getElementById('q-sub').textContent = '₹' + (Math.round(sub) + Math.round(disc)).toLocaleString('en-IN');
+  document.getElementById('q-disc-amt').textContent = '−₹' + Math.round(disc).toLocaleString('en-IN');
+  document.getElementById('q-gst').textContent = '₹' + gst.toLocaleString('en-IN');
+  document.getElementById('q-total').textContent = '₹' + (Math.round(sub) + gst).toLocaleString('en-IN');
+}
+function updateQty(i, v) { quoteItems[i].qty = Math.max(1, parseInt(v) || 1); renderQuote(); }
+function removeItem(i) { quoteItems.splice(i, 1); renderQuote(); }
+function clearQuote() { quoteItems.length = 0; renderQuote(); }
+function sendQuote() { showAlert('q-alert','s',`Quote QUO-2026-00${++quoteNum} sent to customer`); document.getElementById('q-num').textContent = `QUO-2026-00${quoteNum + 1}`; }
+
+// ══════════════════════════════════════════════
+// CATALOGUE
+// ══════════════════════════════════════════════
+const PRODUCTS = [
+  { name:'Solid Block 6"×8"×16"', sku:'SB-6816', price:37, icon:'ti-box', cat:'Solid', stock:1400, max:2000 },
+  { name:'Solid Block 4"×8"×16"', sku:'SB-4816', price:28, icon:'ti-box', cat:'Solid', stock:1400, max:2000 },
+  { name:'Hollow Block 2-hole', sku:'HB-2H', price:40, icon:'ti-layout-2', cat:'Hollow', stock:1200, max:1600 },
+  { name:'Hollow Block 3-hole', sku:'HB-3H', price:44, icon:'ti-layout-grid', cat:'Hollow', stock:980, max:1600 },
+  { name:'Paver Block I-shape', sku:'PB-I60', price:28, icon:'ti-hexagons', cat:'Paver', stock:800, max:1200 },
+  { name:'Paver Block Hex', sku:'PB-HX60', price:30, icon:'ti-hexagon', cat:'Paver', stock:600, max:1200 },
+];
+function renderCatalogue() {
+  document.getElementById('catalogue-grid').innerHTML = PRODUCTS.map(p => {
+    const pct = Math.round((p.stock/p.max)*100);
+    const sc = pct > 60 ? 'g' : pct > 30 ? 'a' : 'r';
+    return `<div class="product-card">
+      <div class="product-icon"><i class="ti ${p.icon}"></i></div>
+      <div class="product-name">${p.name}</div>
+      <div class="product-sku">SKU: ${p.sku}</div>
+      <div class="product-price">₹${p.price}<span style="font-size:10px;color:var(--text3)">/unit</span></div>
+      <div class="stock-bar">
+        <div class="stock-label"><span>Stock: ${p.stock.toLocaleString('en-IN')}</span><span>${pct}%</span></div>
+        <div class="prog"><div class="pf ${sc}" style="width:${pct}%"></div></div>
+      </div>
+      <div class="add-to-cart" onclick="openQuote('${p.name}|${p.price}|${p.sku}')">Request Quote →</div>
+    </div>`;
+  }).join('');
+}
+function openQuote(val) { nav('quote',null); setTimeout(() => { document.getElementById('q-product').value = val; },100); }
+
+// ══════════════════════════════════════════════
+// LABOUR
+// ══════════════════════════════════════════════
+const LABOUR = [
+  { id:1, name:'Ramesh Kumar', role:'Block Maker', wage:550, status:'in', checkin:'7:02 AM', checkout:'', bank:'SBI ****1234', adv:2000 },
+  { id:2, name:'Suresh Bhosale', role:'Mixer Operator', wage:600, status:'in', checkin:'7:05 AM', checkout:'', bank:'BOI ****5678', adv:0 },
+  { id:3, name:'Mahesh Patil', role:'Loader', wage:480, status:'in', checkin:'7:10 AM', checkout:'', bank:'SBI ****9012', adv:0 },
+  { id:4, name:'Ganesh Thorat', role:'Block Maker', wage:550, status:'in', checkin:'7:03 AM', checkout:'', bank:'CBI ****3456', adv:0 },
+  { id:5, name:'Raju Jadhav', role:'Helper', wage:420, status:'in', checkin:'7:15 AM', checkout:'', bank:'UBI ****7890', adv:0 },
+  { id:6, name:'Santosh More', role:'Block Maker', wage:550, status:'in', checkin:'7:08 AM', checkout:'', bank:'SBI ****2345', adv:0 },
+  { id:7, name:'Vijay Shinde', role:'Loader', wage:480, status:'in', checkin:'7:12 AM', checkout:'', bank:'ICICI ****6789', adv:1500 },
+  { id:8, name:'Anil Waghmare', role:'Helper', wage:420, status:'in', checkin:'7:20 AM', checkout:'', bank:'SBI ****0123', adv:0 },
+  { id:9, name:'Dnyaneshwar Kale', role:'Supervisor', wage:800, status:'in', checkin:'7:00 AM', checkout:'', bank:'HDFC ****4567', adv:0 },
+  { id:10, name:'Pravin Gaikwad', role:'Block Maker', wage:550, status:'in', checkin:'7:07 AM', checkout:'', bank:'SBI ****8901', adv:0 },
+  { id:11, name:'Kishor Deshmukh', role:'Driver', wage:650, status:'in', checkin:'7:30 AM', checkout:'', bank:'Axis ****2345', adv:0 },
+  { id:12, name:'Rajendra Yadav', role:'Helper', wage:420, status:'in', checkin:'7:45 AM', checkout:'', bank:'SBI ****6789', adv:0 },
+  { id:13, name:'Balaji Pawar', role:'Block Maker', wage:550, status:'absent', checkin:'', checkout:'', bank:'SBI ****0123', adv:0 },
+  { id:14, name:'Omkar Nikam', role:'Loader', wage:480, status:'absent', checkin:'', checkout:'', bank:'BOI ****4567', adv:0 },
+  { id:15, name:'Tushar Jagtap', role:'Helper', wage:420, status:'absent', checkin:'', checkout:'', bank:'SBI ****8901', adv:0 },
+];
+
+let lClockInterval;
+function updateLClock() {
+  clearInterval(lClockInterval);
+  const update = () => {
+    const el = document.getElementById('l-time');
+    if (el) el.textContent = new Date().toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  };
+  update();
+  lClockInterval = setInterval(update, 1000);
+}
+
+function toggleCheckin(id) {
+  const w = LABOUR.find(l => l.id === id);
+  if (!w) return;
+  const now = new Date().toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
+  if (w.status === 'absent') { w.status = 'in'; w.checkin = now; w.checkout = ''; }
+  else if (w.status === 'in') { w.status = 'out'; w.checkout = now; }
+  else { w.status = 'in'; w.checkin = now; w.checkout = ''; }
+  renderLabour();
+}
+
+function renderLabour() {
+  const presentCount = LABOUR.filter(l => l.status === 'in').length;
+  const absentCount = LABOUR.filter(l => l.status === 'absent').length;
+  const lp = document.getElementById('l-present');
+  const la = document.getElementById('l-absent');
+  if (lp) lp.textContent = presentCount;
+  if (la) la.textContent = absentCount;
+  const el = document.getElementById('labour-list');
+  if (!el) return;
+  el.innerHTML = LABOUR.map(l => {
+    const initials = l.name.split(' ').map(n=>n[0]).join('').substring(0,2);
+    const isIn = l.status === 'in', isOut = l.status === 'out', isAbsent = l.status === 'absent';
+    const badge = isIn ? '<span class="badge bg">Present</span>' : isOut ? '<span class="badge ba">Checked Out</span>' : '<span class="badge br">Absent</span>';
+    const times = (l.checkin ? `In: ${l.checkin}` : '') + (l.checkout ? ` · Out: ${l.checkout}` : '');
+    const btnLabel = isIn ? 'Check Out' : isAbsent ? 'Check In' : '↩ Check In';
+    const btnClass = isIn ? 'ci-out' : 'ci-in';
+    return `<div class="labour-row">
+      <div class="avatar" style="background:var(--accent-bg);color:var(--accent)">${initials}</div>
+      <div style="flex:1;min-width:0">
+        <div class="la-name">${l.name}</div>
+        <div class="la-role">${l.role} · ₹${l.wage}/day${times ? ' · ' + times : ''}</div>
+      </div>
+      ${badge}
+      <button class="checkin-btn ${btnClass}" onclick="toggleCheckin(${l.id})">${btnLabel}</button>
+    </div>`;
+  }).join('');
+}
+renderLabour();
+
+function addLabour() {
+  const name = document.getElementById('l-name').value.trim();
+  if (!name) { showAlert('labour-alert','e','Please enter a name'); return; }
+  const newId = Math.max(...LABOUR.map(l=>l.id)) + 1;
+  LABOUR.push({ id:newId, name, role:document.getElementById('l-role').value, wage:parseInt(document.getElementById('l-wage').value)||500, status:'absent', checkin:'', checkout:'', bank:'', adv:0 });
+  renderLabour();
+  populateLabourSelects();
+  showAlert('labour-alert','s',`${name} added to labour register`);
+  document.getElementById('l-name').value = '';
+}
+
+// ══════════════════════════════════════════════
+// WAGES
+// ══════════════════════════════════════════════
+function populateLabourSelects() {
+  ['pay-labour','adv-labour-sel','ded-labour-sel'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    const base = id === 'pay-labour' ? '<option value="">All labour</option>' : '';
+    sel.innerHTML = base + LABOUR.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
+  });
+}
+
+function getAttSeed(labourIdx, day) {
+  const s = (labourIdx * 31 + day * 7) % 100;
+  return s < 75 ? 'P' : s < 88 ? 'H' : 'A';
+}
+
+function renderWagesTable() {
+  const el = document.getElementById('wages-register-table');
+  if (!el) return;
+  const year = 2026, month = 5;
+  const days = new Date(year, month+1, 0).getDate();
+  let rows = '';
+  LABOUR.forEach((l, li) => {
+    let p = 0, h = 0, a = 0;
+    for (let d=1;d<=days;d++) {
+      const sun = new Date(year,month,d).getDay()===0;
+      if (sun) continue;
+      const att = getAttSeed(li, d);
+      if (att==='P') p++; else if (att==='H') { p+=0.5; h++; } else a++;
+    }
+    const gross = Math.round(p * l.wage);
+    const pf = Math.round(gross * 0.12);
+    const net = gross - pf - l.adv;
+    rows += `<tr>
+      <td><b>${l.name}</b></td><td class="muted">${l.role}</td>
+      <td class="muted">₹${l.wage}</td>
+      <td style="color:var(--green-t)">${Math.round(p)}</td>
+      <td style="color:var(--amber-t)">${h}</td>
+      <td style="color:var(--red-t)">${a}</td>
+      <td style="color:var(--green-t)">₹${gross.toLocaleString('en-IN')}</td>
+      <td class="muted">₹${pf.toLocaleString('en-IN')}</td>
+      <td class="muted">${l.adv > 0 ? '₹'+l.adv.toLocaleString('en-IN') : '—'}</td>
+      <td><b>₹${Math.max(0,net).toLocaleString('en-IN')}</b></td>
+      <td><span class="payment-status ${net>0?'ps-pending':'ps-paid'}">${net>0?'Pending':'Paid'}</span></td>
+    </tr>`;
+  });
+  el.innerHTML = `<table><thead><tr><th>Name</th><th>Role</th><th>Daily Rate</th><th>Days Present</th><th>Half Days</th><th>Absent</th><th>Gross</th><th>PF Deduct</th><th>Advance</th><th>Net Payable</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table>`;
+
+  // Wages history
+  const hb = document.getElementById('wages-history-body');
+  if (hb) {
+    hb.innerHTML = LABOUR.slice(0,8).map((l,li) => {
+      const p = 22 + (li%3);
+      const ot = (li%4)*2;
+      const gross = p*l.wage + ot*l.wage/8;
+      const net = Math.round(gross - gross*0.12);
+      return `<tr><td class="muted">May 2026</td><td><b>${l.name}</b></td><td>${p}</td><td class="muted">₹${l.wage}</td><td class="muted">${ot}</td><td class="muted">₹${Math.round(ot*l.wage/8).toLocaleString('en-IN')}</td><td class="muted">—</td><td><b>₹${net.toLocaleString('en-IN')}</b></td><td class="muted">May 31</td><td class="muted">Cash</td><td><span class="badge bg">Paid</span></td></tr>`;
+    }).join('');
+  }
+}
+
+// ══════════════════════════════════════════════
+// TIMESHEET
+// ══════════════════════════════════════════════
+const HOLIDAYS_2026 = {
+  '2026-01-26':'Republic Day','2026-03-03':'Holi','2026-03-27':'Good Friday',
+  '2026-04-14':'Dr. Ambedkar Jayanti','2026-05-01':'Maharashtra Day',
+  '2026-05-15':'Buddha Purnima','2026-06-17':'Eid ul-Adha',
+  '2026-08-15':'Independence Day','2026-09-02':'Ganesh Chaturthi',
+  '2026-10-02':'Gandhi Jayanti','2026-10-21':'Dussehra','2026-11-01':'Diwali',
+  '2026-11-15':'Guru Nanak Jayanti','2026-12-25':'Christmas',
+  '2026-01-14':'Makar Sankranti'
+};
+function getHoliday(y,m,d) {
+  return HOLIDAYS_2026[`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`] || null;
+}
+function isSunday(y,m,d) { return new Date(y,m,d).getDay()===0; }
+
+function renderTimesheet() {
+  const month = parseInt(document.getElementById('ts-month')?.value||5);
+  const year = parseInt(document.getElementById('ts-year')?.value||2026);
+  const days = new Date(year,month+1,0).getDate();
+  const workDays = [...Array(days)].filter((_,i)=>!isSunday(year,month,i+1)&&!getHoliday(year,month,i+1)).length;
+  const el = document.getElementById('ts-days');
+  if (el) el.textContent = workDays;
+
+  const head = document.getElementById('ts-head');
+  const body = document.getElementById('ts-body');
+  if (!head||!body) return;
+
+  let hdr = '<tr><th style="text-align:left;padding:5px 8px;white-space:nowrap">Name</th>';
+  for (let d=1;d<=days;d++) {
+    const sun=isSunday(year,month,d), hol=getHoliday(year,month,d);
+    hdr += `<th class="ts-cell" style="${sun||hol?'color:var(--text3)':''}">${d}</th>`;
+  }
+  hdr += '<th class="ts-cell">Days</th><th class="ts-cell">Wages</th></tr>';
+  head.innerHTML = hdr;
+
+  body.innerHTML = LABOUR.map((l,li) => {
+    let p=0, cells='';
+    for(let d=1;d<=days;d++){
+      const sun=isSunday(year,month,d), hol=getHoliday(year,month,d);
+      if(sun||hol){cells+=`<td class="ts-cell ts-x">—</td>`; continue;}
+      const a=getAttSeed(li,d);
+      if(a==='P'){p++;cells+=`<td class="ts-cell ts-p">P</td>`;}
+      else if(a==='H'){p+=0.5;cells+=`<td class="ts-cell ts-h">½</td>`;}
+      else{cells+=`<td class="ts-cell ts-a">A</td>`;}
+    }
+    return `<tr><td style="padding:5px 8px;white-space:nowrap;font-size:11.5px;color:var(--text)">${l.name.split(' ')[0]}</td>${cells}<td class="ts-cell ts-p" style="font-weight:600">${Math.round(p)}</td><td class="ts-cell" style="color:var(--accent);font-weight:600">₹${Math.round(p*l.wage).toLocaleString('en-IN')}</td></tr>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+// CALENDAR
+// ══════════════════════════════════════════════
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+let calY=2026, calM=5;
+
+function renderCalendar() {
+  document.getElementById('cal-label').textContent = `${MONTHS[calM]} ${calY}`;
+  const days = new Date(calY,calM+1,0).getDate();
+  const fd = new Date(calY,calM,1).getDay();
+  const today = new Date();
+  let html = '';
+  for(let i=0;i<fd;i++) html += '<div class="cal-cell empty"></div>';
+  for(let d=1;d<=days;d++){
+    const isToday = d===today.getDate()&&calM===today.getMonth()&&calY===today.getFullYear();
+    const sun = isSunday(calY,calM,d);
+    const hol = getHoliday(calY,calM,d);
+    let cls = 'cal-cell';
+    if(isToday) cls+=' today'; else if(hol) cls+=' holiday'; else if(sun) cls+=' weekend';
+    const holName = hol ? `<div class="cal-hn">${hol.length>13?hol.substring(0,11)+'…':hol}</div>` : '';
+    html += `<div class="${cls}"><div class="cal-num">${d}</div>${holName}</div>`;
+  }
+  document.getElementById('cal-grid').innerHTML = html;
+
+  const hRows = Object.entries(HOLIDAYS_2026).map(([k,v]) => {
+    const [yr,mo,da] = k.split('-').map(Number);
+    const dt = new Date(yr,mo-1,da);
+    const dayName = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][dt.getDay()];
+    return { ts:dt.getTime(), row:`<tr><td>${da} ${MONTHS[mo-1].substring(0,3)} ${yr}</td><td>${dayName}</td><td>${v}</td><td><span class="badge br">Public</span></td></tr>` };
+  });
+  hRows.sort((a,b)=>a.ts-b.ts);
+  document.getElementById('holiday-list').innerHTML = hRows.map(r=>r.row).join('');
+}
+function calNav(dir) {
+  calM += dir;
+  if(calM>11){calM=0;calY++;} if(calM<0){calM=11;calY--;}
+  renderCalendar();
+}
+
+// ══════════════════════════════════════════════
+// GLOBAL SEARCH
+// ══════════════════════════════════════════════
+function handleSearch(q) {
+  if (!q) return;
+  const lower = q.toLowerCase();
+  // Simple routing: if it matches a section keyword, navigate there
+  if (lower.includes('order')) nav('orders',null);
+  else if (lower.includes('stock')||lower.includes('inventory')) nav('inventory',null);
+  else if (lower.includes('labour')||lower.includes('worker')) nav('labour',null);
+  else if (lower.includes('wage')||lower.includes('salary')||lower.includes('payroll')) nav('wages',null);
+  else if (lower.includes('produc')) nav('production',null);
+  else if (lower.includes('customer')||lower.includes('client')) nav('customers',null);
+  else if (lower.includes('quote')) nav('quote',null);
+  else if (lower.includes('report')) nav('reports',null);
+  else if (lower.includes('dispatch')||lower.includes('transit')) nav('dispatch',null);
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+initOverviewCharts();
+renderCalendar();
+renderCatalogue();
+populateLabourSelects();
+setInterval(() => {
+  const sec = document.querySelector('.section.active');
+  if (sec && sec.id === 'sec-labour') {
+    const el = document.getElementById('l-time');
+    if (el) el.textContent = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }
+}, 1000);
+</script>
+</body>
+</html>
