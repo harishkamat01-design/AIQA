@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="OpenCartSuite">
+  <test name="LoginTests">
+    <classes>
+      <class name="com.opencart.tests.ValidLoginTest"/>
+      <class name="com.opencart.tests.InvalidLoginTest"/>
+    </classes>
+  </test>
+</suite>

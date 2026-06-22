@@ -1,0 +1,3 @@
+com\sf\pages\LoginPage.class
+com\sf\utils\ConfigReader.class
+com\sf\base\BaseTest.class

@@ -1,0 +1,7 @@
+base_url: https://restful-booker.herokuapp.com
+endpoints:
+  auth: /auth
+  booking: /booking
+  booking_list: /booking
+headers:
+  content_type: application/json
