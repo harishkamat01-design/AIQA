@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Playwright Run Analyzer</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F8FA;
+    --surface: #FFFFFF;
+    --border: #E2E5EA;
+    --border-active: #4F6EF7;
+    --text-primary: #1A1D23;
+    --text-secondary: #6B7280;
+    --text-muted: #9CA3AF;
+    --accent: #4F6EF7;
+    --accent-light: #EEF1FF;
+    --success: #10B981;
+    --success-light: #ECFDF5;
+    --warning: #F59E0B;
+    --warning-light: #FFFBEB;
+    --danger: #EF4444;
+    --danger-light: #FEF2F2;
+    --tag-bg: #F1F3F9;
+    --radius: 10px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.10);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 32px 16px 64px;
+    line-height: 1.5;
+  }
+
+  header {
+    max-width: 860px;
+    margin: 0 auto 36px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo {
+    width: 40px; height: 40px;
+    background: var(--accent);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo svg { width: 22px; height: 22px; fill: white; }
+
+  header h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; }
+  header p { font-size: 0.82rem; color: var(--text-secondary); margin-top: 1px; }
+
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    max-width: 860px;
+    margin: 0 auto 20px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .card-header .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .card-body { padding: 20px; }
+
+  .file-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 580px) { .file-grid { grid-template-columns: 1fr; } }
+
+  .file-drop {
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 24px 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+    background: var(--bg);
+  }
+
+  .file-drop:hover, .file-drop.drag-over {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .file-drop.has-file {
+    border-color: var(--success);
+    background: var(--success-light);
+    border-style: solid;
+  }
+
+  .file-drop input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+
+  .file-drop .icon { font-size: 1.6rem; margin-bottom: 8px; }
+
+  .file-drop .label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .file-drop .sublabel {
+    font-size: 0.73rem;
+    color: var(--text-muted);
+  }
+
+  .file-drop .file-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--success);
+    margin-top: 6px;
+    word-break: break-all;
+  }
+
+  .config-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: end;
+    margin-top: 16px;
+  }
+
+  label { display: block; font-size: 0.76rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 5px; }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    font-size: 0.84rem;
+    background: var(--surface);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  input[type="text"]:focus { border-color: var(--accent); }
+
+  .btn {
+    padding: 9px 20px;
+    border-radius: 7px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+  }
+
+  .btn-primary:hover:not(:disabled) { background: #3a58e0; }
+  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* Results */
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .result-section {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .result-section:last-child { border-bottom: none; }
+
+  .section-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .badge-flaky    { background: var(--warning-light); color: #92400E; }
+  .badge-failure  { background: var(--danger-light);  color: #991B1B; }
+  .badge-rerun    { background: var(--accent-light);  color: #1E3A8A; }
+  .badge-summary  { background: var(--tag-bg);        color: var(--text-secondary); }
+
+  .section-content {
+    font-size: 0.87rem;
+    color: var(--text-primary);
+    line-height: 1.65;
+    white-space: pre-wrap;
+  }
+
+  .section-content code {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.82rem;
+    background: var(--tag-bg);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--accent);
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 12px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .meta-row span strong { color: var(--text-secondary); }
+
+  .error-msg {
+    padding: 16px 20px;
+    background: var(--danger-light);
+    color: #7F1D1D;
+    font-size: 0.84rem;
+    border-radius: 7px;
+    margin: 12px 20px;
+  }
+
+  .raw-toggle {
+    font-size: 0.76rem;
+    color: var(--accent);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: auto;
+    font-weight: 500;
+  }
+
+  .raw-block {
+    margin: 12px 20px;
+    background: #1e2229;
+    color: #d4d8e1;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    display: none;
+  }
+
+  .raw-block.visible { display: block; }
+
+  .think-block {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+    border-left: 3px solid var(--border);
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    background: var(--bg);
+    border-radius: 0 6px 6px 0;
+    display: none;
+  }
+
+  .think-toggle {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    background: none;
+    border: 1px solid var(--border);
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    display: inline-block;
+    transition: all 0.12s;
+  }
+
+  .think-toggle:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+  </div>
+  <div>
+    <h1>Playwright Run Analyzer</h1>
+    <p>Compare two test run JSON files and get an AI-powered reliability report</p>
+  </div>
+</header>
+
+<!-- Upload Card -->
+<div class="card">
+  <div class="card-header"><div class="dot"></div> Upload Test Results</div>
+  <div class="card-body">
+    <div class="file-grid">
+      <div>
+        <label>Build 1 — result1.json</label>
+        <div class="file-drop" id="drop1" ondragover="handleDragOver(event,'drop1')" ondragleave="handleDragLeave('drop1')" ondrop="handleDrop(event,1)">
+          <input type="file" accept=".json" onchange="handleFileSelect(event,1)" />
+          <div class="icon">📂</div>
+          <div class="label">Drop file or click to browse</div>
+          <div class="sublabel">Playwright JSON report</div>
+          <div class="file-name" id="name1"></div>
+        </div>
+      </div>
+      <div>
+        <label>Build 2 — result2.json</label>
+        <div class="file-drop" id="drop2" ondragover="handleDragOver(event,'drop2')" ondragleave="handleDragLeave('drop2')" ondrop="handleDrop(event,2)">
+          <input type="file" accept=".json" onchange="handleFileSelect(event,2)" />
+          <div class="icon">📂</div>
+          <div class="label">Drop file or click to browse</div>
+          <div class="sublabel">Playwright JSON report</div>
+          <div class="file-name" id="name2"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="config-row">
+      <div>
+        <label>Langflow API Endpoint</label>
+        <input type="text" id="endpoint" value="http://localhost:7860/api/v1/run/8faf40dc-0d7e-4ca7-b544-029026e55e0d" />
+      </div>
+      <button class="btn btn-primary" id="analyzeBtn" onclick="analyze()" disabled>Analyze Builds</button>
+    </div>
+  </div>
+</div>
+
+<!-- Results Card -->
+<div class="card" id="resultsCard" style="display:none">
+  <div class="card-header" style="justify-content:space-between">
+    <span style="display:flex;align-items:center;gap:8px"><div class="dot" style="background:var(--success)"></div> Analysis Report</span>
+    <button class="raw-toggle" onclick="toggleRaw()">View raw JSON</button>
+  </div>
+  <div id="statusBar" class="status-bar"></div>
+  <div id="resultsBody"></div>
+  <div id="rawBlock" class="raw-block"></div>
+  <div class="meta-row" id="metaRow" style="display:none"></div>
+</div>
+
+<script>
+const files = { 1: null, 2: null };
+const API_KEY = 'sk-hiyoWn4plfqM4iWasgQtQ2lUc5sZSeYyrPAnyTY9xoE';
+
+function handleDragOver(e, id) { e.preventDefault(); document.getElementById(id).classList.add('drag-over'); }
+function handleDragLeave(id) { document.getElementById(id).classList.remove('drag-over'); }
+
+function handleDrop(e, slot) {
+  e.preventDefault();
+  handleDragLeave('drop'+slot);
+  const file = e.dataTransfer.files[0];
+  if (file) loadFile(file, slot);
+}
+
+function handleFileSelect(e, slot) {
+  const file = e.target.files[0];
+  if (file) loadFile(file, slot);
+}
+
+function loadFile(file, slot) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      files[slot] = { name: file.name, content: JSON.parse(e.target.result) };
+      const drop = document.getElementById('drop'+slot);
+      drop.classList.add('has-file');
+      document.getElementById('name'+slot).textContent = '✓ ' + file.name;
+      checkReady();
+    } catch(err) {
+      alert('File ' + slot + ' is not valid JSON: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function checkReady() {
+  document.getElementById('analyzeBtn').disabled = !(files[1] && files[2]);
+}
+
+async function analyze() {
+  const endpoint = document.getElementById('endpoint').value.trim();
+  if (!endpoint) { alert('Please enter the API endpoint.'); return; }
+
+  const btn = document.getElementById('analyzeBtn');
+  btn.disabled = true;
+  btn.textContent = 'Analyzing…';
+
+  const resultsCard = document.getElementById('resultsCard');
+  const statusBar = document.getElementById('statusBar');
+  const resultsBody = document.getElementById('resultsBody');
+  const metaRow = document.getElementById('metaRow');
+
+  resultsCard.style.display = 'block';
+  resultsBody.innerHTML = '';
+  metaRow.style.display = 'none';
+  document.getElementById('rawBlock').classList.remove('visible');
+  document.getElementById('rawBlock').textContent = '';
+
+  statusBar.innerHTML = '<div class="spinner"></div> Sending files to Langflow and waiting for AI analysis…';
+
+  const payload = {
+    output_type: "chat",
+    input_type: "text",
+    input_value: "Analyze these two Playwright runs and tell me which build has the most failed tests.",
+    session_id: "ui-session-" + Date.now(),
+    tweaks: {
+      "ReadFileComponent-1": { content: JSON.stringify(files[1].content) },
+      "ReadFileComponent-2": { content: JSON.stringify(files[2].content) }
+    }
+  };
+
+  // We embed file content directly in the prompt since we can't write to server paths
+  const promptPayload = {
+    output_type: "chat",
+    input_type: "text",
+    input_value: `Analyze these two Playwright runs:\n\n---Build 1 JSON---\n${JSON.stringify(files[1].content, null, 2)}\n\n---Build 2 JSON---\n${JSON.stringify(files[2].content, null, 2)}`,
+    session_id: "ui-session-" + Date.now()
+  };
+
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': API_KEY
+      },
+      body: JSON.stringify(promptPayload)
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`HTTP ${res.status}: ${errText}`);
+    }
+
+    const data = await res.json();
+    document.getElementById('rawBlock').textContent = JSON.stringify(data, null, 2);
+    renderResults(data);
+  } catch(err) {
+    statusBar.innerHTML = '';
+    resultsBody.innerHTML = `<div class="error-msg">❌ <strong>Request failed:</strong> ${escHtml(err.message)}<br><br>Make sure Langflow is running at the specified endpoint and CORS is enabled.</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Analyze Builds';
+    checkReady();
+  }
+}
+
+function renderResults(data) {
+  const statusBar = document.getElementById('statusBar');
+  const resultsBody = document.getElementById('resultsBody');
+  const metaRow = document.getElementById('metaRow');
+
+  try {
+    const output = data.outputs[0].outputs[0];
+    const msgData = output.results?.message?.data || output.results?.message;
+    const text = msgData?.text || output.outputs?.message?.message || '';
+    const usage = msgData?.properties?.usage || null;
+    const source = msgData?.properties?.source || null;
+    const ts = msgData?.timestamp || '';
+
+    statusBar.innerHTML = '<span style="color:var(--success);font-weight:600;">✓ Analysis complete</span>';
+
+    // Strip <think>...</think>
+    const thinkMatch = text.match(/<think>([\s\S]*?)<\/think>/i);
+    const thinkContent = thinkMatch ? thinkMatch[1].trim() : null;
+    const cleanText = text.replace(/<think>[\s\S]*?<\/think>/i, '').trim();
+
+    // Parse the 4 sections
+    const sections = parseSections(cleanText);
+
+    let html = '';
+
+    if (thinkContent) {
+      html += `<div style="padding:14px 20px 0">
+        <button class="think-toggle" onclick="toggleThink(this)">💭 Show reasoning chain</button>
+        <div class="think-block" id="thinkBlock">${escHtml(thinkContent)}</div>
+      </div>`;
+    }
+
+    const sectionDefs = [
+      { key: 'FLAKY_TESTS',           label: 'Flaky Tests',           cls: 'badge-flaky',   icon: '⚠️' },
+      { key: 'CONSISTENT_FAILURES',   label: 'Consistent Failures',   cls: 'badge-failure', icon: '❌' },
+      { key: 'RERUN_RECOMMENDATION',  label: 'Rerun Recommendation',  cls: 'badge-rerun',   icon: '🔁' },
+      { key: 'SUMMARY',               label: 'Summary',               cls: 'badge-summary', icon: '📋' },
+    ];
+
+    sectionDefs.forEach(def => {
+      const content = sections[def.key] || (Object.keys(sections).length === 0 ? cleanText : '—');
+      html += `<div class="result-section">
+        <div class="section-badge ${def.cls}">${def.icon} ${def.label}</div>
+        <div class="section-content">${formatContent(content)}</div>
+      </div>`;
+    });
+
+    resultsBody.innerHTML = html;
+
+    // Meta
+    if (usage || source || ts) {
+      let meta = '';
+      if (ts) meta += `<span><strong>Timestamp:</strong> ${escHtml(ts.replace(' UTC','') + ' UTC')}</span>`;
+      if (source) meta += `<span><strong>Model:</strong> ${escHtml(source.source || source.display_name || '')}</span>`;
+      if (usage) meta += `<span><strong>Tokens in:</strong> ${usage.input_tokens}</span><span><strong>Tokens out:</strong> ${usage.output_tokens}</span><span><strong>Total:</strong> ${usage.total_tokens}</span>`;
+      metaRow.innerHTML = meta;
+      metaRow.style.display = 'flex';
+    }
+
+  } catch(err) {
+    statusBar.innerHTML = '';
+    resultsBody.innerHTML = `<div class="error-msg">⚠️ Response received but could not be parsed: ${escHtml(err.message)}</div>`;
+  }
+}
+
+function parseSections(text) {
+  const sections = {};
+  const patterns = [
+    { key: 'FLAKY_TESTS',          re: /1\.\s+\*{0,2}FLAKY_TESTS\*{0,2}[:\s]+([\s\S]*?)(?=2\.\s+\*{0,2}CONSISTENT_FAILURES|$)/i },
+    { key: 'CONSISTENT_FAILURES',  re: /2\.\s+\*{0,2}CONSISTENT_FAILURES\*{0,2}[:\s]+([\s\S]*?)(?=3\.\s+\*{0,2}RERUN_RECOMMENDATION|$)/i },
+    { key: 'RERUN_RECOMMENDATION', re: /3\.\s+\*{0,2}RERUN_RECOMMENDATION\*{0,2}[:\s]+([\s\S]*?)(?=4\.\s+\*{0,2}SUMMARY|$)/i },
+    { key: 'SUMMARY',              re: /4\.\s+\*{0,2}SUMMARY\*{0,2}[:\s]+([\s\S]*?)$/i },
+  ];
+  patterns.forEach(p => {
+    const m = text.match(p.re);
+    if (m) sections[p.key] = m[1].trim();
+  });
+  return sections;
+}
+
+function formatContent(text) {
+  return escHtml(text)
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function toggleRaw() {
+  const block = document.getElementById('rawBlock');
+  block.classList.toggle('visible');
+  event.target.textContent = block.classList.contains('visible') ? 'Hide raw JSON' : 'View raw JSON';
+}
+
+function toggleThink(btn) {
+  const block = document.getElementById('thinkBlock');
+  block.style.display = block.style.display === 'block' ? 'none' : 'block';
+  btn.textContent = block.style.display === 'block' ? '💭 Hide reasoning chain' : '💭 Show reasoning chain';
+}
+</script>
+</body>
+</html>

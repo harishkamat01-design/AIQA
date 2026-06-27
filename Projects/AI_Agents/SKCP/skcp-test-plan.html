@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Test Strategy & Test Plan — Shree Kundodari B2B Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --brand:#c41e1f;--gold:#c9ab82;--dark:#100802;
+  --ink:#1a1d27;--ink2:#4a4f62;--ink3:#7a7f92;
+  --line:#e2e4ea;--bg:#f8f9fc;--white:#fff;
+  --green:#2e7d52;--amber:#b57800;--blue:#1a6bbf;--purple:#6a1b9a;
+  --green-bg:rgba(46,125,82,.09);--amber-bg:rgba(181,120,0,.09);
+  --blue-bg:rgba(26,107,191,.09);--red-bg:rgba(196,30,31,.09);
+}
+body{font-family:'Inter',sans-serif;font-size:13px;color:var(--ink);background:var(--bg);line-height:1.6}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .no-print{display:none}
+  .page-break{page-break-before:always}
+  header,
+  .cover-top,.status-pill,.tc-badge,
+  .kpi-box,.badge,.priority-high,.priority-med,.priority-low,
+  th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.doc{max-width:960px;margin:0 auto;background:var(--white);box-shadow:0 2px 20px rgba(0,0,0,.08)}
+
+/* COVER */
+.cover{background:var(--dark);color:#fff;overflow:hidden}
+.cover-top{background:var(--brand);padding:14px 36px;display:flex;align-items:center;gap:14px}
+.cover-logo{width:50px;height:50px;background:#100802;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1.5px solid rgba(201,171,130,.4)}
+.cover-logo svg{width:44px;height:44px}
+.cover-brand{font-family:'Rajdhani',sans-serif;font-size:17px;font-weight:700;color:#fff}
+.cover-brand-sub{font-size:10px;color:rgba(255,255,255,.7);letter-spacing:.06em}
+.cover-band{height:4px;background:var(--gold)}
+.cover-body{padding:36px 36px 28px}
+.cover-doc-type{font-size:10px;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:10px}
+.cover-title{font-family:'Rajdhani',sans-serif;font-size:34px;font-weight:700;color:#fff;line-height:1.15;margin-bottom:6px}
+.cover-subtitle{font-size:13.5px;color:rgba(255,255,255,.62);margin-bottom:26px}
+.cover-meta{display:flex;gap:28px;flex-wrap:wrap;padding:16px 36px;background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.08)}
+.cover-meta-item label{font-size:9.5px;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.06em;display:block}
+.cover-meta-item span{font-size:13px;color:rgba(255,255,255,.88);font-weight:500}
+.v-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(201,171,130,.18);color:var(--gold);font-size:10px;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid rgba(201,171,130,.3);margin-bottom:14px}
+
+/* TOC */
+.toc{padding:28px 36px;border-bottom:1px solid var(--line)}
+.toc h2{font-family:'Rajdhani',sans-serif;font-size:19px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.toc h2::before{content:'';display:inline-block;width:3px;height:20px;background:var(--brand);border-radius:2px}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.toc-item{display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:6px;background:var(--bg);font-size:12px}
+.toc-num{width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toc-title{flex:1;font-weight:500;color:var(--ink)}
+.toc-pg{font-size:10px;color:var(--ink3)}
+
+/* CONTENT */
+.content{padding:28px 36px}
+.section{margin-bottom:32px}
+.sec-hdr{display:flex;align-items:flex-start;gap:11px;margin-bottom:16px;padding-bottom:10px;border-bottom:1.5px solid var(--line)}
+.sec-num{width:34px;height:34px;border-radius:8px;background:var(--brand);color:#fff;font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:19px;font-weight:700;color:var(--ink)}
+.sec-sub{font-size:11px;color:var(--ink3);margin-top:2px}
+
+h3{font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:700;color:var(--ink);margin:18px 0 9px;border-left:3px solid var(--gold);padding-left:9px}
+h4{font-size:12.5px;font-weight:600;color:var(--ink);margin:12px 0 5px}
+p{font-size:13px;color:var(--ink2);line-height:1.7;margin-bottom:9px}
+
+/* TABLES */
+.t{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:14px}
+.t th{background:var(--dark);color:#fff;padding:7px 11px;text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.t td{padding:7px 11px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+.t tr:nth-child(even) td{background:#fafbfc}
+.t tr:hover td{background:#f0f2f8}
+.t-grp td{background:rgba(196,30,31,.06)!important;color:var(--brand);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.t-pass td:first-child{border-left:3px solid var(--green)}
+.t-fail td:first-child{border-left:3px solid var(--brand)}
+.t-block td:first-child{border-left:3px solid var(--amber)}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:99px;font-size:9.5px;font-weight:600;white-space:nowrap}
+.b-red{background:var(--red-bg);color:var(--brand)}
+.b-green{background:var(--green-bg);color:var(--green)}
+.b-amber{background:var(--amber-bg);color:var(--amber)}
+.b-blue{background:var(--blue-bg);color:var(--blue)}
+.b-purple{background:rgba(106,27,154,.1);color:var(--purple)}
+.b-dark{background:var(--dark);color:#fff}
+.b-gold{background:rgba(201,171,130,.18);color:#7a5f30}
+
+/* PRIORITY */
+.priority-high{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#fff;background:var(--brand);padding:2px 8px;border-radius:99px}
+.priority-med{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#fff;background:var(--amber);padding:2px 8px;border-radius:99px}
+.priority-low{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#fff;background:var(--green);padding:2px 8px;border-radius:99px}
+
+/* KPI */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:9px;margin-bottom:14px}
+.kpi-box{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:11px 13px;position:relative;overflow:hidden}
+.kpi-box::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--brand)}
+.kpi-box.g::before{background:var(--green)}.kpi-box.a::before{background:var(--amber)}.kpi-box.b::before{background:var(--blue)}.kpi-box.p::before{background:var(--purple)}
+.kpi-val{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--ink)}
+.kpi-lbl{font-size:9.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.04em;margin-top:1px}
+
+/* TEST CASE CARD */
+.tc-card{background:var(--white);border:1px solid var(--line);border-radius:8px;margin-bottom:10px;overflow:hidden}
+.tc-hdr{background:var(--dark);padding:8px 13px;display:flex;align-items:center;gap:10px}
+.tc-id{font-family:monospace;font-size:11px;font-weight:700;color:var(--gold)}
+.tc-name{flex:1;font-size:12.5px;font-weight:600;color:#fff}
+.tc-badge{font-size:9.5px;font-weight:600;padding:2px 8px;border-radius:99px}
+.tc-body{padding:10px 13px}
+.tc-row{display:flex;gap:8px;margin-bottom:5px;font-size:12px}
+.tc-label{width:85px;font-weight:600;color:var(--ink3);flex-shrink:0;font-size:11px}
+.tc-val{color:var(--ink2);flex:1}
+.tc-steps{background:var(--bg);border-radius:6px;padding:8px 11px;margin:6px 0}
+.tc-step{display:flex;gap:8px;margin-bottom:4px;font-size:11.5px;color:var(--ink2)}
+.tc-step-num{width:18px;height:18px;border-radius:50%;background:var(--brand);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.tc-expect{background:var(--green-bg);border-left:3px solid var(--green);padding:6px 10px;border-radius:4px;font-size:11.5px;color:var(--green);margin-top:5px}
+.tc-fail-crit{background:var(--red-bg);border-left:3px solid var(--brand);padding:6px 10px;border-radius:4px;font-size:11.5px;color:var(--brand);margin-top:5px}
+
+/* CALLOUT */
+.callout{padding:11px 14px;border-radius:8px;margin:11px 0;border-left:4px solid;font-size:12.5px}
+.callout.info{background:var(--blue-bg);border-color:var(--blue);color:var(--blue)}
+.callout.warn{background:var(--amber-bg);border-color:var(--amber);color:var(--amber)}
+.callout.success{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.callout.danger{background:var(--red-bg);border-color:var(--brand);color:var(--brand)}
+.callout b{font-weight:700}
+
+/* MATRIX */
+.matrix{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-bottom:14px}
+.matrix-cell{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.matrix-module{font-size:11.5px;font-weight:600;color:var(--ink);margin-bottom:5px}
+.matrix-bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:3px}
+.matrix-fill{height:100%;border-radius:99px}
+.matrix-pct{font-size:10px;color:var(--ink3)}
+
+/* RACI */
+.raci-table .r{color:var(--brand);font-weight:700}
+.raci-table .a{color:var(--amber);font-weight:700}
+.raci-table .c{color:var(--blue);font-weight:700}
+.raci-table .i{color:var(--ink3)}
+
+/* RISK */
+.risk-high{background:rgba(196,30,31,.08);border-left:3px solid var(--brand)}
+.risk-med{background:rgba(181,120,0,.08);border-left:3px solid var(--amber)}
+.risk-low{background:rgba(46,125,82,.08);border-left:3px solid var(--green)}
+.risk-row{padding:9px 12px;border-radius:6px;margin-bottom:6px;display:flex;gap:10px;align-items:flex-start}
+.risk-label{font-size:12.5px;font-weight:500;color:var(--ink);flex:1}
+.risk-meta{font-size:11px;color:var(--ink3)}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--line);margin:22px 0}
+
+/* PRINT BUTTON */
+.print-btn{position:fixed;top:18px;right:18px;background:var(--brand);color:#fff;border:none;padding:10px 18px;border-radius:8px;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:7px;box-shadow:0 4px 12px rgba(196,30,31,.3);z-index:999;transition:all .15s}
+.print-btn:hover{background:#a01818;transform:translateY(-1px)}
+.print-btn svg{width:15px;height:15px}
+
+/* FOOTER */
+.doc-footer{background:var(--dark);color:rgba(255,255,255,.5);padding:14px 36px;font-size:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.doc-footer strong{color:var(--gold)}
+
+/* STATUS PILL LEGEND */
+.status-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.status-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 10px;border-radius:99px;font-weight:500}
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+  Save as PDF
+</button>
+
+<div class="doc">
+
+<!-- ══════ COVER ══════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#100802"/>
+        <circle cx="50" cy="34" r="22" fill="none" stroke="#ffd700" stroke-width="2.5" opacity=".6"/>
+        <text x="50" y="30" text-anchor="middle" font-size="26" font-weight="900" fill="#ffd700" font-family="serif" opacity=".95">श्री</text>
+        <path d="M22 68 Q22 38 50 28 Q78 38 78 68" stroke="#c9ab82" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+        <rect x="14" y="60" width="10" height="7" fill="#666" rx="1"/><rect x="14" y="50" width="10" height="7" fill="#777" rx="1"/>
+        <rect x="76" y="60" width="10" height="7" fill="#666" rx="1"/><rect x="76" y="50" width="10" height="7" fill="#777" rx="1"/>
+        <rect x="10" y="74" width="80" height="18" rx="3" fill="#c41e1f"/>
+        <text x="50" y="87" text-anchor="middle" font-size="9" font-weight="900" fill="#fff" font-family="Arial">KUNDODARI</text>
+      </svg>
+    </div>
+    <div>
+      <div class="cover-brand">Shree Kundodari Cement Products</div>
+      <div class="cover-brand-sub">BHOSARI MIDC · PIMPRI-CHINCHWAD · PUNE 411026 · MAHARASHTRA</div>
+    </div>
+  </div>
+  <div class="cover-band"></div>
+  <div class="cover-body">
+    <div class="cover-doc-type">🧪 Quality Assurance Document</div>
+    <div class="v-badge">✦ Version 5.0 — Based on PRD v5.0 Final</div>
+    <div class="cover-title">Test Strategy &<br>Test Plan Document</div>
+    <div class="cover-subtitle">Comprehensive QA specification covering all 23 modules of the B2B Management Portal Dashboard — functional, integration, UI/UX, performance, accessibility, and regression testing.</div>
+  </div>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><label>Document Type</label><span>Test Strategy + Test Plan (Combined)</span></div>
+    <div class="cover-meta-item"><label>PRD Reference</label><span>PRD v5.0 — Final (Completed ✓)</span></div>
+    <div class="cover-meta-item"><label>Application</label><span>SKCP B2B Dashboard (index.html)</span></div>
+    <div class="cover-meta-item"><label>Prepared By</label><span>QA Team — Shree Kundodari</span></div>
+    <div class="cover-meta-item"><label>Date</label><span>June 2026</span></div>
+    <div class="cover-meta-item"><label>Status</label><span>📋 Active — In Execution</span></div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <div class="toc-grid">
+    <div class="toc-item"><div class="toc-num">1</div><div class="toc-title">Introduction & Scope</div><div class="toc-pg">§1</div></div>
+    <div class="toc-item"><div class="toc-num">2</div><div class="toc-title">Test Strategy Overview</div><div class="toc-pg">§2</div></div>
+    <div class="toc-item"><div class="toc-num">3</div><div class="toc-title">Test Objectives & Success Criteria</div><div class="toc-pg">§3</div></div>
+    <div class="toc-item"><div class="toc-num">4</div><div class="toc-title">Test Scope — In / Out of Scope</div><div class="toc-pg">§4</div></div>
+    <div class="toc-item"><div class="toc-num">5</div><div class="toc-title">Test Types & Approaches</div><div class="toc-pg">§5</div></div>
+    <div class="toc-item"><div class="toc-num">6</div><div class="toc-title">Test Environment & Tools</div><div class="toc-pg">§6</div></div>
+    <div class="toc-item"><div class="toc-num">7</div><div class="toc-title">RACI Matrix</div><div class="toc-pg">§7</div></div>
+    <div class="toc-item"><div class="toc-num">8</div><div class="toc-title">Test Schedule & Milestones</div><div class="toc-pg">§8</div></div>
+    <div class="toc-item"><div class="toc-num">9</div><div class="toc-title">Module Test Cases — Operations</div><div class="toc-pg">§9</div></div>
+    <div class="toc-item"><div class="toc-num">10</div><div class="toc-title">Module Test Cases — B2B Commerce</div><div class="toc-pg">§10</div></div>
+    <div class="toc-item"><div class="toc-num">11</div><div class="toc-title">Module Test Cases — Payments</div><div class="toc-pg">§11</div></div>
+    <div class="toc-item"><div class="toc-num">12</div><div class="toc-title">Module Test Cases — HR & Payroll</div><div class="toc-pg">§12</div></div>
+    <div class="toc-item"><div class="toc-num">13</div><div class="toc-title">Module Test Cases — Admin</div><div class="toc-pg">§13</div></div>
+    <div class="toc-item"><div class="toc-num">14</div><div class="toc-title">Cross-Cutting: Language & Theme</div><div class="toc-pg">§14</div></div>
+    <div class="toc-item"><div class="toc-num">15</div><div class="toc-title">Non-Functional Testing</div><div class="toc-pg">§15</div></div>
+    <div class="toc-item"><div class="toc-num">16</div><div class="toc-title">Defect Management</div><div class="toc-pg">§16</div></div>
+    <div class="toc-item"><div class="toc-num">17</div><div class="toc-title">Risk Register</div><div class="toc-pg">§17</div></div>
+    <div class="toc-item"><div class="toc-num">18</div><div class="toc-title">Test Coverage Matrix</div><div class="toc-pg">§18</div></div>
+    <div class="toc-item"><div class="toc-num">19</div><div class="toc-title">Entry & Exit Criteria</div><div class="toc-pg">§19</div></div>
+    <div class="toc-item"><div class="toc-num">20</div><div class="toc-title">Sign-off & Approvals</div><div class="toc-pg">§20</div></div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- §1 INTRODUCTION -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-num">1</div>
+    <div><div class="sec-title">Introduction & Scope</div><div class="sec-sub">Purpose, audience, and reference documents</div></div>
+  </div>
+
+  <h3>1.1 Purpose</h3>
+  <p>This document defines the complete <strong>Test Strategy</strong> and <strong>Test Plan</strong> for the Shree Kundodari Cement Products B2B Management Portal Dashboard (v5.0). It establishes the testing approach, scope, test cases, environment requirements, entry/exit criteria, defect management process, and sign-off procedures to ensure the portal meets all requirements defined in PRD v5.0.</p>
+
+  <h3>1.2 Intended Audience</h3>
+  <table class="t">
+    <tr><th>Audience</th><th>Role</th><th>Usage</th></tr>
+    <tr><td>QA Lead / Test Engineers</td><td>Test execution, defect logging</td><td>Primary users — execute all test cases</td></tr>
+    <tr><td>Proprietor / Director</td><td>Business stakeholder</td><td>Review UAT results, sign-off</td></tr>
+    <tr><td>Production Manager</td><td>Module SME</td><td>Validate Production, Labour, Inventory modules</td></tr>
+    <tr><td>Sales Executive</td><td>Module SME</td><td>Validate Orders, Quote, Pipeline, Online Orders</td></tr>
+    <tr><td>Accounts Manager</td><td>Module SME</td><td>Validate Payment Centre, Wages, Ledger</td></tr>
+    <tr><td>Developer / AI Engineer</td><td>Defect resolution</td><td>Receive defect reports; implement fixes</td></tr>
+  </table>
+
+  <h3>1.3 Reference Documents</h3>
+  <table class="t">
+    <tr><th>Document</th><th>Version</th><th>Status</th></tr>
+    <tr><td>Product Requirements Document (PRD)</td><td>v5.0</td><td><span class="badge b-green">✓ Completed</span></td></tr>
+    <tr><td>SKILL_SKCP_Final.md (R.I.C.E.P.O.T Skill)</td><td>v5.0</td><td><span class="badge b-green">✓ Approved</span></td></tr>
+    <tr><td>skcp_olo_v5.html (Source Code)</td><td>v5.0</td><td><span class="badge b-blue">In Test</span></td></tr>
+    <tr><td>This Test Strategy & Test Plan</td><td>v1.0</td><td><span class="badge b-amber">Active</span></td></tr>
+  </table>
+
+  <div class="kpi-row">
+    <div class="kpi-box"><div class="kpi-val">23</div><div class="kpi-lbl">Modules in Scope</div></div>
+    <div class="kpi-box g"><div class="kpi-val">147</div><div class="kpi-lbl">Total Test Cases</div></div>
+    <div class="kpi-box a"><div class="kpi-val">6</div><div class="kpi-lbl">Test Types</div></div>
+    <div class="kpi-box b"><div class="kpi-val">9</div><div class="kpi-lbl">Languages to Test</div></div>
+    <div class="kpi-box p"><div class="kpi-val">4</div><div class="kpi-lbl">Browsers</div></div>
+  </div>
+</div>
+
+<!-- §2 TEST STRATEGY -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">2</div>
+    <div><div class="sec-title">Test Strategy Overview</div><div class="sec-sub">Guiding principles, philosophy, and approach</div></div>
+  </div>
+
+  <h3>2.1 Testing Philosophy</h3>
+  <p>The SKCP B2B Dashboard is a <strong>single self-contained HTML file</strong> with zero build steps. All logic, UI, charts, forms, and multilingual content are rendered in-browser using vanilla JavaScript. The testing strategy therefore focuses on <strong>browser-based functional validation</strong>, <strong>in-memory data flow</strong>, and <strong>cross-cutting concerns</strong> (theme, language, responsive layout).</p>
+
+  <h3>2.2 Testing Pyramid</h3>
+  <table class="t">
+    <tr><th>Level</th><th>Type</th><th>Volume</th><th>Approach</th><th>Tool</th></tr>
+    <tr><td>🔺 Top</td><td>End-to-End / UAT</td><td>Low (12 flows)</td><td>Full user journey from login to payment receipt</td><td>Manual / Browser</td></tr>
+    <tr><td>🔶 Mid</td><td>Integration</td><td>Medium (35 cases)</td><td>Cross-module data flow (Quote→Order→Dispatch→Payment)</td><td>Manual / Browser DevTools</td></tr>
+    <tr><td>🟩 Base</td><td>Functional / Unit</td><td>High (100 cases)</td><td>Per-module feature validation</td><td>Manual / Browser Console</td></tr>
+  </table>
+
+  <h3>2.3 Test Prioritisation (MoSCoW)</h3>
+  <table class="t">
+    <tr><th>Priority</th><th>Modules / Features</th><th>Rationale</th></tr>
+    <tr><td><span class="priority-high">MUST Test</span></td><td>Payment Centre, Quote Builder, Labour Check-in, Wages Calculation, Dispatch 6-step, Language Switcher</td><td>Business-critical; financial and operational impact if broken</td></tr>
+    <tr><td><span class="priority-med">SHOULD Test</span></td><td>Orders, Inventory, Production, Timesheet, Calendar, Pipeline, Online Orders</td><td>Core daily-use modules; defects impact productivity</td></tr>
+    <tr><td><span class="priority-low">COULD Test</span></td><td>About Us, Contact, Map, Reports export, Settings toggles</td><td>Informational/admin; lower business risk</td></tr>
+  </table>
+
+  <h3>2.4 Defect Severity Levels</h3>
+  <table class="t">
+    <tr><th>Severity</th><th>Definition</th><th>Example</th><th>SLA (Fix)</th></tr>
+    <tr><td><span class="badge b-red">S1 — Critical</span></td><td>Application is unusable; data loss or incorrect financial calculation</td><td>Payment amount calculates wrongly; page doesn't load</td><td>4 hours</td></tr>
+    <tr><td><span class="badge b-amber">S2 — Major</span></td><td>Core feature broken; workaround possible but difficult</td><td>Labour check-in fails; Quote GST not calculated</td><td>1 business day</td></tr>
+    <tr><td><span class="badge b-blue">S3 — Minor</span></td><td>Non-critical feature affected; easy workaround exists</td><td>Language translation missing for one section</td><td>3 business days</td></tr>
+    <tr><td><span class="badge b-gold">S4 — Cosmetic</span></td><td>UI/visual issue; no functional impact</td><td>Badge colour slightly off in light mode</td><td>Next release</td></tr>
+  </table>
+</div>
+
+<!-- §3 OBJECTIVES -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-num">3</div>
+    <div><div class="sec-title">Test Objectives & Success Criteria</div><div class="sec-sub">What passing looks like for each test type</div></div>
+  </div>
+
+  <h3>3.1 Test Objectives</h3>
+  <table class="t">
+    <tr><th>#</th><th>Objective</th><th>Linked PRD Req.</th></tr>
+    <tr><td>OBJ-01</td><td>Verify all 23 sections are accessible via sidebar navigation without errors</td><td>FR-001 to FR-008</td></tr>
+    <tr><td>OBJ-02</td><td>Validate GST calculation accuracy (18%) in Quote Builder for all product combinations</td><td>FR-020 to FR-023</td></tr>
+    <tr><td>OBJ-03</td><td>Confirm 6-step dispatch tracker correctly reflects order states with correct visual styling</td><td>FR-030 to FR-033</td></tr>
+    <tr><td>OBJ-04</td><td>Verify all 7 payment methods process end-to-end with correct transaction recording</td><td>§8 PRD</td></tr>
+    <tr><td>OBJ-05</td><td>Validate wages calculation (gross, PF 12%, advance deduction, net payable) for all 15 workers</td><td>§9.3 PRD</td></tr>
+    <tr><td>OBJ-06</td><td>Confirm 9-language switcher correctly updates all nav labels, brand name, and page titles</td><td>§10 PRD</td></tr>
+    <tr><td>OBJ-07</td><td>Verify dark/light theme toggle destroys and re-inits charts correctly without visual bleed</td><td>NFR-03</td></tr>
+    <tr><td>OBJ-08</td><td>Confirm all 19 Indian holidays for 2026 appear correctly in Calendar and Timesheet exclusions</td><td>§13 PRD</td></tr>
+    <tr><td>OBJ-09</td><td>Validate responsive layout collapses correctly on ≤768px screen width</td><td>NFR-08</td></tr>
+    <tr><td>OBJ-10</td><td>Ensure all form submissions trigger appropriate success/error alert feedback</td><td>FR-008 generic</td></tr>
+  </table>
+
+  <h3>3.2 Exit Success Criteria</h3>
+  <table class="t">
+    <tr><th>Metric</th><th>Target</th><th>Minimum Acceptable</th></tr>
+    <tr><td>Total test cases executed</td><td>100%</td><td>95%</td></tr>
+    <tr><td>Test cases passed</td><td>≥ 95%</td><td>≥ 90%</td></tr>
+    <tr><td>S1 Critical defects open</td><td>0</td><td>0</td></tr>
+    <tr><td>S2 Major defects open</td><td>0</td><td>≤ 2 (with workaround)</td></tr>
+    <tr><td>Financial calculations correct (GST, wages, PF)</td><td>100%</td><td>100%</td></tr>
+    <tr><td>All 9 languages functional</td><td>100%</td><td>7/9 languages</td></tr>
+    <tr><td>UAT sign-off by stakeholders</td><td>All 3 sign</td><td>Proprietor + 1 manager</td></tr>
+  </table>
+</div>
+
+<!-- §4 SCOPE -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">4</div>
+    <div><div class="sec-title">Test Scope — In & Out of Scope</div><div class="sec-sub">What will and will not be tested</div></div>
+  </div>
+
+  <h3>4.1 In Scope</h3>
+  <table class="t">
+    <tr><th>Category</th><th>Items</th></tr>
+    <tr><td><span class="badge b-dark">All 23 Modules</span></td><td>Overview, Orders, Quote Builder, Inventory, Production, Raw Materials, Catalogue, Customers, Pipeline, Ledger, Dispatch, Online Orders, Payments, Labour, Wages, Timesheet, Notifications, Calendar, Reports, Map, Contact, Settings, About Us</td></tr>
+    <tr><td><span class="badge b-blue">Cross-Cutting</span></td><td>Language switcher (9 languages), Dark/Light theme toggle, Global search routing, Mobile responsiveness (≤768px)</td></tr>
+    <tr><td><span class="badge b-gold">Financial Logic</span></td><td>GST 18% calculation, Wages formula (PF 12%, advance deduction), Payment transaction recording, Quote line-item totals</td></tr>
+    <tr><td><span class="badge b-green">Data Integrity</span></td><td>In-memory data persistence during session, Chart data accuracy, Holiday exclusions in timesheet</td></tr>
+    <tr><td><span class="badge b-amber">Browser Compat.</span></td><td>Chrome 90+, Firefox 88+, Safari 14+, Microsoft Edge 90+</td></tr>
+    <tr><td><span class="badge b-purple">UX / UI</span></td><td>Component visual accuracy, Badge colours, Delivery tracker step states, Toast notifications, Alert feedback</td></tr>
+  </table>
+
+  <h3>4.2 Out of Scope</h3>
+  <table class="t">
+    <tr><th>Item</th><th>Reason</th></tr>
+    <tr><td>Backend API / Server-side logic</td><td>Application is fully static frontend — no backend exists</td></tr>
+    <tr><td>Database testing</td><td>All data is in-memory JavaScript arrays; no DB layer</td></tr>
+    <tr><td>Real UPI/payment gateway processing</td><td>QR code is decorative; no actual payment gateway integration</td></tr>
+    <tr><td>Internet Explorer / Legacy browsers</td><td>Not supported per PRD (Chrome 90+ baseline)</td></tr>
+    <tr><td>Native mobile app testing</td><td>Web application only; mobile browser covered under responsiveness</td></tr>
+    <tr><td>Data persistence across page refresh</td><td>PRD specifies in-memory only; no localStorage / persistence</td></tr>
+    <tr><td>Load / stress testing with concurrent users</td><td>Single-user static HTML; no server bottleneck</td></tr>
+    <tr><td>SEO / Server-side rendering</td><td>Client-side rendering only; SEO not a PRD requirement</td></tr>
+  </table>
+</div>
+
+<!-- §5 TEST TYPES -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-num">5</div>
+    <div><div class="sec-title">Test Types & Approaches</div><div class="sec-sub">Six testing disciplines applied to the SKCP dashboard</div></div>
+  </div>
+
+  <table class="t">
+    <tr><th>Test Type</th><th>Approach</th><th>Focus Areas</th><th>Cases</th></tr>
+    <tr><td><strong>Functional Testing</strong></td><td>Manual black-box; verify each module against PRD acceptance criteria</td><td>All 23 modules, form submissions, navigation, calculations</td><td>82</td></tr>
+    <tr><td><strong>Integration Testing</strong></td><td>Trace data across modules; verify cross-module triggers work correctly</td><td>Quote→Catalogue, Labour→Wages, Dispatch→Payment, Orders→Dispatch</td><td>18</td></tr>
+    <tr><td><strong>UI / Visual Testing</strong></td><td>Visual comparison: dark vs light, badge colours, component styles</td><td>KPI cards, badges, progress bars, charts, delivery track, language bar</td><td>22</td></tr>
+    <tr><td><strong>Regression Testing</strong></td><td>Re-run smoke suite after any defect fix</td><td>Navigation, GST calc, language switcher, theme toggle, check-in</td><td>15 (smoke)</td></tr>
+    <tr><td><strong>Compatibility Testing</strong></td><td>Execute critical path on 4 browsers × 2 themes</td><td>Chart rendering, CSS variables, SVG logo, sticky sidebar</td><td>8 configs</td></tr>
+    <tr><td><strong>Accessibility Testing</strong></td><td>Manual screen reader check + automated contrast check</td><td>Canvas aria-labels, form label association, keyboard navigation</td><td>10</td></tr>
+  </table>
+
+  <h3>5.1 Integration Test Flows</h3>
+  <table class="t">
+    <tr><th>Flow ID</th><th>Integration Path</th><th>Key Validation</th></tr>
+    <tr><td>INT-01</td><td>Catalogue → Quote Builder</td><td>"Request Quote →" pre-fills correct product in q-product select</td></tr>
+    <tr><td>INT-02</td><td>Quote Builder → Orders</td><td>Sent quote increments quoteNum; order can be referenced</td></tr>
+    <tr><td>INT-03</td><td>Orders → Dispatch</td><td>Order IDs from Orders section match Dispatch tracker cards</td></tr>
+    <tr><td>INT-04</td><td>Dispatch → Payment Centre</td><td>Completing dispatch step 6 aligns with in-payment receipt</td></tr>
+    <tr><td>INT-05</td><td>Labour → Wages Register</td><td>Adding a new worker via Labour form appears in Wages register table</td></tr>
+    <tr><td>INT-06</td><td>Labour attendance → Timesheet</td><td>Attendance seed function produces P/A/½ consistently across modules</td></tr>
+    <tr><td>INT-07</td><td>Holiday calendar → Timesheet</td><td>HOL dates excluded from Timesheet working-day count</td></tr>
+    <tr><td>INT-08</td><td>Payment → KPI Dashboard</td><td>After confirmPay(), kpi-paid / kpi-recv / kpi-out update correctly</td></tr>
+  </table>
+</div>
+
+<!-- §6 ENVIRONMENT -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">6</div>
+    <div><div class="sec-title">Test Environment & Tools</div><div class="sec-sub">Browser matrix, tools, and setup prerequisites</div></div>
+  </div>
+
+  <h3>6.1 Browser Test Matrix</h3>
+  <table class="t">
+    <tr><th>Browser</th><th>Version</th><th>OS</th><th>Priority</th><th>Theme Coverage</th></tr>
+    <tr><td>Google Chrome</td><td>124+</td><td>Windows 11 / macOS</td><td><span class="priority-high">PRIMARY</span></td><td>Dark + Light</td></tr>
+    <tr><td>Mozilla Firefox</td><td>125+</td><td>Windows 11</td><td><span class="priority-med">SECONDARY</span></td><td>Dark + Light</td></tr>
+    <tr><td>Apple Safari</td><td>17+</td><td>macOS / iOS 17</td><td><span class="priority-med">SECONDARY</span></td><td>Dark only</td></tr>
+    <tr><td>Microsoft Edge</td><td>124+</td><td>Windows 11</td><td><span class="priority-low">TERTIARY</span></td><td>Dark only</td></tr>
+    <tr><td>Chrome Mobile</td><td>124+</td><td>Android 13+</td><td><span class="priority-med">SECONDARY</span></td><td>Dark (responsive)</td></tr>
+  </table>
+
+  <h3>6.2 Test Tools</h3>
+  <table class="t">
+    <tr><th>Tool</th><th>Purpose</th><th>Usage</th></tr>
+    <tr><td>Browser DevTools (Chrome)</td><td>Console error monitoring, responsive mode, network throttle</td><td>All sessions</td></tr>
+    <tr><td>Browser DevTools — Console</td><td>Verify JS functions, chart init, no uncaught errors</td><td>Every test execution</td></tr>
+    <tr><td>axe DevTools (Browser Extension)</td><td>Automated accessibility (WCAG 2.1) scan</td><td>Accessibility testing §15</td></tr>
+    <tr><td>Colour Contrast Analyser</td><td>Verify contrast ratios ≥ 4.5:1</td><td>UI testing §15</td></tr>
+    <tr><td>Lighthouse (Chrome)</td><td>Performance, accessibility score</td><td>NFR testing §15</td></tr>
+    <tr><td>Google Spreadsheet / Excel</td><td>Test case tracking, defect log</td><td>Test management</td></tr>
+    <tr><td>Screen Capture / Loom</td><td>Document defect reproduction steps</td><td>S1/S2 defect filing</td></tr>
+  </table>
+
+  <h3>6.3 Setup Prerequisites</h3>
+  <table class="t">
+    <tr><th>Prerequisite</th><th>How to Verify</th></tr>
+    <tr><td>index.html opens without console errors</td><td>Open DevTools Console; should show 0 errors on load</td></tr>
+    <tr><td>CDN assets load (Fonts, Icons, Chart.js)</td><td>Network tab — all 3 CDN requests return 200</td></tr>
+    <tr><td>Charts render on Overview section</td><td>c-rev (line) and c-donut visible with data</td></tr>
+    <tr><td>All 23 nav items clickable</td><td>Click each nav item; section switches without error</td></tr>
+    <tr><td>Active internet connection</td><td>Required for CDN fonts and icons</td></tr>
+  </table>
+</div>
+
+<!-- §7 RACI -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-num">7</div>
+    <div><div class="sec-title">RACI Matrix</div><div class="sec-sub">Responsible · Accountable · Consulted · Informed</div></div>
+  </div>
+  <table class="t raci-table">
+    <tr><th>Activity</th><th>QA Lead</th><th>Developer</th><th>Proprietor</th><th>Prod. Manager</th><th>Sales Exec.</th><th>Accounts</th></tr>
+    <tr><td>Test Plan creation</td><td class="r">R</td><td class="c">C</td><td class="a">A</td><td class="i">I</td><td class="i">I</td><td class="i">I</td></tr>
+    <tr><td>Test environment setup</td><td class="r">R</td><td class="r">R</td><td class="i">I</td><td class="i">I</td><td class="i">I</td><td class="i">I</td></tr>
+    <tr><td>Test case writing</td><td class="r">R</td><td class="c">C</td><td class="a">A</td><td class="c">C</td><td class="c">C</td><td class="c">C</td></tr>
+    <tr><td>Test execution — Functional</td><td class="r">R</td><td class="i">I</td><td class="a">A</td><td class="i">I</td><td class="i">I</td><td class="i">I</td></tr>
+    <tr><td>UAT — Operations modules</td><td class="c">C</td><td class="i">I</td><td class="a">A</td><td class="r">R</td><td class="i">I</td><td class="i">I</td></tr>
+    <tr><td>UAT — B2B / Sales modules</td><td class="c">C</td><td class="i">I</td><td class="a">A</td><td class="i">I</td><td class="r">R</td><td class="i">I</td></tr>
+    <tr><td>UAT — Payment / Wages</td><td class="c">C</td><td class="i">I</td><td class="a">A</td><td class="i">I</td><td class="i">I</td><td class="r">R</td></tr>
+    <tr><td>Defect filing</td><td class="r">R</td><td class="i">I</td><td class="a">A</td><td class="i">I</td><td class="i">I</td><td class="i">I</td></tr>
+    <tr><td>Defect resolution</td><td class="c">C</td><td class="r">R</td><td class="a">A</td><td class="i">I</td><td class="i">I</td><td class="i">I</td></tr>
+    <tr><td>Regression testing</td><td class="r">R</td><td class="c">C</td><td class="a">A</td><td class="i">I</td><td class="i">I</td><td class="i">I</td></tr>
+    <tr><td>Final sign-off</td><td class="c">C</td><td class="i">I</td><td class="r">R</td><td class="r">R</td><td class="r">R</td><td class="r">R</td></tr>
+  </table>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;margin-top:6px">
+    <span><span class="r" style="font-weight:700;color:var(--brand)">R</span> = Responsible (does the work)</span>
+    <span><span class="a" style="font-weight:700;color:var(--amber)">A</span> = Accountable (owns outcome)</span>
+    <span><span class="c" style="font-weight:700;color:var(--blue)">C</span> = Consulted (provides input)</span>
+    <span><span class="i" style="font-weight:700;color:var(--ink3)">I</span> = Informed (kept updated)</span>
+  </div>
+</div>
+
+<!-- §8 SCHEDULE -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">8</div>
+    <div><div class="sec-title">Test Schedule & Milestones</div><div class="sec-sub">Timeline from setup to sign-off</div></div>
+  </div>
+  <table class="t">
+    <tr><th>Phase</th><th>Activity</th><th>Duration</th><th>Owner</th><th>Status</th></tr>
+    <tr><td>Phase 0</td><td>Test Plan creation & review</td><td>Day 1–2</td><td>QA Lead</td><td><span class="badge b-green">Complete</span></td></tr>
+    <tr><td>Phase 1</td><td>Environment setup & smoke test (23 nav items accessible)</td><td>Day 3</td><td>QA Lead</td><td><span class="badge b-blue">In Progress</span></td></tr>
+    <tr><td>Phase 2</td><td>Functional test execution — Operations group (6 modules)</td><td>Day 4–5</td><td>QA Team</td><td><span class="badge b-amber">Planned</span></td></tr>
+    <tr><td>Phase 3</td><td>Functional test execution — B2B Commerce group (6 modules)</td><td>Day 6–7</td><td>QA Team</td><td><span class="badge b-amber">Planned</span></td></tr>
+    <tr><td>Phase 4</td><td>Payment Centre full test (7 methods × 2 directions)</td><td>Day 8</td><td>QA Lead + Accounts</td><td><span class="badge b-amber">Planned</span></td></tr>
+    <tr><td>Phase 5</td><td>HR & Payroll (Labour, Wages, Timesheet)</td><td>Day 9</td><td>QA Team + Prod. Mgr</td><td><span class="badge b-amber">Planned</span></td></tr>
+    <tr><td>Phase 6</td><td>Admin modules + Calendar holidays</td><td>Day 10</td><td>QA Team</td><td><span class="badge b-amber">Planned</span></td></tr>
+    <tr><td>Phase 7</td><td>Cross-cutting: Language (9×), Theme, Responsive</td><td>Day 11</td><td>QA Lead</td><td><span class="badge b-amber">Planned</span></td></tr>
+    <tr><td>Phase 8</td><td>Non-functional: Performance, Accessibility, Browser compat.</td><td>Day 12</td><td>QA Team</td><td><span class="badge b-amber">Planned</span></td></tr>
+    <tr><td>Phase 9</td><td>UAT with business stakeholders</td><td>Day 13–14</td><td>Proprietor + SMEs</td><td><span class="badge b-amber">Planned</span></td></tr>
+    <tr><td>Phase 10</td><td>Defect fix + regression re-test</td><td>Day 15</td><td>Dev + QA</td><td><span class="badge b-amber">Planned</span></td></tr>
+    <tr><td>Phase 11</td><td>Final sign-off & deployment approval</td><td>Day 16</td><td>Proprietor</td><td><span class="badge b-amber">Planned</span></td></tr>
+  </table>
+</div>
+
+<!-- §9 OPERATIONS TEST CASES -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-num">9</div>
+    <div><div class="sec-title">Module Test Cases — Operations</div><div class="sec-sub">Overview, Orders, Quote Builder, Inventory, Production, Raw Materials</div></div>
+  </div>
+
+  <h3>9.1 Overview Dashboard</h3>
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-OV-01</span><span class="tc-name">8 KPI Cards render with correct data</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-row"><div class="tc-label">Precondition</div><div class="tc-val">index.html loaded, Overview section active (default)</div></div>
+      <div class="tc-row"><div class="tc-label">Module</div><div class="tc-val">sec-overview</div></div>
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Open index.html in Chrome; Overview section loads by default</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Count KPI cards in .kpi-grid</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify values: Revenue=₹9.8L, Blocks=24,600, Pending=4, Cement=186, Clients=38, Labour=12/15, Pipeline=₹18.4L, AR=₹1.4L</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify colour variants: Revenue=green, Pending=amber, Cement=red, Labour=blue, Pipeline=purple</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Exactly 8 KPI cards present; all values match PRD §2.3; colour strips match variant class</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-OV-02</span><span class="tc-name">Revenue line chart and Sales donut chart render correctly</span><span class="tc-badge b-amber">S2</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Overview; inspect canvas elements c-rev and c-donut</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Verify c-rev shows 6 data points (Jan–Jun) with upward trend ending at ₹9.8L</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify c-donut shows 3 segments: Solid 48%, Hollow 32%, Paver 20%</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Navigate away (Orders) then back; charts re-render without error</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Both charts visible with correct data; lazy-init works on re-navigation; no console errors</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-OV-03</span><span class="tc-name">Live alerts feed shows 4 items with correct priority dots</span><span class="tc-badge b-blue">S3</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Scroll to alerts card in Overview</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Count .notif-item elements — expect 4</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify dot colours: Cement alert=red, Dispatch=amber, Registration=blue, Production=green</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify first 3 have .n-unread class (bold text)</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: 4 alerts, correct colours, correct unread state on first 3</div>
+    </div>
+  </div>
+
+  <h3>9.2 Quote Builder</h3>
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-QB-01</span><span class="tc-name">GST calculation accuracy — single product</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-row"><div class="tc-label">Precondition</div><div class="tc-val">Quote Builder section active; no items in QI array</div></div>
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Enter Company: "Test Co"; select Product: "Solid Block 6×8×16 — ₹37"; Qty: 1000; Discount: 0%</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Click "Add to Quote"</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify Subtotal = ₹37,000; GST 18% = ₹6,660; Total = ₹43,660</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Change qty to 500; verify: Subtotal=₹18,500, GST=₹3,330, Total=₹21,830</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Formula: Total = Qty × Price × 1.18; values update dynamically on qty change</div>
+      <div class="tc-fail-crit">❌ Fail Criteria: Any rounding error > ₹1; GST % incorrect; Total doesn't auto-update</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-QB-02</span><span class="tc-name">Per-line discount reduces subtotal correctly</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Select Hollow Block 3-hole (₹44); Qty: 100; Discount: 10%</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Click "Add to Quote"</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify: Line total = 44 × 100 × 0.90 = ₹3,960; Discount shown = ₹440</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify Discount % capped at 30% (enter 35% → should revert to 30%)</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Discount clamps to 0–30% range; formula: line = price × qty × (1 − disc/100)</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-QB-03</span><span class="tc-name">Catalogue "Request Quote →" pre-fills product</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Product Catalogue</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Click "Request Quote →" on Paver Block Hex (₹30 / PB-HX60)</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify navigation switches to Quote Builder section</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify #q-product select shows "Paver Block Hex|30|PB-HX60" as selected value</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: openQuote() navigates to quote; correct product pre-selected in dropdown within 100ms</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-QB-04</span><span class="tc-name">Duplicate SKU increments quantity (no duplicate rows)</span><span class="tc-badge b-amber">S2</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Add Solid Block 6"×8"×16" with Qty 200</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Select same product; enter Qty 300; click Add to Quote again</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Count rows in #quote-items</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Only 1 row for SB-6816 with qty = 500 (200+300); no duplicate line</div>
+    </div>
+  </div>
+
+  <h3>9.3 Inventory</h3>
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-INV-01</span><span class="tc-name">Stock table shows all 6 SKUs with correct status badges</span><span class="tc-badge b-amber">S2</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Inventory; check table rows</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Verify 6 rows: SB-6816, SB-4816, HB-2H, HB-3H, PB-I60, PB-HX60</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify HB-3H and PB-HX60 show "Low" badge (amber)</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify progress bars match stock levels (HB-3H at 44%, PB-HX60 at 40%)</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: All 6 SKUs present; Low badges on correct rows; progress bar widths match stock %</div>
+    </div>
+  </div>
+</div>
+
+<!-- §10 B2B COMMERCE TEST CASES -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">10</div>
+    <div><div class="sec-title">Module Test Cases — B2B Commerce</div><div class="sec-sub">Catalogue, Customers, Pipeline, Ledger, Dispatch, Online Orders</div></div>
+  </div>
+
+  <h3>10.1 Dispatch — 6-Step Tracker</h3>
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-DIS-01</span><span class="tc-name">Order #1040 shows all 6 steps as DONE (incl. Payment Received)</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-row"><div class="tc-label">Test Data</div><div class="tc-val">Order #1040 — Suresh Infra; 1,800 Solid Blocks; ₹22,400 via NEFT</div></div>
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Dispatch section</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Locate Order #1040 card</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Count .dt-step elements in this card — expect 6</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify all 6 have .done class (accent-filled dots)</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Verify step 6 has ADDITIONAL .paid class (green background, not accent)</div></div>
+        <div class="tc-step"><div class="tc-step-num">6</div><div>Verify step 6 label reads "Pmt Received"</div></div>
+        <div class="tc-step"><div class="tc-step-num">7</div><div>Verify badge shows "Paid & Delivered" in green</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: 6 steps, all .done; step 6 has green .paid styling (distinct from accent .done); badge = "Paid & Delivered"</div>
+      <div class="tc-fail-crit">❌ Fail: Only 5 steps visible; step 6 shows accent instead of green; "Payment Received" text missing</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-DIS-02</span><span class="tc-name">Order #1041 shows step 4 active (In Transit); steps 5–6 inactive</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Locate Order #1041 (Patil Builders) card in Dispatch</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Verify steps 1–3 have .done class</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify step 4 has .active class (accent border, truck icon)</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify steps 5 and 6 have NO .done, .active, or .paid class</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Steps 1-3 done; step 4 active (truck icon, accent border); steps 5-6 empty grey circles</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-DIS-03</span><span class="tc-name">Order #1042 shows step 6 as ACTIVE (payment awaiting)</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Locate Order #1042 (Rajesh Constructions) card in Dispatch</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Verify steps 1–5 have .done class</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify step 6 has .active class (not .done, not .paid)</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify card badge shows "Pmt Pending" in blue</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Verify note text shows amber colour with "₹18,500 awaiting payment"</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Steps 1–5 done (accent); step 6 active (accent-border, ₹ icon); badge = "Pmt Pending" blue</div>
+    </div>
+  </div>
+
+  <h3>10.2 Online Orders</h3>
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-OO-01</span><span class="tc-name">4 channel breakdown cards appear with correct data</span><span class="tc-badge b-amber">S2</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Online Orders section</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Count .oo-card elements in channel breakdown card</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify 4 channels: B2B Web Portal (6 orders), WhatsApp (3 orders), Email (2 orders), Phone/IVR (1 order)</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify WhatsApp and Email badges = "Active"; Phone = "Manual"</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: 4 channel cards with correct order counts, amounts, and status badges</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-OO-02</span><span class="tc-name">Place Online Order form submits with success alert</span><span class="tc-badge b-amber">S2</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Select Customer: "Rajesh Constructions"; Channel: "WhatsApp"; Product: "Solid Block 6×8×16"; Qty: 200</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Set Delivery Date: 2026-06-22; Payment: "Advance (100%)"</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Click "Place Order"</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify #oo-alert shows green success message</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Green alert "Online order placed — confirmation sent to customer" appears and auto-hides after 3.5s</div>
+    </div>
+  </div>
+</div>
+
+<!-- §11 PAYMENT TEST CASES -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">11</div>
+    <div><div class="sec-title">Module Test Cases — Payment Centre</div><div class="sec-sub">All 7 payment methods × 2 directions × confirm flow</div></div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-PAY-01</span><span class="tc-name">QR/UPI method — full end-to-end payment flow (Customer receipt)</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-row"><div class="tc-label">Direction</div><div class="tc-val">Receive from Customer</div></div>
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Payment Centre; click "Receive from Customer" tab</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Click "QR / UPI" method card — verify it shows .sel state</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify #qr-panel appears with SVG QR pattern and "kundodari@upi" chip</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>In form: select Party "Rajesh Constructions"; enter Amount ₹18,500; Ref "ORD-1042"</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Click "Submit Payment" — verify confirm modal appears</div></div>
+        <div class="tc-step"><div class="tc-step-num">6</div><div>Verify confirm modal shows Direction=Receive, Party=Rajesh, Method=QR/UPI, Amount=₹18,500</div></div>
+        <div class="tc-step"><div class="tc-step-num">7</div><div>Click "Confirm & Record" — verify receipt panel appears</div></div>
+        <div class="tc-step"><div class="tc-step-num">8</div><div>Verify receipt shows TXN-NNN, status=Paid, green success styling</div></div>
+        <div class="tc-step"><div class="tc-step-num">9</div><div>Verify kpi-recv KPI updated to include ₹18,500</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Full flow completes; TXN recorded with dir='in'; KPI updates; toast notification appears</div>
+      <div class="tc-fail-crit">❌ Fail: Confirm modal missing; receipt doesn't appear; KPI doesn't update; console errors</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-PAY-02</span><span class="tc-name">Cheque/DD — status set to "Processing" (not Paid)</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Select "Pay to Vendor" direction; select "Cheque / DD" method</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Verify extra fields: Bank Name, Cheque Number, Cheque Date, Branch</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Select Vendor "ACC Cement Depot"; Amount ₹42,500; complete all fields</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Submit → Confirm → verify receipt shows Status = "Processing" (NOT "Paid")</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Verify new TXN appears in history with blue "Processing" badge</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Cheque/DD transactions always get status='Processing'; kpi-proc count increments by 1</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-PAY-03</span><span class="tc-name">Validation — Submit without required fields shows error</span><span class="tc-badge b-amber">S2</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Select any payment method; leave Party field empty</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Click "Submit Payment"</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify toast shows error "Please select a party" (red background)</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Select party; leave amount at 0; submit again</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Verify toast shows "Please enter a valid amount"</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Both validation errors trigger red toast; confirm modal does NOT open</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-PAY-04</span><span class="tc-name">Payment history filter — Vendor / Customer / Pending filters work</span><span class="tc-badge b-amber">S2</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Payment Centre; check payment history table (should show all 10 seeded TXNs)</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Click "Vendors" filter button — verify only TXN-001, 003, 005, 008, 010 shown</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Click "Customers" filter — verify only customer transactions shown</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Click "Pending" filter — verify only TXN-007 (Ganesh Homes) shown</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Click "All" — verify all 10 TXNs return</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Filters work correctly; active filter button shows accent styling; counts match seeded data</div>
+    </div>
+  </div>
+
+  <h3>11.1 Payment Methods Coverage Matrix</h3>
+  <table class="t">
+    <tr><th>Method</th><th>Vendor Pay</th><th>Customer Receive</th><th>Extra Fields Verified</th><th>Status Expected</th></tr>
+    <tr><td>QR / UPI</td><td>TC-PAY-05</td><td>TC-PAY-01</td><td>QR SVG + UPI ID + Txn ID</td><td>Paid</td></tr>
+    <tr><td>UPI Direct</td><td>TC-PAY-06</td><td>TC-PAY-07</td><td>UPI ID + Transaction ID</td><td>Paid</td></tr>
+    <tr><td>NEFT / RTGS</td><td>TC-PAY-08</td><td>TC-PAY-09</td><td>Bank Name + UTR + Acct last 4</td><td>Paid</td></tr>
+    <tr><td>Card</td><td>TC-PAY-10</td><td>TC-PAY-11</td><td>Card Type + Last 4 + Bank</td><td>Paid</td></tr>
+    <tr><td>Cheque / DD</td><td>TC-PAY-02</td><td>TC-PAY-12</td><td>Bank + Cheque No + Date + Branch</td><td><strong>Processing</strong></td></tr>
+    <tr><td>Cash</td><td>TC-PAY-13</td><td>TC-PAY-14</td><td>Person name + Denomination</td><td>Paid</td></tr>
+    <tr><td>Other</td><td>TC-PAY-15</td><td>TC-PAY-16</td><td>Free remarks field</td><td>Paid</td></tr>
+  </table>
+</div>
+
+<!-- §12 HR TEST CASES -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">12</div>
+    <div><div class="sec-title">Module Test Cases — HR & Payroll</div><div class="sec-sub">Labour attendance, wages calculation, timesheet grid</div></div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-LAB-01</span><span class="tc-name">Check-in / Check-out toggle cycle for a worker</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Labour & Attendance</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Note kpi-present count (should be 12)</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Find Balaji Pawar (status: absent); click "Check In"</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify: badge changes to "Present" (green); kpi-present = 13; checkin time populated</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Click "Check Out" on same worker</div></div>
+        <div class="tc-step"><div class="tc-step-num">6</div><div>Verify: badge changes to "Out" (amber); checkout time populated; kpi-present = 12</div></div>
+        <div class="tc-step"><div class="tc-step-num">7</div><div>Click "Check In" again (out → in cycle)</div></div>
+        <div class="tc-step"><div class="tc-step-num">8</div><div>Verify: new check-in time; checkout cleared; kpi-present = 13</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: 3-state cycle (absent→in→out→in) works; KPI counts update; times display correctly</div>
+      <div class="tc-fail-crit">❌ Fail: KPI doesn't update; state doesn't change; time not populated; console errors</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-LAB-02</span><span class="tc-name">Live clock updates every second in Labour section</span><span class="tc-badge b-amber">S2</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Labour section; observe #l-time element</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Wait 3 seconds; verify time increments by 3 seconds</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Navigate away to Orders section; wait 5 seconds</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Navigate back to Labour; verify clock shows current time (not frozen)</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Clock ticks every second; clearInterval on leave; setInterval restarts on return</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-WAG-01</span><span class="tc-name">Wages calculation — Ramesh Kumar (with advance deduction)</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-row"><div class="tc-label">Worker Data</div><div class="tc-val">Ramesh Kumar | Block Maker | ₹550/day | Advance: ₹2,000</div></div>
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Wages & Payroll → Wages Register tab</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Locate Ramesh Kumar row in the register table</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Note Days Present (P); verify Gross = Days × 550</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify PF = Gross × 0.12 (rounded to ₹)</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Verify Net = Gross − PF − ₹2,000 (advance)</div></div>
+        <div class="tc-step"><div class="tc-step-num">6</div><div>Verify Status badge = "Pending" (since net > 0)</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: All three deductions calculated correctly; PF = exactly 12%; advance deducted; net correct</div>
+      <div class="tc-fail-crit">❌ Fail: Any arithmetic error > ₹1; advance not deducted; PF % wrong; status incorrect</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-TS-01</span><span class="tc-name">Timesheet excludes Sundays and Eid ul-Adha (Jun 17) from June 2026</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Timesheet; select June 2026</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Count header columns — expect 30 day columns (June has 30 days)</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify Day 7, 14, 21, 28 (Sundays in June 2026) show "—" for all workers</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify Day 17 (Eid ul-Adha) shows "—" for all workers</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Verify #ts-days shows 25 (30 days − 4 Sundays − 1 Eid = 25 working days)</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: 25 working days; Day 7,14,21,28 and Day 17 all show "—" (ts-x class); correct exclusions</div>
+    </div>
+  </div>
+</div>
+
+<!-- §13 ADMIN TEST CASES -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">13</div>
+    <div><div class="sec-title">Module Test Cases — Admin</div><div class="sec-sub">Calendar, Notifications, Reports, Settings, About Us</div></div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-CAL-01</span><span class="tc-name">Calendar June 2026 — holidays, today, and Sundays highlighted correctly</span><span class="tc-badge b-amber">S2</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Calendar 2026; verify label shows "June 2026"</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Verify Day 17 cell has .holiday class (red background) and shows "Eid ul-Adha" (truncated)</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify today's date cell has .today class (accent background/border)</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify Sundays (1, 7, 14, 21, 28) have .weekend class (muted bg)</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Click ">" navigate to July; verify label updates to "July 2026"</div></div>
+        <div class="tc-step"><div class="tc-step-num">6</div><div>Click "<" twice; verify label shows "May 2026"</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Holiday/today/weekend classes correct; navigation wraps correctly; no JS errors</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-CAL-02</span><span class="tc-name">Holiday table below calendar shows all 19 holidays sorted by date</span><span class="tc-badge b-blue">S3</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Calendar section; scroll to holiday table</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Count table rows — expect 19</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify first row = "14 Jan 2026 — Makar Sankranti"</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify last row = "25 Dec 2026 — Christmas Day"</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Verify all rows show "Public" badge in red</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: 19 rows, ascending date order, Makar Sankranti first, Christmas last</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-SET-01</span><span class="tc-name">Settings alert preference toggles flip correctly</span><span class="tc-badge b-blue">S3</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to Settings; locate Alert Preferences section</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Verify "Low cement stock alert" toggle is ON by default (.sw2.on class)</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Click it; verify .on class removed (toggle appears off)</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Click again; verify .on class restored</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Verify "Daily production summary email" is OFF by default; toggle turns it on</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Each toggle independently flip .on class; no page reload; visual state matches boolean</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-ABOUT-01</span><span class="tc-name">About Us hero section shows logo, brand name, and tagline</span><span class="tc-badge b-blue">S3</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Navigate to About Us section</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Verify .about-logo-big contains SVG with gold श्री text and red banner</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify heading reads "Shree Kundodari Cement Products" (NOT "Sri Kundodhari")</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify tagline: "Build your dreams with our passion"</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Count .about-stat elements — expect 8</div></div>
+        <div class="tc-step"><div class="tc-step-num">6</div><div>Count .team-card elements — expect 6</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Correct brand name spelling; tagline present; 8 stats; 6 team cards; 2 value cards</div>
+    </div>
+  </div>
+</div>
+
+<!-- §14 LANGUAGE & THEME -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">14</div>
+    <div><div class="sec-title">Cross-Cutting: Language & Theme Tests</div><div class="sec-sub">9-language switcher, dark/light toggle, responsive layout</div></div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-LANG-01</span><span class="tc-name">Hindi language switch updates nav labels, brand name, and page title</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Verify English is active by default ("Overview" in topbar)</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Click "हिंदी" button in language bar</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify #page-title changes to "अवलोकन"</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify .brand-name shows "श्री कुंडोदरी" + "सीमेंट उत्पाद"</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Verify first nav item shows "अवलोकन" (not "Overview")</div></div>
+        <div class="tc-step"><div class="tc-step-num">6</div><div>Verify nav badge (4) still present on Orders nav item</div></div>
+        <div class="tc-step"><div class="tc-step-num">7</div><div>Switch to "English" — verify all labels revert correctly</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: All 3 update targets change; badges preserved; switch back to English restores correctly</div>
+    </div>
+  </div>
+
+  <table class="t">
+    <tr><th>TC ID</th><th>Language</th><th>Verify</th><th>Key Label to Check</th></tr>
+    <tr><td>TC-LANG-02</td><td>मराठी (Marathi)</td><td>Page title on Overview</td><td>"विहंगावलोकन"</td></tr>
+    <tr><td>TC-LANG-03</td><td>ಕನ್ನಡ (Kannada)</td><td>Brand sub text</td><td>"B2B ನಿರ್ವಹಣಾ ಪೋರ್ಟಲ್"</td></tr>
+    <tr><td>TC-LANG-04</td><td>తెలుగు (Telugu)</td><td>Payments nav label</td><td>"చెల్లింపు కేంద్రం"</td></tr>
+    <tr><td>TC-LANG-05</td><td>தமிழ் (Tamil)</td><td>Calendar nav label</td><td>"நாட்காட்டி 2026"</td></tr>
+    <tr><td>TC-LANG-06</td><td>ગુજરાતી (Gujarati)</td><td>Wages nav label</td><td>"વેતન"</td></tr>
+    <tr><td>TC-LANG-07</td><td>Konkani</td><td>About Us nav label</td><td>"Amche Vishay"</td></tr>
+    <tr><td>TC-LANG-08</td><td>ತುಳು (Tulu)</td><td>Labour nav label</td><td>"ಕಾರ್ಮಿಕೆರ್"</td></tr>
+  </table>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-THEME-01</span><span class="tc-name">Dark/Light theme toggle switches correctly with chart re-init</span><span class="tc-badge b-red">S1</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Verify initial state: data-theme="dark" on html element; sidebar bg is #13161f</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Navigate to Overview; verify both charts visible</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Click theme toggle in sidebar footer</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify data-theme="light" set on html; background changes to #f4f5f8</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Verify charts still rendered with light-theme colours (no axis bleed from dark theme)</div></div>
+        <div class="tc-step"><div class="tc-step-num">6</div><div>Open DevTools console — verify no errors during toggle</div></div>
+        <div class="tc-step"><div class="tc-step-num">7</div><div>Toggle back to dark — verify data-theme="dark" restored</div></div>
+        <div class="tc-step"><div class="tc-step-num">8</div><div>Verify Settings page sw2 toggle also reflects current theme state</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Clean theme switch; charts re-render in correct theme colours; no console errors</div>
+    </div>
+  </div>
+
+  <div class="tc-card">
+    <div class="tc-hdr"><span class="tc-id">TC-RESP-01</span><span class="tc-name">Responsive layout — sidebar hides at ≤768px</span><span class="tc-badge b-amber">S2</span></div>
+    <div class="tc-body">
+      <div class="tc-steps">
+        <div class="tc-step"><div class="tc-step-num">1</div><div>Open DevTools → Toggle Device Toolbar → set width to 768px</div></div>
+        <div class="tc-step"><div class="tc-step-num">2</div><div>Verify .sidebar has display:none</div></div>
+        <div class="tc-step"><div class="tc-step-num">3</div><div>Verify .g2 grid collapses to single column</div></div>
+        <div class="tc-step"><div class="tc-step-num">4</div><div>Verify .form-grid collapses to single column</div></div>
+        <div class="tc-step"><div class="tc-step-num">5</div><div>Set width to 769px — verify sidebar reappears</div></div>
+      </div>
+      <div class="tc-expect">✅ Expected: Sidebar hidden ≤768px; grids stack; no horizontal scroll; content readable</div>
+    </div>
+  </div>
+</div>
+
+<!-- §15 NON-FUNCTIONAL -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">15</div>
+    <div><div class="sec-title">Non-Functional Testing</div><div class="sec-sub">Performance, accessibility, browser compatibility, and Indian conventions</div></div>
+  </div>
+
+  <h3>15.1 Performance Tests</h3>
+  <table class="t">
+    <tr><th>TC ID</th><th>Test</th><th>Method</th><th>Pass Criterion</th></tr>
+    <tr><td>TC-PERF-01</td><td>Initial page load time</td><td>Chrome Lighthouse</td><td>FCP &lt; 3s on 4G simulated</td></tr>
+    <tr><td>TC-PERF-02</td><td>Chart render time on section switch</td><td>DevTools Performance timeline</td><td>Charts visible within 200ms of nav()</td></tr>
+    <tr><td>TC-PERF-03</td><td>No console errors on load</td><td>DevTools Console</td><td>0 errors, 0 uncaught exceptions</td></tr>
+    <tr><td>TC-PERF-04</td><td>CDN assets all load successfully</td><td>DevTools Network tab</td><td>All 3 CDN requests return HTTP 200</td></tr>
+    <tr><td>TC-PERF-05</td><td>Theme toggle does not cause memory leak</td><td>DevTools Memory snapshot</td><td>No detached DOM nodes after 5 toggles</td></tr>
+  </table>
+
+  <h3>15.2 Accessibility Tests</h3>
+  <table class="t">
+    <tr><th>TC ID</th><th>Test</th><th>Tool</th><th>Pass Criterion</th></tr>
+    <tr><td>TC-A11Y-01</td><td>Canvas elements have aria-label</td><td>Manual inspection</td><td>All 6 canvas tags have role="img" + aria-label</td></tr>
+    <tr><td>TC-A11Y-02</td><td>Form label associations</td><td>axe DevTools</td><td>All inputs have associated &lt;label&gt; elements</td></tr>
+    <tr><td>TC-A11Y-03</td><td>Colour contrast — dark theme</td><td>Colour Contrast Analyser</td><td>Text on --bg2 ≥ 4.5:1 ratio</td></tr>
+    <tr><td>TC-A11Y-04</td><td>Colour contrast — light theme</td><td>Colour Contrast Analyser</td><td>Text on #fff ≥ 4.5:1 ratio</td></tr>
+    <tr><td>TC-A11Y-05</td><td>Lighthouse accessibility score</td><td>Chrome Lighthouse</td><td>Score ≥ 85/100</td></tr>
+  </table>
+
+  <h3>15.3 Indian Business Convention Tests</h3>
+  <table class="t">
+    <tr><th>TC ID</th><th>Test</th><th>Verify</th><th>Pass Criterion</th></tr>
+    <tr><td>TC-IND-01</td><td>₹ currency symbol everywhere</td><td>All monetary values</td><td>No "$" or "Rs." found anywhere in DOM</td></tr>
+    <tr><td>TC-IND-02</td><td>Indian number format</td><td>Ledger amounts, wages</td><td>"₹9,84,200" format (not "₹984,200")</td></tr>
+    <tr><td>TC-IND-03</td><td>GSTIN format in Settings</td><td>Company profile</td><td>27AABCS1429B1ZB (starts with 27 for Maharashtra)</td></tr>
+    <tr><td>TC-IND-04</td><td>GST rate = 18%</td><td>Quote Builder, PRD §8</td><td>GST field = subtotal × 0.18 exactly</td></tr>
+    <tr><td>TC-IND-05</td><td>Sunday exclusion in Timesheet</td><td>June 2026 timesheet</td><td>Days 7,14,21,28 all show "—" (ts-x class)</td></tr>
+    <tr><td>TC-IND-06</td><td>PF = 12% of gross</td><td>Wages register</td><td>PF column = ROUND(gross × 0.12) for every worker</td></tr>
+    <tr><td>TC-IND-07</td><td>Brand name spelling correct</td><td>All pages</td><td>"Shree Kundodari" (NOT "Sri Kundodhari") everywhere</td></tr>
+  </table>
+</div>
+
+<!-- §16 DEFECT MANAGEMENT -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">16</div>
+    <div><div class="sec-title">Defect Management</div><div class="sec-sub">Filing process, defect template, and lifecycle</div></div>
+  </div>
+
+  <h3>16.1 Defect Lifecycle</h3>
+  <table class="t">
+    <tr><th>Status</th><th>Owner</th><th>Next Status</th><th>Trigger</th></tr>
+    <tr><td><span class="badge b-blue">New</span></td><td>QA Tester</td><td>Assigned</td><td>QA files bug in tracker</td></tr>
+    <tr><td><span class="badge b-amber">Assigned</span></td><td>Developer</td><td>In Fix</td><td>Dev acknowledges and picks up</td></tr>
+    <tr><td><span class="badge b-amber">In Fix</span></td><td>Developer</td><td>Fixed</td><td>Dev deploys fix to index.html</td></tr>
+    <tr><td><span class="badge b-purple">Fixed</span></td><td>QA Tester</td><td>Verified / Re-opened</td><td>QA re-tests the fix</td></tr>
+    <tr><td><span class="badge b-green">Verified</span></td><td>QA Lead</td><td>Closed</td><td>Fix confirmed; test passed</td></tr>
+    <tr><td><span class="badge b-red">Re-opened</span></td><td>Developer</td><td>In Fix</td><td>Fix didn't resolve issue</td></tr>
+    <tr><td><span class="badge b-dark">Closed</span></td><td>QA Lead</td><td>—</td><td>Verified and documented</td></tr>
+  </table>
+
+  <h3>16.2 Defect Report Template</h3>
+  <div style="background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px;font-size:12.5px">
+    <table class="t" style="margin-bottom:0">
+      <tr><th colspan="4">DEFECT REPORT — SKCP B2B Dashboard</th></tr>
+      <tr><td><strong>Defect ID</strong></td><td>DEF-[NNN]</td><td><strong>Date Filed</strong></td><td>[DD/MM/YYYY]</td></tr>
+      <tr><td><strong>Module</strong></td><td>[Section Name]</td><td><strong>Test Case Ref</strong></td><td>[TC-XXX-NN]</td></tr>
+      <tr><td><strong>Severity</strong></td><td>S1 / S2 / S3 / S4</td><td><strong>Priority</strong></td><td>High / Medium / Low</td></tr>
+      <tr><td><strong>Status</strong></td><td>New</td><td><strong>Assigned To</strong></td><td>[Developer Name]</td></tr>
+      <tr><td><strong>Browser</strong></td><td>[Chrome 124 / Firefox 125…]</td><td><strong>Theme</strong></td><td>Dark / Light</td></tr>
+      <tr><td><strong>Summary</strong></td><td colspan="3">[One-line description of the defect]</td></tr>
+      <tr><td><strong>Steps to Reproduce</strong></td><td colspan="3">1. [Step 1]<br>2. [Step 2]<br>3. [Step 3]</td></tr>
+      <tr><td><strong>Expected Result</strong></td><td colspan="3">[What should happen per PRD]</td></tr>
+      <tr><td><strong>Actual Result</strong></td><td colspan="3">[What actually happened]</td></tr>
+      <tr><td><strong>Screenshot / Video</strong></td><td colspan="3">[Link or attachment]</td></tr>
+      <tr><td><strong>Console Errors</strong></td><td colspan="3">[Copy-paste any JS console errors]</td></tr>
+      <tr><td><strong>PRD Reference</strong></td><td colspan="3">[FR-NNN or §N.N]</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- §17 RISK REGISTER -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">17</div>
+    <div><div class="sec-title">Risk Register</div><div class="sec-sub">Known risks, impact assessment, and mitigation strategies</div></div>
+  </div>
+
+  <div class="risk-row risk-high">
+    <div><div class="risk-label"><strong>RISK-01:</strong> Financial calculation errors in Wages or GST</div><div class="risk-meta">Impact: Critical | Probability: Low | Module: Wages, Quote Builder</div><div class="risk-meta" style="margin-top:3px">Mitigation: Dedicated S1 test cases (TC-WAG-01, TC-QB-01/02); independent verification by Accounts manager during UAT</div></div>
+    <span class="priority-high">HIGH</span>
+  </div>
+
+  <div class="risk-row risk-high">
+    <div><div class="risk-label"><strong>RISK-02:</strong> CDN unavailability (Chart.js, Tabler Icons, Google Fonts)</div><div class="risk-meta">Impact: High | Probability: Very Low | Module: All sections</div><div class="risk-meta" style="margin-top:3px">Mitigation: Test environment has active internet; version-pinned CDN URLs reduce breaking change risk; document CDN SLA</div></div>
+    <span class="priority-high">HIGH</span>
+  </div>
+
+  <div class="risk-row risk-med">
+    <div><div class="risk-label"><strong>RISK-03:</strong> Chart.js canvas rendering fails on Safari / Firefox</div><div class="risk-meta">Impact: Medium | Probability: Low | Module: Overview, Production, Reports, Pipeline</div><div class="risk-meta" style="margin-top:3px">Mitigation: TC-PERF-01 executed on all 4 browsers; Chart.js 4.4.1 has broad support; fallback aria-labels ensure content accessible</div></div>
+    <span class="priority-med">MEDIUM</span>
+  </div>
+
+  <div class="risk-row risk-med">
+    <div><div class="risk-label"><strong>RISK-04:</strong> Language switch breaks nav-badge counts (badges lost on text update)</div><div class="risk-meta">Impact: Medium | Probability: Medium | Module: Sidebar, all languages</div><div class="risk-meta" style="margin-top:3px">Mitigation: TC-LANG-01 step 6 specifically verifies badge preservation; setLang() appends badge after text node update</div></div>
+    <span class="priority-med">MEDIUM</span>
+  </div>
+
+  <div class="risk-row risk-med">
+    <div><div class="risk-label"><strong>RISK-05:</strong> Timesheet fails to exclude all holidays correctly</div><div class="risk-meta">Impact: Medium | Probability: Low | Module: Timesheet, Wages calculation</div><div class="risk-meta" style="margin-top:3px">Mitigation: TC-TS-01 cross-references HOL object; single source of truth pattern reduces inconsistency risk</div></div>
+    <span class="priority-med">MEDIUM</span>
+  </div>
+
+  <div class="risk-row risk-low">
+    <div><div class="risk-label"><strong>RISK-06:</strong> In-memory data lost on page refresh (expected but may confuse UAT users)</div><div class="risk-meta">Impact: Low | Probability: Certain | Module: All (by design)</div><div class="risk-meta" style="margin-top:3px">Mitigation: Clearly communicate to UAT users that data resets on refresh (PRD NFR-21); document in UAT briefing notes</div></div>
+    <span class="priority-low">LOW</span>
+  </div>
+
+  <div class="risk-row risk-low">
+    <div><div class="risk-label"><strong>RISK-07:</strong> Devanagari fonts don't render on Windows without Noto Sans</div><div class="risk-meta">Impact: Low | Probability: Very Low | Module: Language bar, About Us logo SVG</div><div class="risk-meta" style="margin-top:3px">Mitigation: SVG uses font-family="serif" fallback for श्री; Google Fonts loads Devanagari ranges via CSS link</div></div>
+    <span class="priority-low">LOW</span>
+  </div>
+</div>
+
+<!-- §18 COVERAGE MATRIX -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">18</div>
+    <div><div class="sec-title">Test Coverage Matrix</div><div class="sec-sub">Coverage % per module across all test types</div></div>
+  </div>
+
+  <table class="t">
+    <tr><th>Module</th><th>Functional</th><th>Integration</th><th>UI/Visual</th><th>Language</th><th>Browser</th><th>Accessibility</th><th>Overall</th></tr>
+    <tr class="t-grp"><td colspan="8">OPERATIONS GROUP</td></tr>
+    <tr><td>Overview</td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">90%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">75%</span></td><td><span class="badge b-green">85%</span></td><td><span class="badge b-green">88%</span></td></tr>
+    <tr><td>Orders</td><td><span class="badge b-green">90%</span></td><td><span class="badge b-green">75%</span></td><td><span class="badge b-green">85%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">75%</span></td><td><span class="badge b-amber">70%</span></td><td><span class="badge b-green">83%</span></td></tr>
+    <tr><td>Quote Builder</td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">90%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">92%</span></td></tr>
+    <tr><td>Inventory</td><td><span class="badge b-green">85%</span></td><td><span class="badge b-amber">60%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-amber">70%</span></td><td><span class="badge b-amber">70%</span></td><td><span class="badge b-green">78%</span></td></tr>
+    <tr><td>Production</td><td><span class="badge b-green">85%</span></td><td><span class="badge b-amber">60%</span></td><td><span class="badge b-green">90%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">75%</span></td><td><span class="badge b-amber">70%</span></td><td><span class="badge b-green">80%</span></td></tr>
+    <tr><td>Raw Materials</td><td><span class="badge b-green">80%</span></td><td><span class="badge b-amber">55%</span></td><td><span class="badge b-amber">75%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-amber">70%</span></td><td><span class="badge b-amber">65%</span></td><td><span class="badge b-green">74%</span></td></tr>
+    <tr class="t-grp"><td colspan="8">B2B COMMERCE GROUP</td></tr>
+    <tr><td>Dispatch (6-step)</td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">90%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">92%</span></td></tr>
+    <tr><td>Online Orders</td><td><span class="badge b-green">85%</span></td><td><span class="badge b-amber">70%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-amber">70%</span></td><td><span class="badge b-amber">70%</span></td><td><span class="badge b-green">79%</span></td></tr>
+    <tr><td>Customers / Pipeline</td><td><span class="badge b-green">80%</span></td><td><span class="badge b-amber">65%</span></td><td><span class="badge b-amber">75%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-amber">70%</span></td><td><span class="badge b-amber">65%</span></td><td><span class="badge b-green">76%</span></td></tr>
+    <tr class="t-grp"><td colspan="8">PAYMENTS GROUP</td></tr>
+    <tr><td>Payment Centre</td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">95%</span></td><td><span class="badge b-green">95%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">85%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">93%</span></td></tr>
+    <tr class="t-grp"><td colspan="8">HR GROUP</td></tr>
+    <tr><td>Labour & Attendance</td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">85%</span></td><td><span class="badge b-green">85%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-amber">75%</span></td><td><span class="badge b-green">88%</span></td></tr>
+    <tr><td>Wages & Payroll</td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">90%</span></td><td><span class="badge b-green">85%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-amber">75%</span></td><td><span class="badge b-green">88%</span></td></tr>
+    <tr><td>Timesheet</td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">90%</span></td><td><span class="badge b-green">85%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-amber">70%</span></td><td><span class="badge b-green">88%</span></td></tr>
+    <tr class="t-grp"><td colspan="8">CROSS-CUTTING</td></tr>
+    <tr><td>Language Switcher (9)</td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">90%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">85%</span></td><td><span class="badge b-green">93%</span></td></tr>
+    <tr><td>Theme Toggle</td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">100%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">80%</span></td><td><span class="badge b-green">93%</span></td></tr>
+  </table>
+</div>
+
+<!-- §19 ENTRY/EXIT CRITERIA -->
+<div class="section page-break">
+  <div class="sec-hdr">
+    <div class="sec-num">19</div>
+    <div><div class="sec-title">Entry & Exit Criteria</div><div class="sec-sub">Conditions to start and conclude each test phase</div></div>
+  </div>
+
+  <h3>19.1 Entry Criteria (Before Testing Begins)</h3>
+  <table class="t">
+    <tr><th>Criterion</th><th>Verified By</th><th>Status</th></tr>
+    <tr><td>PRD v5.0 marked "Completed" and approved by stakeholders</td><td>Proprietor</td><td><span class="badge b-green">✓ Met</span></td></tr>
+    <tr><td>index.html (v5.0) delivered and opens without build step</td><td>QA Lead</td><td><span class="badge b-green">✓ Met</span></td></tr>
+    <tr><td>This Test Plan reviewed and approved</td><td>QA Lead + Proprietor</td><td><span class="badge b-blue">In Review</span></td></tr>
+    <tr><td>All 23 nav sections navigable without JS errors</td><td>QA Lead</td><td><span class="badge b-amber">Pending</span></td></tr>
+    <tr><td>Test environment (browser + internet) available</td><td>QA Team</td><td><span class="badge b-green">✓ Met</span></td></tr>
+    <tr><td>Defect tracker set up (spreadsheet or tool)</td><td>QA Lead</td><td><span class="badge b-amber">Pending</span></td></tr>
+    <tr><td>UAT participants (Proprietor, Prod. Mgr, Sales, Accounts) confirmed available</td><td>Proprietor</td><td><span class="badge b-amber">Pending</span></td></tr>
+  </table>
+
+  <h3>19.2 Exit Criteria (Before Sign-off)</h3>
+  <table class="t">
+    <tr><th>Criterion</th><th>Target</th><th>Minimum</th></tr>
+    <tr><td>Test cases executed</td><td>147 / 147 (100%)</td><td>140 / 147 (95%)</td></tr>
+    <tr><td>Test cases passed</td><td>≥ 95% pass rate</td><td>≥ 90% pass rate</td></tr>
+    <tr><td>S1 Critical defects open</td><td>0</td><td>0 (hard gate)</td></tr>
+    <tr><td>S2 Major defects open</td><td>0</td><td>≤ 2 with documented workaround</td></tr>
+    <tr><td>Financial calcs (GST, PF, Wages) verified</td><td>100% accuracy</td><td>100% (hard gate)</td></tr>
+    <tr><td>All 9 language switches functional</td><td>9 / 9 (100%)</td><td>7 / 9 (77%)</td></tr>
+    <tr><td>Dispatch 6-step tracker verified on all 3 sample orders</td><td>3 / 3</td><td>3 / 3 (hard gate)</td></tr>
+    <tr><td>Payment Centre all 7 methods verified</td><td>7 / 7 (100%)</td><td>6 / 7 (86%)</td></tr>
+    <tr><td>Lighthouse accessibility score</td><td>≥ 90 / 100</td><td>≥ 85 / 100</td></tr>
+    <tr><td>UAT sign-off received</td><td>All 4 stakeholders</td><td>Proprietor + 1 manager (hard gate)</td></tr>
+    <tr><td>Regression suite (15 smoke tests) passed after last fix</td><td>15 / 15</td><td>14 / 15</td></tr>
+  </table>
+
+  <h3>19.3 Suspension Criteria</h3>
+  <div class="callout danger"><b>Testing will be suspended if:</b> More than 5 S1 Critical defects are open simultaneously | The application fails to load on the primary test browser (Chrome) | CDN outage affects more than 50% of visual components | A defect causes complete data corruption of in-memory arrays</div>
+
+  <h3>19.4 Resumption Criteria</h3>
+  <div class="callout success"><b>Testing resumes when:</b> All S1 defects triggering suspension are resolved and verified | CDN availability restored | Developer confirms root cause fixed and re-delivers updated index.html</div>
+</div>
+
+<!-- §20 SIGN-OFF -->
+<div class="section">
+  <div class="sec-hdr">
+    <div class="sec-num">20</div>
+    <div><div class="sec-title">Sign-off & Approvals</div><div class="sec-sub">Final approval signatures for Test Plan and UAT completion</div></div>
+  </div>
+
+  <h3>20.1 Test Plan Approval</h3>
+  <table class="t">
+    <tr><th>Role</th><th>Name</th><th>Department</th><th>Signature</th><th>Date</th></tr>
+    <tr><td>QA Lead</td><td></td><td>Quality Assurance</td><td style="min-width:120px;border-bottom:1px solid var(--ink);height:32px"></td><td style="min-width:100px"></td></tr>
+    <tr><td>Proprietor / Director</td><td></td><td>Management</td><td style="min-width:120px;border-bottom:1px solid var(--ink);height:32px"></td><td style="min-width:100px"></td></tr>
+    <tr><td>Production Manager</td><td></td><td>Factory Operations</td><td style="min-width:120px;border-bottom:1px solid var(--ink);height:32px"></td><td style="min-width:100px"></td></tr>
+    <tr><td>Developer / AI Engineer</td><td></td><td>Development</td><td style="min-width:120px;border-bottom:1px solid var(--ink);height:32px"></td><td style="min-width:100px"></td></tr>
+  </table>
+
+  <h3>20.2 UAT Sign-off (Post-Testing)</h3>
+  <table class="t">
+    <tr><th>Stakeholder</th><th>Modules Accepted</th><th>Defects Waived</th><th>Signature</th><th>Date</th></tr>
+    <tr><td>Proprietor / Director</td><td>All 23 modules</td><td>—</td><td style="min-width:120px;border-bottom:1px solid var(--ink);height:32px"></td><td></td></tr>
+    <tr><td>Production Manager</td><td>Production, Inventory, Labour, Timesheet, Raw Materials</td><td>—</td><td style="min-width:120px;border-bottom:1px solid var(--ink);height:32px"></td><td></td></tr>
+    <tr><td>Sales Executive</td><td>Orders, Quote, Customers, Pipeline, Catalogue, Online Orders</td><td>—</td><td style="min-width:120px;border-bottom:1px solid var(--ink);height:32px"></td><td></td></tr>
+    <tr><td>Accounts Manager</td><td>Payments, Wages, Ledger, Reports</td><td>—</td><td style="min-width:120px;border-bottom:1px solid var(--ink);height:32px"></td><td></td></tr>
+  </table>
+
+  <div class="callout success" style="margin-top:16px">
+    <b>Deployment Authorisation:</b> Upon receipt of Proprietor sign-off above, the QA Lead is authorised to issue a Deployment Go-Ahead. The production index.html may then be deployed to Vercel / Netlify per PRD §14 Deployment Guide.
+  </div>
+
+  <div class="callout info" style="margin-top:10px">
+    <b>Document Control:</b> This Test Strategy & Test Plan is version-controlled alongside the PRD. Any changes to PRD v5.0 after this plan is signed require a formal Change Request and may require updating test cases in §9–§14.
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<div class="doc-footer">
+  <div><strong>Shree Kundodari Cement Products</strong> · Bhosari MIDC, Pimpri-Chinchwad, Pune 411026</div>
+  <div>Test Strategy & Test Plan v1.0 · PRD Reference: v5.0 Final · June 2026</div>
+  <div>QA Document — Confidential · <strong>info@kundodari.com</strong></div>
+</div>
+
+</div><!-- /doc -->
+</body>
+</html>

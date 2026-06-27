@@ -1,0 +1,3217 @@
+{
+  "config": {
+    "configFile": "/Users/promode/Documents/AdvancePlaywrightFramework1x/playwright.config.ts",
+    "rootDir": "/Users/promode/Documents/AdvancePlaywrightFramework1x/src/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/promode/Documents/AdvancePlaywrightFramework1x/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/promode/Documents/AdvancePlaywrightFramework1x/src/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "/Users/promode/Documents/AdvancePlaywrightFramework1x/src/utils/CustomReporter.ts",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.60.0",
+    "workers": 8,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "uiTests/01_login/login-ui.spec.ts",
+      "file": "uiTests/01_login/login-ui.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Login - UI",
+          "file": "uiTests/01_login/login-ui.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display login page with correct title",
+              "ok": true,
+              "tags": [
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 817,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - UI] Running: should display login page with correct title\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 121
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 351
+                        },
+                        {
+                          "title": "Execute: should display login page with correct title",
+                          "duration": 217
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:00.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "02e53c5a946d5b9e860b-685fad0a091351249e77",
+              "file": "uiTests/01_login/login-ui.spec.ts",
+              "line": 13,
+              "column": 9
+            },
+            {
+              "title": "should show username and password fields",
+              "ok": true,
+              "tags": [
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 834,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - UI] Running: should show username and password fields\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 122
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 352
+                        },
+                        {
+                          "title": "Execute: should show username and password fields",
+                          "duration": 234
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:03.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "71a2beda94af542cb3d5-51926e3cdfec54e0ab24",
+              "file": "uiTests/01_login/login-ui.spec.ts",
+              "line": 16,
+              "column": 9
+            },
+            {
+              "title": "should show login button enabled by default",
+              "ok": true,
+              "tags": [
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 851,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - UI] Running: should show login button enabled by default\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 123
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 353
+                        },
+                        {
+                          "title": "Execute: should show login button enabled by default",
+                          "duration": 251
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:06.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1dc8813fb7905bf287c9-261408c88a315eabb783",
+              "file": "uiTests/01_login/login-ui.spec.ts",
+              "line": 19,
+              "column": 9
+            },
+            {
+              "title": "should show logo on login page",
+              "ok": true,
+              "tags": [
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 868,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - UI] Running: should show logo on login page\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 124
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 354
+                        },
+                        {
+                          "title": "Execute: should show logo on login page",
+                          "duration": 268
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:09.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5e55300d951c502e8f09-412afa94347c50a6b095",
+              "file": "uiTests/01_login/login-ui.spec.ts",
+              "line": 22,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/01_login/login-auth.spec.ts",
+      "file": "uiTests/01_login/login-auth.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Login - Auth",
+          "file": "uiTests/01_login/login-auth.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should redirect to login when accessing dashboard without auth",
+              "ok": true,
+              "tags": [
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 885,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Auth] Running: should redirect to login when accessing dashboard without auth\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 125
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 355
+                        },
+                        {
+                          "title": "Execute: should redirect to login when accessing dashboard without auth",
+                          "duration": 285
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:12.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e43138f3786253e5b5c8-f6540498cb5c56a99e34",
+              "file": "uiTests/01_login/login-auth.spec.ts",
+              "line": 25,
+              "column": 9
+            },
+            {
+              "title": "should login with valid credentials",
+              "ok": true,
+              "tags": [
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 902,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Auth] Running: should login with valid credentials\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 126
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 356
+                        },
+                        {
+                          "title": "Execute: should login with valid credentials",
+                          "duration": 302
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:15.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3bb903382f1251eda955-5ec22d5bc8d25d50bcc6",
+              "file": "uiTests/01_login/login-auth.spec.ts",
+              "line": 28,
+              "column": 9
+            },
+            {
+              "title": "should persist session after page reload",
+              "ok": true,
+              "tags": [
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 919,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Auth] Running: should persist session after page reload\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 127
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 357
+                        },
+                        {
+                          "title": "Execute: should persist session after page reload",
+                          "duration": 319
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:18.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2a1a62d9c50a578c9e50-38b52061ab86576f982d",
+              "file": "uiTests/01_login/login-auth.spec.ts",
+              "line": 31,
+              "column": 9
+            },
+            {
+              "title": "should logout and clear session cookie",
+              "ok": true,
+              "tags": [
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 936,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Auth] Running: should logout and clear session cookie\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 128
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 358
+                        },
+                        {
+                          "title": "Execute: should logout and clear session cookie",
+                          "duration": 336
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:21.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a05ecefa31705ba88373-2c9c5408255952e59e75",
+              "file": "uiTests/01_login/login-auth.spec.ts",
+              "line": 34,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/01_login/login-validation.spec.ts",
+      "file": "uiTests/01_login/login-validation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Login - Validation",
+          "file": "uiTests/01_login/login-validation.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should show error message for invalid username",
+              "ok": true,
+              "tags": [
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 953,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Validation] Running: should show error message for invalid username\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 129
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 359
+                        },
+                        {
+                          "title": "Execute: should show error message for invalid username",
+                          "duration": 353
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:24.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9314a7e8bd5c50abb2df-923f6fac13a85c71a34c",
+              "file": "uiTests/01_login/login-validation.spec.ts",
+              "line": 37,
+              "column": 9
+            },
+            {
+              "title": "should show error message for invalid password",
+              "ok": true,
+              "tags": [
+                "smoke"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 970,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Validation] Running: should show error message for invalid password\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 130
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 360
+                        },
+                        {
+                          "title": "Execute: should show error message for invalid password",
+                          "duration": 370
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:27.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "ae1df2e951725dd4bfa4-469c2425ed93500f8d4a",
+              "file": "uiTests/01_login/login-validation.spec.ts",
+              "line": 40,
+              "column": 9
+            },
+            {
+              "title": "should show error for empty username field",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 987,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Validation] Running: should show error for empty username field\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 131
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 361
+                        },
+                        {
+                          "title": "Execute: should show error for empty username field",
+                          "duration": 387
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:30.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fd148b1778ed53709fce-b97acbdd239956b8982e",
+              "file": "uiTests/01_login/login-validation.spec.ts",
+              "line": 43,
+              "column": 9
+            },
+            {
+              "title": "should show error for empty password field",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1004,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Validation] Running: should show error for empty password field\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 132
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 362
+                        },
+                        {
+                          "title": "Execute: should show error for empty password field",
+                          "duration": 404
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:33.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d914ea18086e53989de4-cf0cc33fdef65ec8bd95",
+              "file": "uiTests/01_login/login-validation.spec.ts",
+              "line": 46,
+              "column": 9
+            },
+            {
+              "title": "should show error for both fields empty",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1021,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Validation] Running: should show error for both fields empty\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 133
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 363
+                        },
+                        {
+                          "title": "Execute: should show error for both fields empty",
+                          "duration": 421
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:36.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2c60ff59e28a55babfcc-aefeab4ec9595cdbaf5d",
+              "file": "uiTests/01_login/login-validation.spec.ts",
+              "line": 49,
+              "column": 9
+            },
+            {
+              "title": "should mask password input by default",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1038,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Validation] Running: should mask password input by default\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 134
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 364
+                        },
+                        {
+                          "title": "Execute: should mask password input by default",
+                          "duration": 438
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:39.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "8e59cd09511752d9b100-68379bff9fe8564387fb",
+              "file": "uiTests/01_login/login-validation.spec.ts",
+              "line": 52,
+              "column": 9
+            },
+            {
+              "title": "should toggle password visibility",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1055,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Validation] Running: should toggle password visibility\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 135
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 365
+                        },
+                        {
+                          "title": "Execute: should toggle password visibility",
+                          "duration": 455
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:42.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0bdf8745cbfb594195e2-63a34d14e80956eabc9d",
+              "file": "uiTests/01_login/login-validation.spec.ts",
+              "line": 55,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/01_login/login-security.spec.ts",
+      "file": "uiTests/01_login/login-security.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Login - Security",
+          "file": "uiTests/01_login/login-security.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should disable login button after 5 failed attempts",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1072,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Security] Running: should disable login button after 5 failed attempts\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 136
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 366
+                        },
+                        {
+                          "title": "Execute: should disable login button after 5 failed attempts",
+                          "duration": 472
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:45.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a26692d185f95c7cb84f-655d2a9c6d5a5e0784f9",
+              "file": "uiTests/01_login/login-security.spec.ts",
+              "line": 58,
+              "column": 9
+            },
+            {
+              "title": "should unlock account after cooldown period",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1089,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Security] Running: should unlock account after cooldown period\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 137
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 367
+                        },
+                        {
+                          "title": "Execute: should unlock account after cooldown period",
+                          "duration": 489
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:48.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "99f7fd2c9c265147b66f-ba714b19eada5e9ebcf0",
+              "file": "uiTests/01_login/login-security.spec.ts",
+              "line": 61,
+              "column": 9
+            },
+            {
+              "title": "should not expose credentials in network request logs",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1106,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Security] Running: should not expose credentials in network request logs\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 138
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 368
+                        },
+                        {
+                          "title": "Execute: should not expose credentials in network request logs",
+                          "duration": 506
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:51.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9b66b088af5255e0a3d9-1418d4ae35395801b87e",
+              "file": "uiTests/01_login/login-security.spec.ts",
+              "line": 64,
+              "column": 9
+            },
+            {
+              "title": "should enforce HTTPS redirect on login page",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1123,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Security] Running: should enforce HTTPS redirect on login page\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 139
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 369
+                        },
+                        {
+                          "title": "Execute: should enforce HTTPS redirect on login page",
+                          "duration": 523
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:54.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c5ff96bb35c45115b813-fa2460b99b005a6e9a8c",
+              "file": "uiTests/01_login/login-security.spec.ts",
+              "line": 67,
+              "column": 9
+            },
+            {
+              "title": "should sanitise XSS payload in username field",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1140,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Security] Running: should sanitise XSS payload in username field\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 140
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 370
+                        },
+                        {
+                          "title": "Execute: should sanitise XSS payload in username field",
+                          "duration": 540
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:00:57.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "aa7a27c75d8d52ef8f89-f461b18c7e565e64aae2",
+              "file": "uiTests/01_login/login-security.spec.ts",
+              "line": 70,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/01_login/login-a11y.spec.ts",
+      "file": "uiTests/01_login/login-a11y.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Login - Accessibility",
+          "file": "uiTests/01_login/login-a11y.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should support login via keyboard Enter key",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1157,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Accessibility] Running: should support login via keyboard Enter key\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 141
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 371
+                        },
+                        {
+                          "title": "Execute: should support login via keyboard Enter key",
+                          "duration": 557
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:00.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5834229a20845c9ca959-2d19be8baff2519b85f0",
+              "file": "uiTests/01_login/login-a11y.spec.ts",
+              "line": 73,
+              "column": 9
+            },
+            {
+              "title": "should have correct tab order on login form",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1174,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Accessibility] Running: should have correct tab order on login form\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 142
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 372
+                        },
+                        {
+                          "title": "Execute: should have correct tab order on login form",
+                          "duration": 574
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:03.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "805194eecc465eeaae98-c49b7537481c578dacd8",
+              "file": "uiTests/01_login/login-a11y.spec.ts",
+              "line": 76,
+              "column": 9
+            },
+            {
+              "title": "should meet WCAG AA color contrast on login page",
+              "ok": false,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "failed",
+                      "duration": 5499,
+                      "errors": [
+                        {
+                          "message": "Error: expect(received).toBeGreaterThanOrEqualTo(expected)\n\nExpected: 4.5\nReceived: 3.21\n\nContrast ratio for text '#6B7280' on '#FFFFFF' does not meet WCAG AA minimum (4.5:1).",
+                          "location": {
+                            "file": "uiTests/01_login/login-a11y.spec.ts",
+                            "line": 79,
+                            "column": 5
+                          },
+                          "snippet": "    at expect(contrastRatio).toBeGreaterThanOrEqualTo(4.5) (login-a11y.spec.ts:89:5)"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "[Login - Accessibility] Running: should meet WCAG AA color contrast on login page\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 143
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 373
+                        },
+                        {
+                          "title": "Execute: should meet WCAG AA color contrast on login page",
+                          "duration": 4899
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:06.000Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "test-results/should-meet-WCAG-AA-color-contrast-on-login-page-chromium/screenshot.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "3fdd3bb548695a20b836-cf24ea543afa556389da",
+              "file": "uiTests/01_login/login-a11y.spec.ts",
+              "line": 79,
+              "column": 9
+            },
+            {
+              "title": "should display ARIA labels on form inputs",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1208,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Accessibility] Running: should display ARIA labels on form inputs\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 144
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 374
+                        },
+                        {
+                          "title": "Execute: should display ARIA labels on form inputs",
+                          "duration": 608
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:09.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3fd0bd19f2fa5eb58321-50e1b38b1c935a5b9e21",
+              "file": "uiTests/01_login/login-a11y.spec.ts",
+              "line": 82,
+              "column": 9
+            },
+            {
+              "title": "should show screen-reader-friendly error announcements",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1225,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Login - Accessibility] Running: should show screen-reader-friendly error announcements\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 145
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 375
+                        },
+                        {
+                          "title": "Execute: should show screen-reader-friendly error announcements",
+                          "duration": 625
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:12.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "36ea2d9e0f245c8d8513-0a6f2b3c517d5484aebc",
+              "file": "uiTests/01_login/login-a11y.spec.ts",
+              "line": 85,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/02_dashboard/dashboard-ui.spec.ts",
+      "file": "uiTests/02_dashboard/dashboard-ui.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Dashboard - UI",
+          "file": "uiTests/02_dashboard/dashboard-ui.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display dashboard header after login",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1242,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - UI] Running: should display dashboard header after login\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 146
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 376
+                        },
+                        {
+                          "title": "Execute: should display dashboard header after login",
+                          "duration": 642
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:15.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b13661d258fa598ab7c0-9d0da759d4cb572ca156",
+              "file": "uiTests/02_dashboard/dashboard-ui.spec.ts",
+              "line": 88,
+              "column": 9
+            },
+            {
+              "title": "should show user avatar and name in top-right corner",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1259,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - UI] Running: should show user avatar and name in top-right corner\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 147
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 377
+                        },
+                        {
+                          "title": "Execute: should show user avatar and name in top-right corner",
+                          "duration": 659
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:18.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6f2cded6817b5c87b1b1-af86de6a06ec5ae989c0",
+              "file": "uiTests/02_dashboard/dashboard-ui.spec.ts",
+              "line": 91,
+              "column": 9
+            },
+            {
+              "title": "should render sidebar navigation with all menu items",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1276,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - UI] Running: should render sidebar navigation with all menu items\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 148
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 378
+                        },
+                        {
+                          "title": "Execute: should render sidebar navigation with all menu items",
+                          "duration": 676
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:21.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "71c053434b99534dae97-3685ff42b61554a2a2f4",
+              "file": "uiTests/02_dashboard/dashboard-ui.spec.ts",
+              "line": 94,
+              "column": 9
+            },
+            {
+              "title": "should highlight active menu item correctly",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1293,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - UI] Running: should highlight active menu item correctly\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 149
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 379
+                        },
+                        {
+                          "title": "Execute: should highlight active menu item correctly",
+                          "duration": 693
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:24.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "cb29943ab12a5a9694cb-1e12b76a79935984abc0",
+              "file": "uiTests/02_dashboard/dashboard-ui.spec.ts",
+              "line": 97,
+              "column": 9
+            },
+            {
+              "title": "should display summary KPI cards on dashboard",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1310,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - UI] Running: should display summary KPI cards on dashboard\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 150
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 380
+                        },
+                        {
+                          "title": "Execute: should display summary KPI cards on dashboard",
+                          "duration": 710
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:27.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7d98a7ea5d5156329a1f-37ca4703032f5c98822c",
+              "file": "uiTests/02_dashboard/dashboard-ui.spec.ts",
+              "line": 10,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/02_dashboard/dashboard-data.spec.ts",
+      "file": "uiTests/02_dashboard/dashboard-data.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Dashboard - Data",
+          "file": "uiTests/02_dashboard/dashboard-data.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load recent activity feed on dashboard",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1327,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Data] Running: should load recent activity feed on dashboard\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 151
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 381
+                        },
+                        {
+                          "title": "Execute: should load recent activity feed on dashboard",
+                          "duration": 727
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:30.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "16022c248e3e54c8801d-47c5c63157de5d16a946",
+              "file": "uiTests/02_dashboard/dashboard-data.spec.ts",
+              "line": 13,
+              "column": 9
+            },
+            {
+              "title": "should display paginated table of bookings",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1344,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Data] Running: should display paginated table of bookings\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 152
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 382
+                        },
+                        {
+                          "title": "Execute: should display paginated table of bookings",
+                          "duration": 744
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:33.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3c43c29b0d1051fa9b62-b90c91c30c84577f82ab",
+              "file": "uiTests/02_dashboard/dashboard-data.spec.ts",
+              "line": 16,
+              "column": 9
+            },
+            {
+              "title": "should filter bookings by date range",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1361,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Data] Running: should filter bookings by date range\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 153
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 383
+                        },
+                        {
+                          "title": "Execute: should filter bookings by date range",
+                          "duration": 761
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:36.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "696cfd3660255302bfff-96c0701c2b155c8cbcc9",
+              "file": "uiTests/02_dashboard/dashboard-data.spec.ts",
+              "line": 19,
+              "column": 9
+            },
+            {
+              "title": "should sort bookings table by column header click",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1378,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Data] Running: should sort bookings table by column header click\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 154
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 384
+                        },
+                        {
+                          "title": "Execute: should sort bookings table by column header click",
+                          "duration": 778
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:39.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6130141bbdf45d448cab-c57dee9910c756dca055",
+              "file": "uiTests/02_dashboard/dashboard-data.spec.ts",
+              "line": 22,
+              "column": 9
+            },
+            {
+              "title": "should search bookings by customer name",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1395,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Data] Running: should search bookings by customer name\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 155
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 385
+                        },
+                        {
+                          "title": "Execute: should search bookings by customer name",
+                          "duration": 795
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:42.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9c7a042d98075cdf97d1-d75195bf28d25462a3eb",
+              "file": "uiTests/02_dashboard/dashboard-data.spec.ts",
+              "line": 25,
+              "column": 9
+            },
+            {
+              "title": "should export bookings as CSV",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1412,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Data] Running: should export bookings as CSV\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 156
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 386
+                        },
+                        {
+                          "title": "Execute: should export bookings as CSV",
+                          "duration": 812
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:45.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "de7d50ee3eec544c95f9-cba6f158960359868406",
+              "file": "uiTests/02_dashboard/dashboard-data.spec.ts",
+              "line": 28,
+              "column": 9
+            },
+            {
+              "title": "should show booking count badge on sidebar",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1429,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Data] Running: should show booking count badge on sidebar\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 157
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 387
+                        },
+                        {
+                          "title": "Execute: should show booking count badge on sidebar",
+                          "duration": 829
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:48.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "888be25741c15fb08c26-0b798f28529e577db72a",
+              "file": "uiTests/02_dashboard/dashboard-data.spec.ts",
+              "line": 31,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/02_dashboard/dashboard-nav.spec.ts",
+      "file": "uiTests/02_dashboard/dashboard-nav.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Dashboard - Navigation",
+          "file": "uiTests/02_dashboard/dashboard-nav.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should navigate to booking detail on row click",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1446,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Navigation] Running: should navigate to booking detail on row click\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 158
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 388
+                        },
+                        {
+                          "title": "Execute: should navigate to booking detail on row click",
+                          "duration": 846
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:51.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "efbf6b71557f5983ab4d-fabe6a1621c750629d35",
+              "file": "uiTests/02_dashboard/dashboard-nav.spec.ts",
+              "line": 34,
+              "column": 9
+            },
+            {
+              "title": "should navigate back to dashboard from detail page",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1463,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Navigation] Running: should navigate back to dashboard from detail page\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 159
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 389
+                        },
+                        {
+                          "title": "Execute: should navigate back to dashboard from detail page",
+                          "duration": 863
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:54.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "484b82f16f515a41acf8-92c405f6f2b0504ba76a",
+              "file": "uiTests/02_dashboard/dashboard-nav.spec.ts",
+              "line": 37,
+              "column": 9
+            },
+            {
+              "title": "should deep-link directly to a booking detail page",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1480,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Navigation] Running: should deep-link directly to a booking detail page\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 160
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 390
+                        },
+                        {
+                          "title": "Execute: should deep-link directly to a booking detail page",
+                          "duration": 880
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:01:57.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "8448e31a8da35f19826e-3bfbf39b74015827917d",
+              "file": "uiTests/02_dashboard/dashboard-nav.spec.ts",
+              "line": 40,
+              "column": 9
+            },
+            {
+              "title": "should show 404 page for unknown booking ID",
+              "ok": false,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 5733,
+                      "errors": [
+                        {
+                          "message": "Error: expect(received).toBe(expected)\n\nExpected: 404\nReceived: 200\n\nRoute /dashboard/booking/INVALID-999 returned HTTP 200 instead of expected 404.",
+                          "location": {
+                            "file": "uiTests/02_dashboard/dashboard-nav.spec.ts",
+                            "line": 43,
+                            "column": 5
+                          },
+                          "snippet": "    at expect(response.status()).toBe(404) (dashboard-nav.spec.ts:112:5)"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Navigation] Running: should show 404 page for unknown booking ID\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 161
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 391
+                        },
+                        {
+                          "title": "Execute: should show 404 page for unknown booking ID",
+                          "duration": 5133
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:02:00.000Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "test-results/should-show-404-page-for-unknown-booking-ID-chromium/screenshot.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "ab00535284dc5da185d9-397944fbedb95e9db483",
+              "file": "uiTests/02_dashboard/dashboard-nav.spec.ts",
+              "line": 43,
+              "column": 9
+            },
+            {
+              "title": "should breadcrumb update on nested navigation",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1514,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Navigation] Running: should breadcrumb update on nested navigation\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 162
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 392
+                        },
+                        {
+                          "title": "Execute: should breadcrumb update on nested navigation",
+                          "duration": 914
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:02:03.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "27817b85db155d07a8ae-ad1e0fb40b745979b63e",
+              "file": "uiTests/02_dashboard/dashboard-nav.spec.ts",
+              "line": 46,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/02_dashboard/dashboard-notifications.spec.ts",
+      "file": "uiTests/02_dashboard/dashboard-notifications.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Dashboard - Notifications",
+          "file": "uiTests/02_dashboard/dashboard-notifications.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display notification bell with unread count",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1531,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Notifications] Running: should display notification bell with unread count\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 163
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 393
+                        },
+                        {
+                          "title": "Execute: should display notification bell with unread count",
+                          "duration": 931
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:02:06.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "ff03378c12665a7785f8-a832494756a4509fadb8",
+              "file": "uiTests/02_dashboard/dashboard-notifications.spec.ts",
+              "line": 49,
+              "column": 9
+            },
+            {
+              "title": "should mark notifications as read on click",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1548,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Notifications] Running: should mark notifications as read on click\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 164
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 394
+                        },
+                        {
+                          "title": "Execute: should mark notifications as read on click",
+                          "duration": 948
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:02:09.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6f982ebbff7e5b9e9db9-ca7b5ceeeb1b563fb524",
+              "file": "uiTests/02_dashboard/dashboard-notifications.spec.ts",
+              "line": 52,
+              "column": 9
+            },
+            {
+              "title": "should clear all notifications",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1565,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Notifications] Running: should clear all notifications\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 165
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 395
+                        },
+                        {
+                          "title": "Execute: should clear all notifications",
+                          "duration": 965
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:02:12.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0fdc79f602aa5f6e9acf-390b7eed34035a75b3f7",
+              "file": "uiTests/02_dashboard/dashboard-notifications.spec.ts",
+              "line": 55,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/02_dashboard/dashboard-realtime.spec.ts",
+      "file": "uiTests/02_dashboard/dashboard-realtime.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Dashboard - Real-time",
+          "file": "uiTests/02_dashboard/dashboard-realtime.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should update KPI cards after new booking is created",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1582,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Real-time] Running: should update KPI cards after new booking is created\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 166
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 396
+                        },
+                        {
+                          "title": "Execute: should update KPI cards after new booking is created",
+                          "duration": 982
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:02:15.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c2b74488a67e5e89898e-af9f41f7d53851b68bf4",
+              "file": "uiTests/02_dashboard/dashboard-realtime.spec.ts",
+              "line": 58,
+              "column": 9
+            },
+            {
+              "title": "should reflect booking cancellation in dashboard count",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 1599,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Real-time] Running: should reflect booking cancellation in dashboard count\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 167
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 397
+                        },
+                        {
+                          "title": "Execute: should reflect booking cancellation in dashboard count",
+                          "duration": 999
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:02:18.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "456ed57902065ae4879e-78e8600778cc58f29e93",
+              "file": "uiTests/02_dashboard/dashboard-realtime.spec.ts",
+              "line": 61,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/02_dashboard/dashboard-edge.spec.ts",
+      "file": "uiTests/02_dashboard/dashboard-edge.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Dashboard - Edge Cases",
+          "file": "uiTests/02_dashboard/dashboard-edge.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should show empty state when no bookings exist",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1616,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Edge Cases] Running: should show empty state when no bookings exist\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 168
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 398
+                        },
+                        {
+                          "title": "Execute: should show empty state when no bookings exist",
+                          "duration": 1016
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:02:21.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9b358666eb4f50239752-ff32915d60fd51189c51",
+              "file": "uiTests/02_dashboard/dashboard-edge.spec.ts",
+              "line": 64,
+              "column": 9
+            },
+            {
+              "title": "should handle session expiry gracefully on dashboard",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1633,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Edge Cases] Running: should handle session expiry gracefully on dashboard\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 169
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 399
+                        },
+                        {
+                          "title": "Execute: should handle session expiry gracefully on dashboard",
+                          "duration": 1033
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:02:24.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "221fe5439b945187a6a6-2c2549425f1e5bceafc8",
+              "file": "uiTests/02_dashboard/dashboard-edge.spec.ts",
+              "line": 67,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uiTests/02_dashboard/dashboard-responsive.spec.ts",
+      "file": "uiTests/02_dashboard/dashboard-responsive.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "@smoke @regression Dashboard - Responsive",
+          "file": "uiTests/02_dashboard/dashboard-responsive.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should be fully responsive on mobile viewport",
+              "ok": true,
+              "tags": [
+                "regression"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1650,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[Dashboard - Responsive] Running: should be fully responsive on mobile viewport\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Before hooks",
+                          "duration": 120
+                        },
+                        {
+                          "title": "Navigate to page",
+                          "duration": 400
+                        },
+                        {
+                          "title": "Execute: should be fully responsive on mobile viewport",
+                          "duration": 1050
+                        },
+                        {
+                          "title": "After hooks",
+                          "duration": 80
+                        }
+                      ],
+                      "startTime": "2026-06-21T06:02:27.000Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c2cad020c1bf598b8f08-d7f9283424d551a0b6f3",
+              "file": "uiTests/02_dashboard/dashboard-responsive.spec.ts",
+              "line": 70,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-06-21T06:00:00.000Z",
+    "duration": 190000,
+    "expected": 48,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}
