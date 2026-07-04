@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Shree Kundodari Cement Products — Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --brand:#c41e1f;--gold:#c9ab82;--dark:#100802;
+  --ink:#1a1d27;--ink2:#4a4f62;--ink3:#7a7f92;
+  --line:#e2e4ea;--bg:#f0f2f7;--white:#fff;
+  --green:#2e7d52;--blue:#1a6bbf;--amber:#b57800;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden}
+
+/* ── NAVBAR ── */
+nav{background:var(--dark);padding:0 40px;display:flex;align-items:center;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.4)}
+.nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.nav-logo svg{width:40px;height:40px;flex-shrink:0}
+.nav-logo-text{font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:#fff;line-height:1.2}
+.nav-logo-sub{font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.06em}
+.nav-links{display:flex;align-items:center;gap:4px;margin-left:auto}
+.nav-link{color:rgba(255,255,255,.7);font-size:12.5px;font-weight:500;padding:7px 14px;border-radius:6px;text-decoration:none;transition:all .15s;cursor:pointer}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav-link.active{color:var(--gold)}
+.nav-cta{background:var(--brand);color:#fff;padding:7px 18px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:background .15s}
+.nav-cta:hover{background:#a01818}
+
+/* ── HERO ── */
+.hero{text-align:center;padding:60px 20px 40px;position:relative;overflow:hidden}
+.hero-tagline{font-size:11px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+.hero-tagline::before,.hero-tagline::after{content:'';flex:1;max-width:60px;height:1px;background:linear-gradient(to right,transparent,var(--gold))}
+.hero-tagline::after{background:linear-gradient(to left,transparent,var(--gold))}
+.hero h1{font-family:'Rajdhani',sans-serif;font-size:42px;font-weight:700;color:var(--dark);line-height:1.15;margin-bottom:10px}
+.hero h1 span{color:var(--brand)}
+.hero-sub{font-size:15px;color:var(--ink2);margin-bottom:8px;max-width:580px;margin-inline:auto;line-height:1.65}
+.hero-italic{font-style:italic;color:var(--gold);font-size:13.5px;font-weight:500;margin-bottom:36px}
+
+/* ── PORTAL CARDS ── */
+.cards-row{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;padding:0 20px 60px;max-width:960px;margin:0 auto}
+
+.portal-card{background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 6px 30px rgba(0,0,0,.1);width:420px;max-width:100%;cursor:pointer;transition:transform .2s,box-shadow .2s;border:1.5px solid var(--line);position:relative}
+.portal-card:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(0,0,0,.18)}
+
+/* Monitor mockup */
+.monitor-wrap{background:linear-gradient(135deg,#e8eaf2 0%,#f4f5f9 100%);padding:28px 28px 0;display:flex;justify-content:center;position:relative}
+.monitor{width:100%;max-width:320px;position:relative}
+.monitor-screen{background:#1a1e2a;border-radius:6px 6px 0 0;padding:6px;border:3px solid #2d3348;box-shadow:0 4px 20px rgba(0,0,0,.3);overflow:hidden;height:190px}
+.monitor-screen iframe,.monitor-screen .screen-preview{width:100%;height:100%;border:none;border-radius:4px;display:block}
+.monitor-stand{width:60px;height:16px;background:#b0b4c0;margin:0 auto;border-radius:0 0 4px 4px}
+.monitor-base{width:100px;height:8px;background:#9ca0ac;margin:0 auto;border-radius:4px}
+
+/* Store Front screen */
+.sf-preview{background:#fff;height:100%;border-radius:4px;overflow:hidden}
+.sf-nav{background:#1a6bbf;height:28px;display:flex;align-items:center;padding:0 8px;gap:5px}
+.sf-nav-logo{font-size:8px;font-weight:800;color:#fff;font-family:'Rajdhani',sans-serif}
+.sf-nav-links{display:flex;gap:6px;margin-left:auto}
+.sf-nav-link{font-size:6px;color:rgba(255,255,255,.8);font-weight:500}
+.sf-hero-banner{background:linear-gradient(135deg,#f0f4ff 0%,#e8f0fe 100%);padding:10px;height:72px;display:flex;align-items:center;gap:8px}
+.sf-hero-text h3{font-size:9px;font-weight:700;color:#1a1d27;margin-bottom:2px}
+.sf-hero-text p{font-size:6.5px;color:#666}
+.sf-hero-img{font-size:28px;opacity:.85}
+.sf-btn{background:var(--blue);color:#fff;font-size:6px;padding:3px 8px;border-radius:3px;display:inline-block;margin-top:4px;font-weight:600}
+.sf-products{padding:7px 8px}
+.sf-prod-label{font-size:7px;font-weight:700;color:#1a1d27;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+.sf-prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.sf-prod-card{background:#f8f9fc;border-radius:3px;padding:5px 4px;text-align:center;border:1px solid #e8eaf2}
+.sf-prod-icon{font-size:14px;display:block;margin-bottom:2px}
+.sf-prod-name{font-size:5.5px;color:#333;font-weight:500}
+.sf-prod-price{font-size:6.5px;color:#1a6bbf;font-weight:700;margin-top:1px}
+
+/* Admin screen */
+.adm-preview{background:#0d0f14;height:100%;border-radius:4px;overflow:hidden;display:flex}
+.adm-sidebar{width:36px;background:#13161f;border-right:1px solid rgba(255,255,255,.06);padding:6px 4px;display:flex;flex-direction:column;gap:4px}
+.adm-sb-logo{width:28px;height:28px;border-radius:4px;background:#100802;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.adm-sb-logo svg{width:24px;height:24px}
+.adm-nav-dot{width:24px;height:6px;border-radius:2px;background:rgba(255,255,255,.08)}
+.adm-nav-dot.active{background:rgba(201,171,130,.35)}
+.adm-main{flex:1;padding:5px}
+.adm-topbar{background:#13161f;border-radius:3px;height:12px;margin-bottom:4px;display:flex;align-items:center;padding:0 5px;gap:4px}
+.adm-topbar-title{font-size:5.5px;color:#c9ab82;font-weight:700;font-family:'Rajdhani',sans-serif}
+.adm-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-bottom:4px}
+.adm-kpi{background:#13161f;border-radius:2px;padding:3px;border-left:2px solid}
+.adm-kpi-val{font-size:6.5px;font-weight:700;color:#f1f2f6;font-family:'Rajdhani',sans-serif}
+.adm-kpi-lbl{font-size:4px;color:#555c72;text-transform:uppercase}
+.adm-charts-row{display:grid;grid-template-columns:3fr 2fr;gap:3px;margin-bottom:4px}
+.adm-chart{background:#13161f;border-radius:2px;padding:4px;height:46px;position:relative;overflow:hidden}
+.adm-chart-title{font-size:4.5px;color:#9a9fb0;margin-bottom:3px;font-weight:600}
+.bar-group{display:flex;align-items:flex-end;gap:1.5px;height:32px}
+.bar{border-radius:1px 1px 0 0;flex:1;background:linear-gradient(to top,#c9ab82,#e8c896)}
+.adm-tbl{background:#13161f;border-radius:2px;padding:4px}
+.adm-tbl-row{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:4.5px}
+.adm-tbl-row:last-child{border:none}
+.adm-tbl-label{color:#9a9fb0}
+.adm-tbl-val{color:#f1f2f6;font-weight:600}
+
+/* Card info section */
+.card-info{padding:22px 24px}
+.card-type-chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;margin-bottom:12px;letter-spacing:.04em}
+.chip-blue{background:rgba(26,107,191,.1);color:var(--blue);border:1px solid rgba(26,107,191,.2)}
+.chip-red{background:rgba(196,30,31,.1);color:var(--brand);border:1px solid rgba(196,30,31,.2)}
+.card-title{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.card-desc{font-size:12.5px;color:var(--ink2);line-height:1.65;margin-bottom:14px}
+.card-features{display:flex;flex-direction:column;gap:5px;margin-bottom:18px}
+.feat{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink2)}
+.feat i{font-size:14px;flex-shrink:0}
+.feat-g i{color:var(--green)}.feat-b i{color:var(--blue)}.feat-r i{color:var(--brand)}.feat-a i{color:var(--amber)}
+.card-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:'Rajdhani',sans-serif;letter-spacing:.04em;transition:all .2s}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:#1558a0;transform:translateY(-1px)}
+.btn-red{background:var(--brand);color:#fff}
+.btn-red:hover{background:#a01818;transform:translateY(-1px)}
+.btn-icon{font-size:18px}
+
+/* DIVIDER */
+.or-divider{display:flex;align-items:center;gap:12px;color:var(--ink3);font-size:12px;font-weight:500;padding:0 0 60px;justify-content:center}
+.or-divider::before,.or-divider::after{content:'';flex:1;max-width:160px;height:1px;background:var(--line)}
+
+/* STATS BAR */
+.stats-bar{background:var(--dark);padding:20px 40px;display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-val{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;color:var(--gold)}
+.stat-lbl{font-size:10.5px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.05em;margin-top:1px}
+
+/* FEATURES GRID */
+.features-section{padding:50px 40px;max-width:960px;margin:0 auto}
+.features-section h2{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:var(--ink);text-align:center;margin-bottom:6px}
+.features-sub{text-align:center;color:var(--ink2);font-size:13px;margin-bottom:32px}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.feat-card{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:16px;transition:all .2s}
+.feat-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.feat-card-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:20px}
+.feat-card h4{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.feat-card p{font-size:11.5px;color:var(--ink3);line-height:1.5}
+
+/* FOOTER */
+footer{background:var(--dark);padding:28px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;border-top:1px solid rgba(255,255,255,.06)}
+.footer-brand{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:var(--gold)}
+.footer-sub{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px}
+.footer-links{display:flex;gap:20px}
+.footer-link{font-size:11.5px;color:rgba(255,255,255,.45);cursor:pointer;transition:color .15s}
+.footer-link:hover{color:var(--gold)}
+.footer-copy{font-size:10px;color:rgba(255,255,255,.25)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--white);border-radius:16px;padding:30px;width:420px;max-width:90vw;transform:translateY(20px);transition:transform .25s;box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal h3{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.modal p{font-size:13px;color:var(--ink2);margin-bottom:18px;line-height:1.6}
+.modal-field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.modal-field label{font-size:11px;font-weight:600;color:var(--ink2)}
+.modal-field input,.modal-field select{padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:13px;color:var(--ink);font-family:'Inter',sans-serif;outline:none;transition:border-color .15s}
+.modal-field input:focus,.modal-field select:focus{border-color:var(--blue)}
+.modal-btns{display:flex;gap:8px;margin-top:16px}
+.modal-btn{flex:1;padding:10px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:'Rajdhani',sans-serif;transition:all .15s}
+.modal-cancel{background:var(--bg);color:var(--ink2);border:1.5px solid var(--line)}
+.modal-cancel:hover{background:var(--line)}
+.modal-submit-blue{background:var(--blue);color:#fff}
+.modal-submit-blue:hover{background:#1558a0}
+.modal-submit-red{background:var(--brand);color:#fff}
+.modal-submit-red:hover{background:#a01818}
+.modal-error{font-size:11.5px;color:var(--brand);background:rgba(196,30,31,.07);padding:8px 12px;border-radius:6px;border-left:3px solid var(--brand);margin-bottom:10px;display:none}
+.modal-error.show{display:block}
+
+/* LAUNCHED VIEW */
+.launched-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;opacity:0;pointer-events:none;transition:opacity .2s}
+.launched-overlay.open{opacity:1;pointer-events:all}
+.launched-box{background:var(--white);border-radius:16px;padding:28px 32px;text-align:center;max-width:440px;width:90vw}
+.launched-icon{font-size:42px;margin-bottom:8px}
+.launched-title{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.launched-sub{font-size:13px;color:var(--ink2);margin-bottom:16px;line-height:1.6}
+.launched-url{font-family:monospace;font-size:12px;background:var(--bg);padding:7px 14px;border-radius:6px;border:1px solid var(--line);color:var(--blue);margin-bottom:16px;word-break:break-all}
+.launched-info{font-size:11.5px;color:var(--ink3);line-height:1.55}
+
+@media(max-width:600px){
+  .cards-row{flex-direction:column;align-items:center}
+  .portal-card{width:100%}
+  nav{padding:0 16px}
+  .stats-bar{gap:24px;padding:18px 16px}
+  .features-section{padding:36px 16px}
+  footer{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" fill="#100802" rx="10"/>
+      <circle cx="50" cy="34" r="22" fill="none" stroke="#ffd700" stroke-width="2.5" opacity=".6"/>
+      <text x="50" y="30" text-anchor="middle" font-size="26" font-weight="900" fill="#ffd700" font-family="serif" opacity=".95">श्री</text>
+      <path d="M22 68 Q22 38 50 28 Q78 38 78 68" stroke="#c9ab82" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+      <rect x="14" y="60" width="10" height="7" fill="#666" rx="1"/><rect x="14" y="50" width="10" height="7" fill="#777" rx="1"/>
+      <rect x="76" y="60" width="10" height="7" fill="#666" rx="1"/><rect x="76" y="50" width="10" height="7" fill="#777" rx="1"/>
+      <rect x="10" y="74" width="80" height="18" rx="3" fill="#c41e1f"/>
+      <text x="50" y="87" text-anchor="middle" font-size="9" font-weight="900" fill="#fff" font-family="Arial">KUNDODARI</text>
+    </svg>
+    <div>
+      <div class="nav-logo-text">Shree Kundodari</div>
+      <div class="nav-logo-sub">CEMENT PRODUCTS · B2B PORTAL</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <span class="nav-link active">Home</span>
+    <span class="nav-link" onclick="scrollToFeatures()">Features</span>
+    <span class="nav-link">Products</span>
+    <span class="nav-link">Contact</span>
+    <button class="nav-cta" onclick="openAdmin()">Admin Login</button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-tagline">Bhosari MIDC · Pimpri-Chinchwad · Pune 411026</div>
+  <h1>One Portal.<br><span>Two Powerful</span> Interfaces.</h1>
+  <p class="hero-sub">Access the full B2B storefront for customers or the complete management dashboard for administrators — both from a single URL, just like OpenCart.</p>
+  <div class="hero-italic">"Build your dreams with our passion"</div>
+</div>
+
+<!-- ── PORTAL CARDS ── -->
+<div class="cards-row">
+
+  <!-- STORE FRONT CARD -->
+  <div class="portal-card" onclick="openStoreFront()">
+    <div class="monitor-wrap">
+      <div class="monitor">
+        <div class="monitor-screen">
+          <!-- Store Front Preview -->
+          <div class="sf-preview">
+            <div class="sf-nav">
+              <span class="sf-nav-logo">KUNDODARI</span>
+              <div class="sf-nav-links">
+                <span class="sf-nav-link">Products</span>
+                <span class="sf-nav-link">Orders</span>
+                <span class="sf-nav-link">Contact</span>
+              </div>
+            </div>
+            <div class="sf-hero-banner">
+              <div class="sf-hero-text">
+                <h3>Shree Kundodari<br>Cement Products</h3>
+                <p>IS Certified Blocks & Pavers</p>
+                <span class="sf-btn">Order Now →</span>
+              </div>
+              <div class="sf-hero-img">🏗️</div>
+            </div>
+            <div class="sf-products">
+              <div class="sf-prod-label">Featured Products</div>
+              <div class="sf-prod-grid">
+                <div class="sf-prod-card">
+                  <span class="sf-prod-icon">🧱</span>
+                  <div class="sf-prod-name">Solid Block</div>
+                  <div class="sf-prod-price">₹37/unit</div>
+                </div>
+                <div class="sf-prod-card">
+                  <span class="sf-prod-icon">⬜</span>
+                  <div class="sf-prod-name">Hollow Block</div>
+                  <div class="sf-prod-price">₹40/unit</div>
+                </div>
+                <div class="sf-prod-card">
+                  <span class="sf-prod-icon">🔷</span>
+                  <div class="sf-prod-name">Paver Block</div>
+                  <div class="sf-prod-price">₹28/unit</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="monitor-stand"></div>
+        <div class="monitor-base"></div>
+      </div>
+    </div>
+    <div class="card-info">
+      <div class="card-type-chip chip-blue"><i class="ti ti-shopping-bag"></i> STORE FRONT</div>
+      <div class="card-title">B2B Customer Portal</div>
+      <div class="card-desc">The customer-facing storefront for B2B buyers to browse products, place orders, track deliveries, request quotes, and manage their account.</div>
+      <div class="card-features">
+        <div class="feat feat-b"><i class="ti ti-shopping-bag"></i> Browse & order all 6 cement products</div>
+        <div class="feat feat-g"><i class="ti ti-file-invoice"></i> Request quotes and track orders</div>
+        <div class="feat feat-b"><i class="ti ti-truck"></i> Real-time delivery tracking</div>
+        <div class="feat feat-a"><i class="ti ti-coin-rupee"></i> Online payment (QR, NEFT, Card)</div>
+        <div class="feat feat-g"><i class="ti ti-world"></i> Available in 9 regional languages</div>
+      </div>
+      <button class="card-btn btn-blue" onclick="openStoreFront()">
+        <span class="btn-icon">🛒</span> Open Store Front
+        <i class="ti ti-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ADMIN CARD -->
+  <div class="portal-card" onclick="openAdmin()">
+    <div class="monitor-wrap">
+      <div class="monitor">
+        <div class="monitor-screen">
+          <!-- Admin Preview -->
+          <div class="adm-preview">
+            <div class="adm-sidebar">
+              <div class="adm-sb-logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="100" height="100" fill="#100802"/>
+                  <circle cx="50" cy="34" r="22" fill="none" stroke="#ffd700" stroke-width="3" opacity=".6"/>
+                  <text x="50" y="30" text-anchor="middle" font-size="26" font-weight="900" fill="#ffd700" font-family="serif">श्री</text>
+                  <rect x="10" y="74" width="80" height="18" rx="3" fill="#c41e1f"/>
+                </svg>
+              </div>
+              <div class="adm-nav-dot active"></div>
+              <div class="adm-nav-dot"></div>
+              <div class="adm-nav-dot"></div>
+              <div class="adm-nav-dot active"></div>
+              <div class="adm-nav-dot"></div>
+              <div class="adm-nav-dot"></div>
+              <div class="adm-nav-dot"></div>
+              <div class="adm-nav-dot active"></div>
+            </div>
+            <div class="adm-main">
+              <div class="adm-topbar">
+                <span class="adm-topbar-title">Overview — Shree Kundodari</span>
+              </div>
+              <div class="adm-kpi-row">
+                <div class="adm-kpi" style="border-color:#4caf7d"><div class="adm-kpi-val">₹9.8L</div><div class="adm-kpi-lbl">Revenue</div></div>
+                <div class="adm-kpi" style="border-color:#c9ab82"><div class="adm-kpi-val">24,600</div><div class="adm-kpi-lbl">Blocks</div></div>
+                <div class="adm-kpi" style="border-color:#e8a317"><div class="adm-kpi-val">4</div><div class="adm-kpi-lbl">Pending</div></div>
+                <div class="adm-kpi" style="border-color:#e24b4a"><div class="adm-kpi-val">186</div><div class="adm-kpi-lbl">Cement</div></div>
+              </div>
+              <div class="adm-charts-row">
+                <div class="adm-chart">
+                  <div class="adm-chart-title">Revenue Jan–Jun (₹L)</div>
+                  <div class="bar-group">
+                    <div class="bar" style="height:52%"></div>
+                    <div class="bar" style="height:62%"></div>
+                    <div class="bar" style="height:68%"></div>
+                    <div class="bar" style="height:74%"></div>
+                    <div class="bar" style="height:82%"></div>
+                    <div class="bar" style="height:95%"></div>
+                  </div>
+                </div>
+                <div class="adm-chart">
+                  <div class="adm-chart-title">Sales Mix</div>
+                  <div style="display:flex;align-items:center;justify-content:center;height:80%;gap:3px">
+                    <div style="width:18px;height:18px;border-radius:50%;background:conic-gradient(#c9ab82 0% 48%,#4caf7d 48% 80%,#e8a317 80% 100%)"></div>
+                    <div style="font-size:5px;color:#9a9fb0;line-height:1.6">Solid 48%<br>Hollow 32%<br>Paver 20%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="adm-tbl">
+                <div class="adm-tbl-row"><span class="adm-tbl-label">Rajesh Const.</span><span class="adm-tbl-val" style="color:#6de0a5">₹18,500</span></div>
+                <div class="adm-tbl-row"><span class="adm-tbl-label">Patil Builders</span><span class="adm-tbl-val" style="color:#f0c060">₹7,200</span></div>
+                <div class="adm-tbl-row"><span class="adm-tbl-label">Suresh Infra</span><span class="adm-tbl-val" style="color:#6de0a5">₹22,400</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="monitor-stand"></div>
+        <div class="monitor-base"></div>
+      </div>
+    </div>
+    <div class="card-info">
+      <div class="card-type-chip chip-red"><i class="ti ti-layout-dashboard"></i> ADMINISTRATION</div>
+      <div class="card-title">Management Dashboard</div>
+      <div class="card-desc">The complete internal dashboard for proprietors and staff to manage production, orders, payments, HR, wages, dispatch, and analytics.</div>
+      <div class="card-features">
+        <div class="feat feat-r"><i class="ti ti-layout-dashboard"></i> 23-module management portal</div>
+        <div class="feat feat-g"><i class="ti ti-coin-rupee"></i> Full payment centre (7 methods)</div>
+        <div class="feat feat-b"><i class="ti ti-users"></i> Labour attendance & payroll</div>
+        <div class="feat feat-a"><i class="ti ti-chart-bar"></i> Reports, charts & analytics</div>
+        <div class="feat feat-r"><i class="ti ti-truck"></i> Dispatch 6-step tracker</div>
+      </div>
+      <button class="card-btn btn-red" onclick="openAdmin()">
+        <span class="btn-icon">⚙️</span> Open Administration
+        <i class="ti ti-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<!-- OR DIVIDER -->
+<div class="or-divider">— OR —</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-val">23</div><div class="stat-lbl">Modules</div></div>
+  <div class="stat"><div class="stat-val">9</div><div class="stat-lbl">Languages</div></div>
+  <div class="stat"><div class="stat-val">7</div><div class="stat-lbl">Payment Methods</div></div>
+  <div class="stat"><div class="stat-val">15</div><div class="stat-lbl">Labour Workers</div></div>
+  <div class="stat"><div class="stat-val">6</div><div class="stat-lbl">Product SKUs</div></div>
+  <div class="stat"><div class="stat-val">17+</div><div class="stat-lbl">Years in Business</div></div>
+</div>
+
+<!-- FEATURES SECTION -->
+<div class="features-section" id="features">
+  <h2>Everything Your Business Needs</h2>
+  <p class="features-sub">Production-ready features built specifically for the cement & building materials B2B industry</p>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-card-icon" style="background:rgba(26,107,191,.1)"><i class="ti ti-file-invoice" style="color:var(--blue);font-size:20px"></i></div>
+      <h4>Quote Builder</h4>
+      <p>Multi-product quotes with GST 18% auto-calc, per-line discounts, PDF export</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon" style="background:rgba(196,30,31,.1)"><i class="ti ti-coin-rupee" style="color:var(--brand);font-size:20px"></i></div>
+      <h4>Payment Centre</h4>
+      <p>QR/UPI, NEFT, Card, Cheque, Cash — for both vendors and customers</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon" style="background:rgba(46,125,82,.1)"><i class="ti ti-users" style="color:var(--green);font-size:20px"></i></div>
+      <h4>Labour & Payroll</h4>
+      <p>Daily check-in/out, PF 12%, advance deduction, monthly wages register</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon" style="background:rgba(181,120,0,.1)"><i class="ti ti-truck" style="color:var(--amber);font-size:20px"></i></div>
+      <h4>Dispatch Tracker</h4>
+      <p>6-step workflow: Confirmed → Production → Loaded → Transit → Delivered → Paid</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon" style="background:rgba(201,171,130,.15)"><i class="ti ti-world" style="color:#8b6840;font-size:20px"></i></div>
+      <h4>9 Languages</h4>
+      <p>English, Hindi, Marathi, Kannada, Telugu, Tamil, Gujarati, Konkani, Tulu</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-card-icon" style="background:rgba(26,107,191,.1)"><i class="ti ti-calendar" style="color:var(--blue);font-size:20px"></i></div>
+      <h4>Indian Calendar 2026</h4>
+      <p>All 19 national & state holidays, timesheet exclusions, attendance tracking</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Shree Kundodari Cement Products</div>
+    <div class="footer-sub">Bhosari MIDC · Pimpri-Chinchwad · Pune 411026 · Maharashtra · GSTIN: 27AABCS1429B1ZB</div>
+  </div>
+  <div class="footer-links">
+    <span class="footer-link">+91 98765 43210</span>
+    <span class="footer-link">info@kundodari.com</span>
+    <span class="footer-link">kundodari@upi</span>
+  </div>
+  <div class="footer-copy">© 2026 Shree Kundodari Cement Products. All rights reserved.</div>
+</footer>
+
+<!-- ── STORE FRONT LOGIN MODAL ── -->
+<div class="modal-overlay" id="sf-modal" onclick="closeSFModal(event)">
+  <div class="modal">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+      <div style="width:36px;height:36px;background:rgba(26,107,191,.1);border-radius:8px;display:flex;align-items:center;justify-content:center"><i class="ti ti-shopping-bag" style="color:var(--blue);font-size:20px"></i></div>
+      <div>
+        <h3>B2B Customer Portal</h3>
+        <p style="font-size:11px;color:var(--ink3);margin:0">Registered customers only</p>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink2);margin:14px 0 16px;line-height:1.6">Sign in to browse products, place orders, and track your deliveries from Shree Kundodari Cement Products.</p>
+    <div class="modal-error" id="sf-error">❌ Invalid email or password. Try: customer@demo.com / demo123</div>
+    <div class="modal-field">
+      <label>Company Email</label>
+      <input type="email" id="sf-email" placeholder="you@company.com" value=""/>
+    </div>
+    <div class="modal-field">
+      <label>Password</label>
+      <input type="password" id="sf-password" placeholder="••••••••"/>
+    </div>
+    <div style="font-size:11px;color:var(--ink3);margin-bottom:4px">Demo credentials: <b>customer@demo.com</b> / <b>demo123</b></div>
+    <div class="modal-btns">
+      <button class="modal-btn modal-cancel" onclick="closeSFModal()">Cancel</button>
+      <button class="modal-btn modal-submit-blue" onclick="loginSF()">
+        <i class="ti ti-login"></i> Sign In to Store Front
+      </button>
+    </div>
+    <div style="margin-top:14px;text-align:center;font-size:11.5px;color:var(--ink3)">
+      New customer? <span style="color:var(--blue);cursor:pointer;font-weight:500">Register your company →</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── ADMIN LOGIN MODAL ── -->
+<div class="modal-overlay" id="adm-modal" onclick="closeAdmModal(event)">
+  <div class="modal">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+      <div style="width:36px;height:36px;background:rgba(196,30,31,.1);border-radius:8px;display:flex;align-items:center;justify-content:center"><i class="ti ti-shield-lock" style="color:var(--brand);font-size:20px"></i></div>
+      <div>
+        <h3>Administration Login</h3>
+        <p style="font-size:11px;color:var(--ink3);margin:0">Authorised staff only</p>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink2);margin:14px 0 16px;line-height:1.6">Access the full management dashboard for orders, production, payments, HR, and analytics.</p>
+    <div class="modal-error" id="adm-error">❌ Invalid credentials. Try: admin / admin123</div>
+    <div class="modal-field">
+      <label>Username</label>
+      <input type="text" id="adm-user" placeholder="admin" value=""/>
+    </div>
+    <div class="modal-field">
+      <label>Password</label>
+      <input type="password" id="adm-pass" placeholder="••••••••"/>
+    </div>
+    <div class="modal-field">
+      <label>Role</label>
+      <select id="adm-role">
+        <option value="admin">Proprietor / Director</option>
+        <option value="production">Production Manager</option>
+        <option value="sales">Sales Executive</option>
+        <option value="accounts">Accounts Manager</option>
+        <option value="store">Store Manager</option>
+      </select>
+    </div>
+    <div style="font-size:11px;color:var(--ink3);margin-bottom:4px">Demo credentials: <b>admin</b> / <b>admin123</b></div>
+    <div class="modal-btns">
+      <button class="modal-btn modal-cancel" onclick="closeAdmModal()">Cancel</button>
+      <button class="modal-btn modal-submit-red" onclick="loginAdmin()">
+        <i class="ti ti-login"></i> Sign In to Dashboard
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── LAUNCHED OVERLAY ── -->
+<div class="launched-overlay" id="launched-overlay">
+  <div class="launched-box">
+    <div class="launched-icon" id="launched-icon">🚀</div>
+    <div class="launched-title" id="launched-title">Launching Portal...</div>
+    <div class="launched-sub" id="launched-sub">Opening your dashboard in a new tab. If it doesn't open, allow pop-ups in your browser settings.</div>
+    <div class="launched-url" id="launched-url">kundodari.com/dashboard</div>
+    <div class="launched-info" id="launched-info">
+      Note: In this demo environment, the full dashboard opens as a separate in-page view. In production deployment, this launches at a dedicated URL on Vercel/Netlify.
+    </div>
+  </div>
+  <button onclick="closeLaunched()" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.3);padding:10px 28px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Rajdhani',sans-serif">✕ Close</button>
+</div>
+
+<script>
+// ── MODAL CONTROLS ──
+function openStoreFront(){
+  document.getElementById('sf-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('sf-email').focus(),200);
+}
+function closeSFModal(e){
+  if(!e||e.target===document.getElementById('sf-modal'))
+    document.getElementById('sf-modal').classList.remove('open');
+}
+function openAdmin(){
+  document.getElementById('adm-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('adm-user').focus(),200);
+}
+function closeAdmModal(e){
+  if(!e||e.target===document.getElementById('adm-modal'))
+    document.getElementById('adm-modal').classList.remove('open');
+}
+function closeLaunched(){
+  document.getElementById('launched-overlay').classList.remove('open');
+}
+
+// ── STORE FRONT LOGIN ──
+function loginSF(){
+  const email=document.getElementById('sf-email').value.trim().toLowerCase();
+  const pass=document.getElementById('sf-pass'+'word').value;
+  const err=document.getElementById('sf-error');
+  if(email==='customer@demo.com'&&pass==='demo123'){
+    err.classList.remove('show');
+    document.getElementById('sf-modal').classList.remove('open');
+    showLaunched('🛒','Store Front Launched!',
+      'Opening the B2B Customer Portal — browse products, request quotes, and place orders.',
+      'kundodari.com/store · Logged in as: Demo Customer',
+      'The Store Front shows the customer-facing view. In production, this is a separate URL from the Admin dashboard. Customers can only see their own orders and the product catalogue.'
+    );
+  } else {
+    err.classList.add('show');
+  }
+}
+
+// ── ADMIN LOGIN ──
+function loginAdmin(){
+  const user=document.getElementById('adm-user').value.trim().toLowerCase();
+  const pass=document.getElementById('adm-pass').value;
+  const role=document.getElementById('adm-role').value;
+  const err=document.getElementById('adm-error');
+  const roleLabels={admin:'Proprietor',production:'Production Manager',sales:'Sales Executive',accounts:'Accounts Manager',store:'Store Manager'};
+  if(user==='admin'&&pass==='admin123'){
+    err.classList.remove('show');
+    document.getElementById('adm-modal').classList.remove('open');
+    showLaunched('⚙️','Administration Dashboard Launched!',
+      `Welcome back, ${roleLabels[role]}! Opening the full 23-module management dashboard.`,
+      'kundodari.com/admin · Role: '+roleLabels[role],
+      'The Administration dashboard includes: Overview, Orders, Quote Builder, Inventory, Production, Raw Materials, Catalogue, Customers, Pipeline, Ledger, Dispatch, Online Orders, Payments, Labour, Wages, Timesheet, Notifications, Calendar, Reports, Location, Contact, Settings, and About Us.'
+    );
+  } else {
+    err.classList.add('show');
+  }
+}
+
+function showLaunched(icon,title,sub,url,info){
+  document.getElementById('launched-icon').textContent=icon;
+  document.getElementById('launched-title').textContent=title;
+  document.getElementById('launched-sub').textContent=sub;
+  document.getElementById('launched-url').textContent=url;
+  document.getElementById('launched-info').textContent=info;
+  document.getElementById('launched-overlay').classList.add('open');
+}
+
+// ── KEYBOARD ──
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    closeSFModal(); closeAdmModal(); closeLaunched();
+  }
+  if(e.key==='Enter'){
+    if(document.getElementById('sf-modal').classList.contains('open')) loginSF();
+    if(document.getElementById('adm-modal').classList.contains('open')) loginAdmin();
+  }
+});
+
+// ── SCROLL ──
+function scrollToFeatures(){
+  document.getElementById('features').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
