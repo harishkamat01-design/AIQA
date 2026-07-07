@@ -1,0 +1,31 @@
+PROMPT:
+Consider the same above code for the ADMIN add some extra in the RAW Materials sections the sections as below:
+Raw materials: This section actually contains the raw materials which the SKCP need for production, SKCP need to pay to vendors, SKCP is ordered (through phone, mail , WhatsApp or any other channel) but still in transit and not reached the factory. How much Raw materals are pending, how much materials is used on daily basis , how is used on monthly and yearly, their reports.
+Make 6 main sections by rearranging the current section and sub sections 
+1. Raw materials 2. Production 3. Sales 4. Labour 5. Maintenance 6. Marketing 6. Admin 
+Not needed : Overview section as main section , provide overview for these main 6 sections.
+
+
+Answer:
+
+Here's the reorganized admin portal. Changes made:
+Raw Materials — new sub-sections (as tabs)
+
+Stock Overview — existing material stock table + reorder alerts
+Vendor Orders & In-Transit (new) — PO's placed with vendors via Phone/WhatsApp/Email, expected arrival dates, payment status, and a running total of what's still owed to vendors
+Usage & Consumption (new) — daily usage KPIs, a monthly consumption chart, a material usage-mix donut, and a 7-day daily log table
+Reports (new) — yearly consumption trend chart, monthly cost breakdown, and a downloadable reports list
+Log Purchase — the original purchase form, now also capturing order channel, payment status, and expected arrival
+
+Top KPI strip now also surfaces pending vendor payments, orders in transit, and daily/monthly consumption at a glance.
+Sidebar reorganized into 7 main sections (numbered 1–7, since you listed Marketing and Admin as separate items despite the "6" count):
+
+Raw Materials
+Production — Production, Inventory
+Sales — Overview, Orders, Quote Builder, Online Orders, Catalogue, Customers, Pipeline, Dispatch
+Labour — Attendance, Wages, Timesheet
+Maintenance
+Marketing
+Admin — Ledger, Payment Centre, Alerts, Calendar, Reports & Analytics, Location, Contact, Settings, About Us
+
+The global "Overview" is gone as a top-level item — it now lives as Sales Overview, since its original content (revenue, order pipeline, product mix) was really a sales dashboard. Raw Materials is now the default landing page. Every other section (Production, Labour, Maintenance, Marketing) already opens straight into its own dashboard, so no bolt-on overview page was needed there.
