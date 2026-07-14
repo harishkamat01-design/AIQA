@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Advanced RAG Explorer</title>
+    <style>
+      <!doctype html>
+      <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>Advanced RAG Dashboard</title>
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link rel="stylesheet" href="/static/styles.css">
+        </head>
+        <body>
+          <div class="topbar">
+            <div class="brand"><div class="logo">R</div><div><div style="font-weight:700">Advanced RAG</div><div style="font-size:12px;color:rgba(255,255,255,0.8)">VibeCoded Dashboard</div></div></div>
+            <div class="search"><input placeholder="Search cases, modules, JIRA IDs..." /></div>
+            <div style="display:flex;gap:12px;align-items:center"><button class="btn">New Ingest</button><div style="width:44px;height:44px;border-radius:44px;background:#fff26a;display:flex;align-items:center;justify-content:center;color:#133;">HP</div></div>
+          </div>
+
+          <div class="shell">
+            <nav class="sidebar">
+              <h3>Overview</h3>
+              <a class="navlink active" href="#">Dashboard</a>
+              <a class="navlink" href="#">Chunks</a>
+              <a class="navlink" href="#">Ingest</a>
+              <a class="navlink" href="#">Chat</a>
+              <div style="height:12px"></div>
+              <h3>Filters</h3>
+              <div class="smallcaps">Priority</div>
+              <div style="margin:8px 0">
+                <label><input type="checkbox" name="priority" value="P1"> P1</label><br>
+                <label><input type="checkbox" name="priority" value="P2"> P2</label><br>
+                <label><input type="checkbox" name="priority" value="P3"> P3</label>
+              </div>
+              <div class="smallcaps">Modules</div>
+              <select id="filterModule" style="width:100%;padding:8px;border-radius:8px;margin-top:8px">
+                <option value="">All modules</option>
+                <option>Checkout</option>
+                <option>Signup</option>
+                <option>Search</option>
+                <option>Recommendations</option>
+                <option>Profile</option>
+              </select>
+            </nav>
+
+            <main class="content">
+              <div class="grid">
+                <div class="panel big">
+                  <div style="display:flex;justify-content:space-between;align-items:center"><div><div class="smallcaps">Live pipeline</div><h2 style="margin:4px 0">Ingest & Query Overview</h2></div><div style="text-align:right"><div class="smallcaps">Dataset</div><div id="datasetCount" style="font-weight:700">0 rows</div></div></div>
+                  <div style="display:flex;gap:12px;margin-top:12px">
+                    <div style="flex:1"><div class="panel" style="padding:12px"><div class="smallcaps">Ingest status</div><div id="ingestProgress">Idle</div></div></div>
+                    <div style="width:360px"><div class="panel" style="padding:12px"><div class="smallcaps">Recent queries</div><div id="recentQueries">—</div></div></div>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="smallcaps">Top metrics</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+                    <div class="panel" style="padding:12px"><div class="smallcaps">Total cases</div><div style="font-size:20px;font-weight:700">1,000</div></div>
+                    <div class="panel" style="padding:12px"><div class="smallcaps">Active sessions</div><div style="font-size:20px;font-weight:700">3</div></div>
+                  </div>
+                </div>
+
+                <div class="panel">
+                  <div class="smallcaps">Chunk preview</div>
+                  <div class="chunks-list" id="chunkList">
+                    <div class="chunk-item">Loading chunks...</div>
+                  </div>
+                </div>
+
+                <div class="panel big">
+                  <div class="smallcaps">Ask the pipeline</div>
+                  <div style="display:flex;gap:12px;margin-top:12px">
+                    <div style="flex:1">
+                      <textarea id="question" rows="4" style="width:100%;border-radius:10px;padding:10px" placeholder="Ask about checkout failures, promos, or signup validation"></textarea>
+                      <div style="margin-top:8px"><button class="btn" onclick="runChat()">Run query</button></div>
+                    </div>
+                    <div style="width:420px">
+                      <div class="smallcaps">Answers</div>
+                      <div id="answerArea" style="margin-top:8px"></div>
+                      <div id="results" style="margin-top:10px"></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </main>
+          </div>
+
+          <footer class="hint">Tip: Upload a CSV to start. Use the filters in the left nav to narrow results.</footer>
+
+          <script>
+            function getSelectedPriorities(){
+              return Array.from(document.querySelectorAll('input[name="priority"]:checked')).map(n=>n.value)
+            }
+
+            async function loadChunks(page=1, per_page=6){
+              const module = document.getElementById('filterModule').value || '';
+              const priorities = getSelectedPriorities();
+              const params = new URLSearchParams({ search:'', priority: priorities.join(','), module, page: String(page), per_page: String(per_page) });
+              const resp = await fetch('/api/chunks?'+params.toString());
+              const data = await resp.json();
+              document.getElementById('datasetCount').innerText = data.total + ' rows';
+              const list = document.getElementById('chunkList'); list.innerHTML='';
+              data.chunks.forEach(c=>{
+                const el=document.createElement('div');el.className='chunk-item';
+                el.innerHTML = `<div style="display:flex;justify-content:space-between"><strong>${c.meta.jira_id}</strong><span>${c.meta.priority}</span></div><div style="color:var(--muted);font-size:13px">${c.meta.module}</div><div style="margin-top:8px">${c.text.slice(0,200)}...</div>`;
+                list.appendChild(el)
+              });
+            }
+
+            async function runChat(){
+              const q=document.getElementById('question').value; if(!q) return alert('Enter a question');
+              document.getElementById('answerArea').innerText='Running pipeline...';
+              const resp=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q})});
+              const data=await resp.json();
+              document.getElementById('answerArea').innerHTML=`<div style="font-weight:700">Answer</div><div style="margin-top:8px">${data.answer.answer}</div>`;
+              const results=document.getElementById('results');results.innerHTML='';
+              (data.hits||[]).forEach(h=>{const r=document.createElement('div');r.className='chunk-item';r.innerHTML=`<strong>${h.meta.jira_id}</strong> · <small>${h.meta.title}</small><div style="margin-top:6px">Score: ${h.score.toFixed(3)}</div>`;results.appendChild(r)})
+            }
+
+            document.getElementById('filterModule').addEventListener('change', ()=>loadChunks());
+            Array.from(document.querySelectorAll('input[name="priority"]')).forEach(el=>el.addEventListener('change', ()=>loadChunks()));
+
+            // wire the top New Ingest button to the file input by creating a hidden form
+            (function wireIngestButton(){
+              const btn = document.querySelector('.topbar .btn');
+              const form = document.createElement('form'); form.enctype='multipart/form-data'; form.style.display='none';
+              const input = document.createElement('input'); input.type='file'; input.name='file'; input.accept='.csv,.xlsx,.xls';
+              form.appendChild(input); document.body.appendChild(form);
+              btn.addEventListener('click', ()=> input.click());
+              input.addEventListener('change', async ()=>{
+                const fd = new FormData(); fd.append('file', input.files[0]);
+                const res = await fetch('/api/ingest',{method:'POST',body:fd});
+                if(res.ok) { loadChunks(); }
+              })
+            })();
+
+            window.addEventListener('load',()=>loadChunks());
+          </script>
+        </body>
+      </html>
+          div.className = 'chunk';
+          div.innerHTML = `<strong>${chunk.meta.jira_id || 'N/A'}</strong> · ${chunk.meta.module || ''}<br>${chunk.text.slice(0, 220)}...`;
+          container.appendChild(div);
+        });
+      }
+
+      function streamIngest() {
+        const progress = document.getElementById('ingestProgress');
+        progress.innerHTML = '<div class="progress"><div style="width:10%"></div></div><div>Starting ingestion…</div>';
+        const eventSource = new EventSource('/api/ingest-progress');
+        eventSource.onmessage = (event) => {
+          const payload = JSON.parse(event.data);
+          const steps = payload.events.map((entry) => `<div>${entry.stage}: ${entry.message}</div>`).join('');
+          progress.innerHTML = `<div class="progress"><div style="width:${Math.min(100, payload.events.length * 25)}%"></div></div>${steps}`;
+          if (payload.events.length >= 4) {
+            setTimeout(() => eventSource.close(), 300);
+          }
+        };
+      }
+
+      document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const response = await fetch('/api/ingest', { method: 'POST', body: formData });
+        const data = await response.json();
+        document.getElementById('datasetCount').innerText = 'Indexing…';
+        streamIngest();
+        setTimeout(() => {
+          document.getElementById('datasetCount').innerText = 'Dataset ready';
+          loadChunks();
+        }, 1400);
+      });
+
+      window.addEventListener('load', loadChunks);
+    </script>
+  </body>
+</html>

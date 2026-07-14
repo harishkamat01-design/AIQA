@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Advanced RAG Explainer</title>
+    <style>
+      body { font-family: Inter, Arial, sans-serif; margin: 0; background: #071a30; color: #f4f8ff; }
+      .wrap { max-width: 1100px; margin: 0 auto; padding: 32px; }
+      .card { background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.16); border-radius: 20px; padding: 24px; margin-bottom: 20px; }
+      .pipeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+      .node { background: linear-gradient(135deg, #1c6ee8, #0d2b63); border-radius: 16px; padding: 16px; min-height: 120px; animation: float 3s ease-in-out infinite; }
+      .flow { display: flex; align-items: center; justify-content: center; min-height: 120px; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+      .pulse { display: inline-block; width: 12px; height: 12px; border-radius: 999px; background: #4dd0ff; margin-right: 8px; animation: pulse 1.2s infinite; }
+      @keyframes float { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-6px);} }
+      @keyframes pulse { 0%,100% { opacity: .7; transform: scale(1);} 50% { opacity: 1; transform: scale(1.2);} }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <h1>How the Advanced RAG was built</h1>
+        <p>This explainer captures the architecture behind the VWO test-case assistant: ingest, chunk, embed, retrieve, rerank, and answer.</p>
+      </div>
+      <div class="card">
+        <h2>Pipeline</h2>
+        <div class="pipeline">
+          <div class="node"><strong>1. Ingest</strong><br/>CSV/XLSX rows become structured documents.</div>
+          <div class="node"><strong>2. Chunk</strong><br/>Each row becomes a searchable chunk.</div>
+          <div class="node"><strong>3. Embed</strong><br/>Dense + sparse features build the retrieval index.</div>
+          <div class="node"><strong>4. Rerank</strong><br/>Hybrid scores are fused and reranked.</div>
+          <div class="node"><strong>5. Generate</strong><br/>GROQ produces a grounded answer with citations.</div>
+        </div>
+      </div>
+      <div class="card grid">
+        <div>
+          <h3><span class="pulse"></span>Core components</h3>
+          <ul>
+            <li>CSV ingestion and schema normalization</li>
+            <li>Chunking pipeline with overlap control</li>
+            <li>Hybrid search using dense and sparse signals</li>
+            <li>RRF fusion for candidate ranking</li>
+            <li>GROQ rewrite + grounded generation</li>
+          </ul>
+        </div>
+        <div>
+          <h3><span class="pulse"></span>What the UI shows</h3>
+          <ul>
+            <li>Live pipeline tracker</li>
+            <li>Interactive chat experience</li>
+            <li>Snippet-based evidence with chunk citations</li>
+            <li>Chunk viewer for search and filtering</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
