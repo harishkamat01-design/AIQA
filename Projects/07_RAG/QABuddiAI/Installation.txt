@@ -1,0 +1,10 @@
+
+Concern	           Tool	
+Vector DB	Qdrant                                    installed (docker)
+Embedder	BGE‑M3 (FlagEmbedding)     (link)
+Reranker	        BGE‑Reranker‑v2‑m3
+LLM			Groq · openai/gpt‑oss‑12b
+Backend		FastAPI
+Frontend	        Vite · React · TypeScript · Tailwind · react‑router‑dom
+Code Chunking	tree‑sitter‑java, tree‑sitter‑typescript
+Doc Chunking	        PyMuPDF, regex JIRA‑MD parser
